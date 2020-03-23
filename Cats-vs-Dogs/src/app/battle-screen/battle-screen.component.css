@@ -1,0 +1,11 @@
+#map{
+    width: 100%;
+}
+#player{
+    position: relative;
+    left: 0;
+    width:85px;
+    height:97px;
+    z-index: 2;
+    padding: 1%;
+}
