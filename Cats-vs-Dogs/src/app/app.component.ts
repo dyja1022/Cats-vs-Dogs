@@ -8,4 +8,10 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'Cats-vs-Dogs';
   page = "login";
+
+
+  changePage(page:string)
+  {
+    this.page = page;
+  }
 }
