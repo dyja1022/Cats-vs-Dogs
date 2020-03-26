@@ -6,9 +6,9 @@ namespace Cat_V_Dog_Data
 {
     public class User
     {
-        public int id { get; set; }
-        public string username { get; set; }
-        public string password { get; set; }
-        public bool firstLogin { get; set; }
+        public int Id { get; set; }
+        public string Username { get; set; }
+        public string Password { get; set; }
+        public bool FirstLogin { get; set; }
     }
 }
