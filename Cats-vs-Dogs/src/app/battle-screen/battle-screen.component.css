@@ -1,8 +1,18 @@
 #map{
-  
     width: 100%;
     height: 100%;
 }
+
+#battle-map{
+  background-image: url("/assets/images/LPC Base Assets/UI/lpc_home_cup.gif"); 
+  background-position: center; 
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 90vh;
+  width: 100%;
+}
+
+/*
 #player{
     position: relative;
     float:left;
@@ -10,4 +20,17 @@
     height:97px;
     z-index: 2;
     padding: 1%;
+}*/
+
+#player{
+  position: relative;
+  top: 85%;
+  width: 24px;
+  /*height: 36px;*/
+  height: 36px;
+  transform: scale(2);
+  background: url("/assets/images/dog-ss.PNG") -48px -24px;
+  /*==============================================left , top*/
+  /*background: url("/assets/images/dog-ss.PNG") -48px -84px;
+  background-color: white;*/
 }

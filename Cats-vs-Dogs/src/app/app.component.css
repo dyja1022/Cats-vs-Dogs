@@ -6,3 +6,15 @@
     text-align: center;
     overflow: hidden;
 }
+
+#controls{
+
+    margin: 0 auto;
+}
+
+/*
+#battle-screen{
+    background-image: url("/assets/images/LPC Base Assets/UI/lpc_home_cup.gif");
+    background-size: cover;
+    background-repeat: no-repeat;
+}*/

@@ -7,11 +7,17 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Cats-vs-Dogs';
-  page = "init";
+  //page = "init";
+  page = "battle";
 
 
   changePage(page:string)
   {
     this.page = page;
+  }
+
+  setBackground()
+  {
+    document.getElementById("");
   }
 }

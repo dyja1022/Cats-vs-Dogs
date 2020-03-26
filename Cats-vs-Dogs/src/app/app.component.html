@@ -1,17 +1,21 @@
 
 
 <div id="frame">
-  <button (click)="changePage('init')">Base Frame(temporary)</button>
-  <button (click)="changePage('login')">Login Page</button>
-  <button (click)="changePage('menu')">Main Menu</button>
-  <button (click)="changePage('battle')">Start Battle</button>
-  <button (click)="changePage('pet')">Manage Pet</button>
+  <div id="controls">
+    <button (click)="changePage('init')">Base Frame(temporary)</button>
+    <button (click)="changePage('login')">Login Page</button>
+    <button (click)="changePage('menu')">Main Menu</button>
+    <button (click)="changePage('battle')">Start Battle</button>
+    <button (click)="changePage('pet')">Manage Pet</button>
+  </div>
 
   <app-base-frame *ngIf="page == 'init'"></app-base-frame>
 
   <app-login-register *ngIf="page == 'login'"></app-login-register>
   <app-menu *ngIf="page == 'menu'"></app-menu>
-  <app-battle-screen *ngIf="page == 'battle'"></app-battle-screen>
+  <div id="battle-screen">
+    <app-battle-screen *ngIf="page == 'battle'"></app-battle-screen>
+  </div>
   <app-traverse-screen *ngIf="page == 'traverse'"></app-traverse-screen>
   <app-pet-manage-screen *ngIf="page == 'pet'"></app-pet-manage-screen>
 </div>
