@@ -9,4 +9,8 @@
     <PackageReference Include="EntityFramework" Version="6.4.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Cat-V-Dog-Library\Cat-V-Dog-Library.csproj" />
+  </ItemGroup>
+
 </Project>

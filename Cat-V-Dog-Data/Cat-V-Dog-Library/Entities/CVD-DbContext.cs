@@ -1,17 +1,22 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Text;
 
 namespace Cat_V_Dog_Data
 {
     public class CVD_DbContext : DbContext
     {
-        public CVD_DbContext():base()
+        public CVD_DbContext()
         {
+
+        }
+        public CVD_DbContext(DbContextOptions<CVD_DbContext> options) : base(options)
+        {
+
         }
 
-        DbSet<Animal> Animals { get; set; }
-        DbSet<User> Users { get; set; }
+        public DbSet<Animal> animals { get; set; }
+        public DbSet<User> users { get; set; }
     }
 }
