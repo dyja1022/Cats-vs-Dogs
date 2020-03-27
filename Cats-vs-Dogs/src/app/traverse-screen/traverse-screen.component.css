@@ -5,15 +5,39 @@
     background-size: cover;
     height: 90vh;
     width: 100%;
+    text-align: left;
   }
 
-#player{
+  #player{
     position: relative;
     top: 85%;
+    /* left: 5%; */
     width: 24px;
     height: 36px;
     transform: scale(2);
     background: url("/assets/images/dog-ss.PNG") -48px -24px;
     /*============================================left , top
     background-color: white;*/
+  }
+
+  #portrait
+  {
+    position: relative;
+    top: 1%;
+    left: 0;
+    transform: scale(0.75);
+    /* background: url("/assets/images/dog-ss.PNG") */
+  }
+
+  #portrait:hover{
+    cursor: pointer;
+  }
+
+  #bars{
+    position: relative;
+    top: 1%;
+  }
+
+  #logout{
+    
   }

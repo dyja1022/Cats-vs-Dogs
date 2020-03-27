@@ -114,6 +114,16 @@ export class TraverseScreenComponent implements OnInit {
     this.controls.init();
   }
 
+  ManagePet()
+  {
+    this.switchpage.changePage('pet')
+  }
+
+  Logout()
+  {
+    this.switchpage.changePage('login')
+  }
+
   ngOnDestroy(){
     
   }

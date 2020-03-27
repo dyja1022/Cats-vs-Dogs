@@ -12,5 +12,15 @@ export class PetManageScreenComponent implements OnInit {
 
   ngOnInit(): void {
   }
+  
+  Logout()
+  {
+    this.switchpage.changePage('login')
+  }
+
+  Close()
+  {
+    this.switchpage.changePage('traverse')
+  }
 
 }

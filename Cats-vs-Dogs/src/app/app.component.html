@@ -2,12 +2,12 @@
 
 <div id="frame">
   <div id="controls">
-    <button (click)="this.switchpage.changePage('init')">Base Frame(temporary)</button>
+    <!-- <button (click)="this.switchpage.changePage('init')">Base Frame(temporary)</button>
     <button (click)="this.switchpage.changePage('login')">Login Page</button>
     <button (click)="this.switchpage.changePage('menu')">Main Menu</button>
     <button (click)="this.switchpage.changePage('battle')">Start Battle</button>
     <button (click)="this.switchpage.changePage('traverse')">Traverse</button>
-    <button (click)="this.switchpage.changePage('pet')">Manage Pet</button>
+    <button (click)="this.switchpage.changePage('pet')">Manage Pet</button> -->
   </div>
 
   <app-base-frame *ngIf="this.switchpage.page == 'init'"></app-base-frame>

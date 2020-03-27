@@ -13,4 +13,10 @@ export class LoginRegisterComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  Login()
+  {
+    //do validation, then changepage if user
+    this.switchpage.changePage('traverse');
+  }
+
 }
