@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SwitchPageService } from '../services/switch-page.service';
 
 @Component({
   selector: 'app-login-register',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginRegisterComponent implements OnInit {
 
-  constructor() { }
+  constructor(public switchpage:SwitchPageService) { }
 
   ngOnInit(): void {
   }

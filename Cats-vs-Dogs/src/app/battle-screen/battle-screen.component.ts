@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ControlsService} from '../services/controls.service';
 import { AnimationService } from '../services/animation.service';
+import { SwitchPageService } from '../services/switch-page.service';
 
 // var num = 0;
 // var direction = 1;
@@ -104,7 +105,7 @@ export class BattleScreenComponent implements OnInit {
     strike: []
   }
 
-  constructor(private controls:ControlsService,public animate:AnimationService) { }
+  constructor(private controls:ControlsService,public animate:AnimationService,public switchpage:SwitchPageService) { }
 
   ngOnInit(): void {
     this.controls.init();

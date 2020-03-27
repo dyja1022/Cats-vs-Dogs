@@ -2,23 +2,23 @@
 
 <div id="frame">
   <div id="controls">
-    <button (click)="changePage('init')">Base Frame(temporary)</button>
-    <button (click)="changePage('login')">Login Page</button>
-    <button (click)="changePage('menu')">Main Menu</button>
-    <button (click)="changePage('battle')">Start Battle</button>
-    <button (click)="changePage('traverse')">Traverse</button>
-    <button (click)="changePage('pet')">Manage Pet</button>
+    <button (click)="this.switchpage.changePage('init')">Base Frame(temporary)</button>
+    <button (click)="this.switchpage.changePage('login')">Login Page</button>
+    <button (click)="this.switchpage.changePage('menu')">Main Menu</button>
+    <button (click)="this.switchpage.changePage('battle')">Start Battle</button>
+    <button (click)="this.switchpage.changePage('traverse')">Traverse</button>
+    <button (click)="this.switchpage.changePage('pet')">Manage Pet</button>
   </div>
 
-  <app-base-frame *ngIf="page == 'init'"></app-base-frame>
+  <app-base-frame *ngIf="this.switchpage.page == 'init'"></app-base-frame>
 
-  <app-login-register *ngIf="page == 'login'"></app-login-register>
-  <app-menu *ngIf="page == 'menu'"></app-menu>
+  <app-login-register *ngIf="this.switchpage.page == 'login'"></app-login-register>
+  <app-menu *ngIf="this.switchpage.page == 'menu'"></app-menu>
   <div id="battle-screen">
-    <app-battle-screen *ngIf="page == 'battle'"></app-battle-screen>
+    <app-battle-screen *ngIf="this.switchpage.page == 'battle'"></app-battle-screen>
   </div>
-  <app-traverse-screen *ngIf="page == 'traverse'"></app-traverse-screen>
-  <app-pet-manage-screen *ngIf="page == 'pet'"></app-pet-manage-screen>
+  <app-traverse-screen *ngIf="this.switchpage.page == 'traverse'"></app-traverse-screen>
+  <app-pet-manage-screen *ngIf="this.switchpage.page == 'pet'"></app-pet-manage-screen>
 </div>
 
 <!--img id="frame" src="/assets/images/LPC Base Assets/UI/frame.gif"-->

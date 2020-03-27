@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ControlsService} from '../services/controls.service';
+import { SwitchPageService } from '../services/switch-page.service';
 
 /*
 var direction = 1;
@@ -107,7 +108,7 @@ function getPositionY(element)
 })
 export class TraverseScreenComponent implements OnInit {
 
-  constructor(private controls:ControlsService) { }
+  constructor(private controls:ControlsService,public switchpage:SwitchPageService) { }
 
   ngOnInit(): void {
     this.controls.init();
