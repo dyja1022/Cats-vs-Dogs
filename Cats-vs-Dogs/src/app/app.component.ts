@@ -8,7 +8,7 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'Cats-vs-Dogs';
   //page = "init";
-  page = "battle";
+  page = "traverse";
 
 
   changePage(page:string)

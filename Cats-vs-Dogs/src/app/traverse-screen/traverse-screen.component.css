@@ -1,0 +1,19 @@
+#traverse-map{
+    background-image: url("/assets/images/LPC_forest/preview.png"); 
+    background-position: center; 
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 90vh;
+    width: 100%;
+  }
+
+#player{
+    position: relative;
+    top: 85%;
+    width: 24px;
+    height: 36px;
+    transform: scale(2);
+    background: url("/assets/images/dog-ss.PNG") -48px -24px;
+    /*============================================left , top
+    background-color: white;*/
+  }

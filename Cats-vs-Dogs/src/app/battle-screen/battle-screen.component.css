@@ -12,25 +12,24 @@
   width: 100%;
 }
 
-/*
-#player{
-    position: relative;
-    float:left;
-    width:85px;
-    height:97px;
-    z-index: 2;
-    padding: 1%;
-}*/
 
 #player{
   position: relative;
   top: 85%;
   width: 24px;
-  /*height: 36px;*/
   height: 36px;
   transform: scale(2);
   background: url("/assets/images/dog-ss.PNG") -48px -24px;
-  /*==============================================left , top*/
-  /*background: url("/assets/images/dog-ss.PNG") -48px -84px;
+  /*============================================left , top
   background-color: white;*/
+}
+
+#enemy{
+  position: relative;
+  top: 85%;
+  width: 24px;
+  height: 36px;
+  transform: matrix(-2,0,0,2,0,0);
+  background: url("/assets/images/cat-ss.png") -21px -22px;
+ /* background-color: white;*/
 }

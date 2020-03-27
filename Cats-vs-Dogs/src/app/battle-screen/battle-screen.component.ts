@@ -1,61 +1,81 @@
 import { Component, OnInit } from '@angular/core';
-import { animationFrame } from 'rxjs/internal/scheduler/animationFrame';
+import {ControlsService} from '../services/controls.service';
+import { AnimationService } from '../services/animation.service';
 
-var num = 0;
-var player = document.getElementById("player");
-var starttime;
+// var num = 0;
+// var direction = 1;
+// var player,enemy;
 
-//dog sprite sheet rows
-var dog_ss = {
-  idle:[50,108,179,236],
+// //dog sprite sheet columns
+// var dog_ss = {
+//   idle:[50,108,179,236],
+//   walk: [],
+//   strike: []
+// };
 
-};
+// //cat sprite sheet columns
+// var cat_ss = {
+//   idle:[21,85,149,213],
+//   walk:[],
+//   strike: []
+// }
 
-document.onkeydown = function(e)
-{
- // alert('test')
-  if(e.keyCode == 39){
-    num+=10;
-   // document.getElementById("player").style.transform = "scale(2)";
-  }
-  else if(e.keyCode == 37){
-    //no more character flips, a true warrior doesn't turn their back to the enemy
+// function init(){
+//   player = document.getElementById("player");
+//   enemy = document.getElementById("enemy");
+// }
 
-    //document.getElementById("player").style.transform = "scaleX(-2)";
-    //document.getElementById("player").style.transform = "scaleY()";
-    num-=10;
-  }
+// //keydown events
+// document.onkeydown = function(e)
+// {
+//   //if right arrow is pressed
+//   if(e.keyCode == 39)
+//   {
+//     num+=10;
+//     direction = 1;
+//   }//if left arrow is pressed
+//   else if(e.keyCode == 37)
+//   {
+//     num-=10;
+//     direction = -1;
+//   }
   
-  document.getElementById("player").style.left =  (num +"px");
-}
+//   player.style.left =  (num +"px");
 
-var i = 0;
-setInterval(()=>{
-  //document.getElementById("player").style.backgroundPositionY = "-84px";
- // document.getElementById("player").style.backgroundPositionX = "-108px";
- /*
-  document.getElementById("player").style.backgroundPositionX = -(dog_ss.idle[i]) + 'px';
-  if(i >= dog_ss.idle.length){
-    i = 0;
-  }else{
-    i++;
-  }*/
-  AnimateCharacter(dog_ss.idle);
-},1000/5)
+//   //matrix(scaleX(),skewY(),skewX(),scaleY(),translateX(),translateY())
+//   player.style.transform = "matrix("+(2*direction)+",0,0,2,"+num+",0)";
+// }
 
+// var i = 0;
+// setInterval(()=>
+// {
+  
+//   AnimateCharacter(dog_ss.idle,player);
+//   AnimateCharacter(cat_ss.idle,enemy);
 
-function AnimateCharacter(characterMovement){
-  document.getElementById("player").style.backgroundPositionX = -(characterMovement[i]) + 'px';
-  //if you reach end of array, restart
-  if(i >= characterMovement.length){
-    i = 0;
-  }else{
-    i++;
-  }
-}
+//   //use switch statement to toggle between different animations
+// },1000/5)
 
+// function AnimateCharacter(characterMovement,actor)
+// {
+//   actor.style.backgroundPositionX = -(characterMovement[i]) + 'px';
+//   //if you reach end of array, restart
+//   if(i >= characterMovement.length)
+//   {
+//     i = 0;
+//   }
+//   else
+//   {
+//     i++;
+//   }
+// }
 
+// function getPositionX(element) 
+// { 
+//   var rect = element.getBoundingClientRect();
 
+//   return rect.x;
+// } 
 
 
 
@@ -67,9 +87,42 @@ function AnimateCharacter(characterMovement){
 })
 export class BattleScreenComponent implements OnInit {
 
-  constructor() { }
+  myTimer;
+  player;
+  enemy;
+  //dog sprite sheet columns
+  dog_ss = {
+    idle:[50,108,179,236],
+    walk: [],
+    strike: []
+  };
+
+//cat sprite sheet columns
+  cat_ss = {
+    idle:[21,85,149,213],
+    walk:[],
+    strike: []
+  }
+
+  constructor(private controls:ControlsService,public animate:AnimationService) { }
 
   ngOnInit(): void {
+    this.controls.init();
+    this.animate.init();
+    //this.myTimer = setInterval(this.foo,1000/5);
+  }
+
+  foo()
+  {
+    //console.log("test")
+    //this.animate.test();
+    this.animate.AnimateCharacter(this.dog_ss.idle,this.player);
+    this.animate.AnimateCharacter(this.cat_ss.idle,this.enemy);
+  }
+
+
+  ngAfterViewInit() { 
+    this.myTimer = setInterval(()=>{this.foo()},1000/5);
   }
 
 }
