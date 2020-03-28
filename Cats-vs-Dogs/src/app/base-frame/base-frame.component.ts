@@ -11,7 +11,7 @@ export class BaseFrameComponent implements OnInit {
   constructor(private controls:ControlsService) { }
 
   ngOnInit(): void {
-    this.controls.test();
+    
   }
 
 }

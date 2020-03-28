@@ -1,4 +1,5 @@
 #traverse-map{
+    position: relative;
     background-image: url("/assets/images/LPC_forest/preview.png"); 
     background-position: center; 
     background-repeat: no-repeat;
@@ -8,10 +9,14 @@
     text-align: left;
   }
 
+  #traverse-map *{
+    position: absolute;
+  }
+
   #player{
-    position: relative;
-    top: 85%;
-    /* left: 5%; */
+    
+    bottom: 5%;
+    left: 5%;
     width: 24px;
     height: 36px;
     transform: scale(2);
@@ -22,9 +27,7 @@
 
   #portrait
   {
-    position: relative;
     top: 1%;
-    left: 0;
     transform: scale(0.75);
     /* background: url("/assets/images/dog-ss.PNG") */
   }
@@ -34,10 +37,21 @@
   }
 
   #bars{
-    position: relative;
     top: 1%;
+    left: 15%;
+    transform: scale(0.75);
   }
 
   #logout{
-    
+    bottom: 0;
+    right: 0;
+    width: 5%;
+    height: 8%;
+    background: black;
+    border: 1px ridge #d8c601;
+    padding: 1% 0 1% 1%;
+  }
+
+  #logout:hover{
+    cursor: pointer;
   }

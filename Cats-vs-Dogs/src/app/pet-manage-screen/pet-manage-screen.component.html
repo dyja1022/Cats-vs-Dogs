@@ -1,9 +1,30 @@
-<h3>Manage Pet Screen Preview</h3>
+<div id="manage-wrapper">
 
-<img src="/assets/images/SleekBars.png">
-<img src="/assets/images/dogconcept.PNG">
+    <img id="healthicon" src="/assets/images/HUD/Buttons/Heart_1.png">
+    <div id="health-wrapper" class="bar-wrapper">
+        <!-- <img id="health" class="bar" src="/assets/images/HUD/Bars/Exp/3.png"> -->
+        <div id="health" class="bar"></div>
+    </div>
+
+    <img id="foodicon" src="/assets/images/food.PNG">
+    <div id="hunger-wrapper" class="bar-wrapper">
+        <div id="hunger" class="bar"></div>
+    </div>
+    
+    <!--button id="logout" (click)="Logout()">Logout</button-->
+    <img id="logout" (click)="Logout()" src="/assets/images/logout2.png" >
+
+    <!-- <img id="close" src="/assets/images/HUD/Buttons/Cancel_1.png" (click)="Close()"> -->
+
+    <h3 id="close" (click)="Close()">X</h3>
+    <img id="pet" src="/assets/images/dogconcept2.png">
 
 
-<img id="close" src="/assets/images/HUD/Buttons/Cancel_1.png" (click)="Close()">
-
-<button id="logout" (click)="Logout()">Logout</button>
+    <!-- I guess we need a bar for experience -->
+    <!--A shield icon for it-->
+    <!-- A service for retrieving and sending session data about health,hunger, etc. -->
+    <div id="pet-manage-options">
+        <button>Potion</button><br><br>
+        <button>Food</button>
+    </div>
+</div>

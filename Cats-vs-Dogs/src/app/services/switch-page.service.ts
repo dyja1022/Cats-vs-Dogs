@@ -7,7 +7,7 @@ export class SwitchPageService {
 
   constructor() { }
 
-  page = "traverse";
+  page = "pet";
 
   changePage(page:string)
   {
