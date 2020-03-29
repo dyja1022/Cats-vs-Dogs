@@ -10,5 +10,14 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.2.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Cat-V-Dog-Data\Cat-V-Dog-Data.csproj" />
+    <ProjectReference Include="..\Cat-V-Dog-Library\Cat-V-Dog-Library.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Models\" />
+  </ItemGroup>
+
 
 </Project>

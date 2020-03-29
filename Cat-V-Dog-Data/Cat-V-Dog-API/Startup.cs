@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Cat_V_Dog_Data.Repositories;
+using Cat_V_Dog_Library.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -21,7 +23,7 @@ namespace Cat_V_Dog_API
             Configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }
+        public IConfiguration Configuration;
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -29,11 +31,15 @@ namespace Cat_V_Dog_API
  
             services.AddControllers();
 
+            // adding repos that's dependent on db context returns a service error cause db is not configured yet
+            //services.AddScoped<IUserRepo, UserRepo>();
+
+
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen(options =>
             {
 
-                options.SwaggerDoc("v1", new OpenApiInfo { Title = "Cats vs Dogs", Version = "v1" });
+                options.SwaggerDoc("v1", new OpenApiInfo { Title = "Cats vs Dogs API", Version = "v1" });
 
             });
         }

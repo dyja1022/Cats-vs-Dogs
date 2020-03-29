@@ -3,10 +3,11 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
+using Cat_V_Dog_Library.Interfaces;
 
 namespace Cat_V_Dog_Data.Repositories
 {
-    public class UserRepo
+    public class UserRepo : IUserRepo
     {
         readonly CVD_DbContext _db;
 
