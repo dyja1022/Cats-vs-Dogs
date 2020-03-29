@@ -20,7 +20,7 @@ namespace Cat_V_Dog_API.Controllers
            _usersRepo = usersRepo;
         }
 
-        [Route("users/create")]
+        [Route("create")]
         [HttpPost]
         public IActionResult Create([FromBody, Bind("username,password")]User user)
         {
@@ -35,7 +35,7 @@ namespace Cat_V_Dog_API.Controllers
             }
         }
 
-        [Route("users/login")]
+        [Route("login")]
         [HttpGet]
         public IActionResult Login([FromBody, Bind("username,password")]User user)
         {
