@@ -1,18 +1,19 @@
 ﻿using System;
+using System.Collections.Generic;
 
-namespace Cat_V_Dog_Data
+namespace Cat_V_Dog_Library
 {
-    public class Animal
+    public partial class Animal
     {
-        public int Strength { get; set; }
-        public int Speed { get; set; }
-        public int Agility { get; set; }
-        public int Intelligence { get; set; }
-        public int Xp { get; set; }
-        public int Age { get; set; }
-        public int NumberOfBattles { get; set; }
+        public int? Strength { get; set; }
+        public int? Speed { get; set; }
+        public int? Agility { get; set; }
+        public int? Intelligence { get; set; }
+        public int? Xp { get; set; }
+        public int? Age { get; set; }
+        public int? NumberOfBattles { get; set; }
+        public int? UserId { get; set; }
 
-        //will be foreign key taken from user class
-        public int UserId {get;set;}
+        public virtual User User { get; set; }
     }
 }

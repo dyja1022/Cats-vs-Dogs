@@ -4,14 +4,15 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
 using Cat_V_Dog_Library.Interfaces;
+using Cat_V_Dog_Library;
 
 namespace Cat_V_Dog_Data.Repositories
 {
     public class UserRepo : IUserRepo
     {
-        readonly CVD_DbContext _db;
+        readonly CatsVsDogsContext _db;
 
-        public UserRepo(CVD_DbContext db)
+        public UserRepo(CatsVsDogsContext db)
         {
             _db = db ?? throw new ArgumentNullException(nameof(db));
         }
@@ -34,9 +35,9 @@ namespace Cat_V_Dog_Data.Repositories
         {
             try
             {
-                var user = _db.users.Where(u => u.Username == username && u.Password == password).Single();
+                var user = _db.User.Where(u => u.Username == username && u.Password == password).Single();
                 // update firstlogin to true
-                if (!user.FirstLogin)
+                if (!user.FirstLogin.Value)
                 {
                     user.FirstLogin = true;
                 }
@@ -49,5 +50,7 @@ namespace Cat_V_Dog_Data.Repositories
                 return null;
             }
         }
+
+
     }
 }
