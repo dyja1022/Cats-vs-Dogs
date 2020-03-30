@@ -58,7 +58,6 @@ namespace Cat_V_Dog_API.Controllers
         {
             Animal animal = new Animal()
             {
-
                 Strength = a.Strength,
                 Speed = a.Speed,
                 Agility = a.Agility,
