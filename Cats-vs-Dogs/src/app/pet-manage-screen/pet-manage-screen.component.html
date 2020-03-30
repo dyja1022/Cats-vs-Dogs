@@ -1,12 +1,18 @@
 <div id="manage-wrapper">
 
-    <img id="healthicon" src="/assets/images/HUD/Buttons/Heart_1.png">
+    
+    <img id="exp-icon" src="/assets/images/shield.png">
+    <div id="exp-wrapper" class="bar-wrapper">
+        <span id="exp-lvl">1</span>
+        <div id="experience" class="bar"></div>
+    </div>
+    
+    <img id="health-icon" src="/assets/images/HUD/Buttons/Heart_1.png">
     <div id="health-wrapper" class="bar-wrapper">
-        <!-- <img id="health" class="bar" src="/assets/images/HUD/Bars/Exp/3.png"> -->
         <div id="health" class="bar"></div>
     </div>
 
-    <img id="foodicon" src="/assets/images/food.PNG">
+    <img id="food-icon" src="/assets/images/food.PNG">
     <div id="hunger-wrapper" class="bar-wrapper">
         <div id="hunger" class="bar"></div>
     </div>
@@ -19,12 +25,21 @@
     <h3 id="close" (click)="Close()">X</h3>
     <img id="pet" src="/assets/images/dogconcept2.png">
 
-
-    <!-- I guess we need a bar for experience -->
-    <!--A shield icon for it-->
     <!-- A service for retrieving and sending session data about health,hunger, etc. -->
     <div id="pet-manage-options">
-        <button>Potion</button><br><br>
-        <button>Food</button>
+        <div id="btn-potion" class="btn-control" (click)="GivePotion()">POTION</div>
+        <div id="btn-feed" class="btn-control" (click)="GiveFood()">FEED</div>
+    </div>
+
+    <div style="top: 1%;left:28%; width: 15%">
+        <button (click)="this.status.lowerBar('experience',5)">Lower</button>
+        <button style="left: 100%"(click)="this.status.raiseBar('experience',5)">Raise</button>
+        <br><br>
+        <button style="top: 40%"(click)="this.status.lowerBar('health',5)">Lower</button>
+        <br><br>
+        <!-- <button style="top: 40%; left: 100%" (click)="this.status.raiseBar('health',5)">Raise</button> -->
+        <br><br>
+        <button style="top: 80%;" (click)="this.status.lowerBar('hunger',5)">Lower</button>
+        <!-- <button style="top: 80%; left: 100%" (click)="this.status.raiseBar('hunger',5)">Raise</button> -->
     </div>
 </div>

@@ -1,7 +1,28 @@
 <div id="traverse-map">
     <img id="player" src="/assets/images/trans-img.png">
     <img id="portrait" src="/assets/images/HUD/Character/dog-portrait.png" (click)="ManagePet()">
-    <img id="bars" src="/assets/images/SleekBars.png">
+    <!-- 
+    <img id="exp-icon" src="/assets/images/shield.png"-->
+    <span id="exp-lvl">1</span> >
+    <div id="exp-wrapper" class="bar-wrapper">
+        <div id="experience" class="bar"></div>
+    </div>
+    
+    <div id="health-wrapper" class="bar-wrapper">
+        <div id="health" class="bar"></div>
+    </div>
+
+    <div id="hunger-wrapper" class="bar-wrapper">
+        <div id="hunger" class="bar"></div>
+    </div> >
+
+    <!-- <button (click)="lowerHealth()">Lower Health</button>
+    <br><br><br><br>
+    <button (click)="raiseHealth()">Raise Health</button> -->
+
+    <!-- <button (click)="this.status.lowerBar('health',5)">Lower Health</button>
+    <br><br><br><br>
+    <button (click)="this.status.raiseBar('health',5)">Raise Health</button> -->
     
     <img id="logout" (click)="Logout()" src="/assets/images/logout2.png" >
 </div>

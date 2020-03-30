@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {ControlsService} from '../services/controls.service';
 import { SwitchPageService } from '../services/switch-page.service';
+import { ManageStatusService } from '../services/manage-status.service';
+import { ManageSessionService } from '../services/manage-session.service';
 
 /*
 var direction = 1;
@@ -108,12 +110,22 @@ function getPositionY(element)
 })
 export class TraverseScreenComponent implements OnInit {
 
-  constructor(private controls:ControlsService,public switchpage:SwitchPageService) { }
+  constructor(
+    private controls:ControlsService,
+    private switchpage:SwitchPageService,
+    public status:ManageStatusService,
+    private sess:ManageSessionService) { }
 
   ngOnInit(): void {
     this.controls.init();
   }
 
+  //decrease hunger over time
+  lowerHungerOverTime()
+  { 
+  } 
+
+  
   ManagePet()
   {
     this.switchpage.changePage('pet')
