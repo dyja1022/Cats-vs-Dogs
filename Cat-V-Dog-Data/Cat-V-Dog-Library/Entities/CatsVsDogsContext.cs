@@ -6,8 +6,6 @@ namespace Cat_V_Dog_Library
 {
     public partial class CatsVsDogsContext : DbContext
     {
-
-
         public CatsVsDogsContext()
         {
         }
@@ -33,12 +31,10 @@ namespace Cat_V_Dog_Library
         {
             modelBuilder.Entity<Animal>(entity =>
             {
-                entity.HasNoKey();
-
                 entity.HasOne(d => d.User)
-                    .WithMany()
+                    .WithMany(p => p.Animal)
                     .HasForeignKey(d => d.UserId)
-                    .HasConstraintName("FK__Animal__UserId__5070F446");
+                    .HasConstraintName("FK__Animal__UserId__571DF1D5");
             });
 
             modelBuilder.Entity<User>(entity =>

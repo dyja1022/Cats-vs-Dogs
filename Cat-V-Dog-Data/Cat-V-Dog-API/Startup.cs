@@ -49,9 +49,7 @@ namespace Cat_V_Dog_API
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen(options =>
             {
-
                 options.SwaggerDoc("v1", new OpenApiInfo { Title = "Cats vs Dogs API", Version = "v1" });
-
             });
         }
 

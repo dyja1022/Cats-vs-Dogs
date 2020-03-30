@@ -30,14 +30,14 @@ namespace Cat_V_Dog_API.Controllers
 
         // GET: api/Animal/5
         [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
+        public string Get(int userId)
         {
             return "value";
         }
 
         // POST: api/Animal
         [HttpPost]
-        public void Post([FromBody, Bind("Strength, Speed, Agility, Intelligence, Age, UserId")] Animal a)
+        public IActionResult Post([FromBody, Bind("Strength, Speed, Agility, Intelligence, Age, UserId")] Animal a)
         {
             Animal animal = new Animal()
             {
@@ -49,13 +49,25 @@ namespace Cat_V_Dog_API.Controllers
                 UserId = a.UserId
             };
 
-            _animalRepo.Create(animal);
+            return Ok(_animalRepo.Create(animal));
         }
 
         // PUT: api/Animal/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public IActionResult Put([FromBody, Bind("Id, Strength, Speed, Agility, Intelligence, Age, UserId")] Animal a)
         {
+            Animal animal = new Animal()
+            {
+
+                Strength = a.Strength,
+                Speed = a.Speed,
+                Agility = a.Agility,
+                Intelligence = a.Intelligence,
+                Age = a.Age,
+                UserId = a.UserId
+            };
+
+            return Ok(_animalRepo.Create(animal));
         }
 
         // DELETE: api/ApiWithActions/5

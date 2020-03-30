@@ -8,5 +8,6 @@ namespace Cat_V_Dog_Library.Interfaces
     {
         public int CreateUser(User user); // create user and return newuser id
         public User Login(string username, string password);
+        public List<User> GetAll();
     }
 }

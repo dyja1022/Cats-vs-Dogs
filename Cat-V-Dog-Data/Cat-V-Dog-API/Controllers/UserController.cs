@@ -38,16 +38,17 @@ namespace Cat_V_Dog_API.Controllers
 
         [Route("login")]
         [HttpGet]
-        public IActionResult Login([FromBody, Bind("username,password")]User user)
+        public IActionResult Login([FromBody, Bind("username,password")]User u)
         {
-            var u = _usersRepo.Login(user.Username, user.Password);
-            if (u != null)
+            var user = _usersRepo.Login(u.Username, u.Password);
+            if (user != null)
             {
                 // User to only show id, name, and username
                 User loggedinUser = new User()
                 {
-                    Id = u.Id,
-                    Username = u.Username
+                    Id = user.Id,
+                    Username = user.Username,
+                    FirstLogin = user.FirstLogin
                 };
                 return Ok(loggedinUser);
             }
@@ -55,6 +56,13 @@ namespace Cat_V_Dog_API.Controllers
             {
                 return Ok(null);
             }
+        }
+
+        [Route("all")]
+        [HttpGet]
+        public IActionResult All()
+        {
+            return Ok(_usersRepo.GetAll());
         }
 
 

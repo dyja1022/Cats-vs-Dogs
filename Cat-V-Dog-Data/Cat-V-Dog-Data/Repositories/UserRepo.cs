@@ -51,6 +51,12 @@ namespace Cat_V_Dog_Data.Repositories
             }
         }
 
+        public List<User> GetAll()
+        {
+            var users = _db.User.Select(u => u).ToList();
+            return users;
+        }
+
 
     }
 }
