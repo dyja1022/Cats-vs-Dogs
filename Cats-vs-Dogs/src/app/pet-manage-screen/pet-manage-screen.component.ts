@@ -15,6 +15,15 @@ export class PetManageScreenComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    //this.status.setFullBar(".bar-wrapper");
+    //alert('init working');
+   // sessionStorage.getItem("");
+  }
+
+  ngAfterViewInit()
+  {
+    this.status.setFullBar(".bar-wrapper");
+    //alert('view init working');
   }
   
 
@@ -39,4 +48,9 @@ export class PetManageScreenComponent implements OnInit {
     this.switchpage.changePage('traverse')
   }
 
+  ngOnDestroy(){
+    //alert("destroy working");
+    //this.status.setFullBar(undefined);
+
+  }
 }

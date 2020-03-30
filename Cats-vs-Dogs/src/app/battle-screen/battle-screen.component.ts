@@ -126,4 +126,8 @@ export class BattleScreenComponent implements OnInit {
     this.myTimer = setInterval(()=>{this.foo()},1000/5);
   }
 
+  LeaveBattle(){
+    this.switchpage.changePage("traverse");
+  }
+
 }

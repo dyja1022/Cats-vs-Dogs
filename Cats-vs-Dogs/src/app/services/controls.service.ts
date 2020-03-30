@@ -20,6 +20,8 @@ var character = {
 window.onload = function()
 {
   character.posY = getPositionY(player);
+  //character.posX = getPositionX(player);
+  //(getPositionX(player))
 }
 
 //keydown events
@@ -36,6 +38,9 @@ document.onkeydown = function(e)
   //   num-=10;
   //   direction = -1;
   // }
+
+  //character.posX = getPositionX(player);
+
   switch(e.keyCode)
   {
     case 37: //left arrow
@@ -50,6 +55,7 @@ document.onkeydown = function(e)
     case 39: //right arrow
       character.posX += character.speed;
       direction = 1;
+      //alert(character.posX);
       player.style.left =  (character.posX +"px");
       break;
     case 40: //down arrow

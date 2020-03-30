@@ -1,8 +1,7 @@
 <div id="traverse-map">
     <img id="player" src="/assets/images/trans-img.png">
     <img id="portrait" src="/assets/images/HUD/Character/dog-portrait.png" (click)="ManagePet()">
-    <!-- 
-    <img id="exp-icon" src="/assets/images/shield.png"-->
+    
     <span id="exp-lvl">1</span> >
     <div id="exp-wrapper" class="bar-wrapper">
         <div id="experience" class="bar"></div>
@@ -15,14 +14,24 @@
     <div id="hunger-wrapper" class="bar-wrapper">
         <div id="hunger" class="bar"></div>
     </div> >
-
-    <!-- <button (click)="lowerHealth()">Lower Health</button>
-    <br><br><br><br>
-    <button (click)="raiseHealth()">Raise Health</button> -->
-
-    <!-- <button (click)="this.status.lowerBar('health',5)">Lower Health</button>
-    <br><br><br><br>
-    <button (click)="this.status.raiseBar('health',5)">Raise Health</button> -->
     
     <img id="logout" (click)="Logout()" src="/assets/images/logout2.png" >
+
+
+
+
+    <div style="top: 1%;left:35%; width: 15%">
+        <button (click)="this.status.lowerBar('experience',5)">Lower</button>
+        <button style="left: 50%"(click)="this.status.raiseBar('experience',5)">Raise</button>
+        <br><br>
+        <button style="top: 25%"(click)="this.status.lowerBar('health',5)">Lower</button>
+        <br><br>
+        <button style="top: 25%; left: 50%" (click)="this.status.raiseBar('health',5)">Raise</button>
+        <br><br>
+        <button style="top: 50%;" (click)="this.status.lowerBar('hunger',5)">Lower</button>
+        <button style="top: 50%; left: 50%" (click)="this.status.raiseBar('hunger',5)">Raise</button>
+    </div>
+
+
+    <button style="top: 0; right: 0;"(click)="startBattle()">Start Battle</button>
 </div>

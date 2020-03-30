@@ -118,6 +118,16 @@ export class TraverseScreenComponent implements OnInit {
 
   ngOnInit(): void {
     this.controls.init();
+    //this.status.setFullBar(".bar-wrapper");
+    //this.sess.getHealth();
+    //this.sess.getHunger();
+    
+  }
+
+  ngAfterViewInit()
+  {
+    this.status.setFullBar(".bar-wrapper");
+    //alert('view init working');
   }
 
   //decrease hunger over time
@@ -125,18 +135,25 @@ export class TraverseScreenComponent implements OnInit {
   { 
   } 
 
+
   
   ManagePet()
   {
     this.switchpage.changePage('pet')
   }
 
+  startBattle(){
+    this.switchpage.changePage('battle')
+  }
   Logout()
   {
     this.switchpage.changePage('login')
   }
 
   ngOnDestroy(){
-    
+    //alert("destroy working");
+    //this.status.setFullBar("body");
+    //this.sess.setHealth();
+    //this.sess.setHunger();
   }
 }
