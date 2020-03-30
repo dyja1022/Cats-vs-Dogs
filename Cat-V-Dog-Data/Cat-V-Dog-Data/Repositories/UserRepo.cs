@@ -37,7 +37,7 @@ namespace Cat_V_Dog_Data.Repositories
             {
                 var user = _db.User.Where(u => u.Username == username && u.Password == password).Single();
                 // update firstlogin to true
-                if (!user.FirstLogin.Value)
+                if (!user.FirstLogin)
                 {
                     user.FirstLogin = true;
                 }
