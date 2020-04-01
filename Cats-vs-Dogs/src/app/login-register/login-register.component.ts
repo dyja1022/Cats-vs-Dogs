@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SwitchPageService } from '../services/switch-page.service';
+import { ManageSessionService } from '../services/manage-session.service';
 
 @Component({
   selector: 'app-login-register',
@@ -8,7 +9,9 @@ import { SwitchPageService } from '../services/switch-page.service';
 })
 export class LoginRegisterComponent implements OnInit {
 
-  constructor(public switchpage:SwitchPageService) { }
+  constructor(
+    public switchpage:SwitchPageService,
+    public sess:ManageSessionService) { }
 
   ngOnInit(): void {
   }
@@ -17,6 +20,12 @@ export class LoginRegisterComponent implements OnInit {
   {
     //do validation, then changepage if user
     this.switchpage.changePage('traverse');
+  }
+
+  ResetStats()
+  {
+    // this.sess.setHealth("");
+    // this.sess.setHunger("");
   }
 
 }

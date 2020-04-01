@@ -109,6 +109,9 @@ function getPositionY(element)
   styleUrls: ['./traverse-screen.component.css']
 })
 export class TraverseScreenComponent implements OnInit {
+  expBar;
+  healthBar;
+  hungerBar;
 
   constructor(
     private controls:ControlsService,
@@ -118,25 +121,47 @@ export class TraverseScreenComponent implements OnInit {
 
   ngOnInit(): void {
     this.controls.init();
-    //this.status.setFullBar(".bar-wrapper");
-    //this.sess.getHealth();
-    //this.sess.getHunger();
     
   }
 
   ngAfterViewInit()
   {
     this.status.setFullBar(".bar-wrapper");
-    //alert('view init working');
+    this.getAllBars();
+
+    //===================================
+    this.expBar = this.sess.getExperience();
+    this.healthBar = this.sess.getHealth();
+    this.hungerBar = this.sess.getHunger();
+
+    this.status.setBar("experience",this.expBar);
+    this.status.setBar("health",this.healthBar);
+    this.status.setBar("hunger",this.hungerBar);
   }
 
-  //decrease hunger over time
+  //decrease hunger bar over time
   lowerHungerOverTime()
   { 
   } 
 
+  lowerBar(id){
+    this.status.lowerBar(id,5);
+    this.getAllBars();
+  }
 
+  raiseBar(id){
+    this.status.raiseBar(id,5);
+    this.getAllBars();
+  }
+
+  getAllBars()
+  {
+    this.expBar =  this.status.getBarPercent("experience");
+    this.healthBar = this.status.getBarPercent("health");
+    this.hungerBar = this.status.getBarPercent("hunger");
+  }
   
+  //72.10884353741497
   ManagePet()
   {
     this.switchpage.changePage('pet')
@@ -150,10 +175,12 @@ export class TraverseScreenComponent implements OnInit {
     this.switchpage.changePage('login')
   }
 
-  ngOnDestroy(){
-    //alert("destroy working");
-    //this.status.setFullBar("body");
-    //this.sess.setHealth();
-    //this.sess.setHunger();
+  ngOnDestroy()
+  {
+    alert("experience: "+this.expBar+", health: "+this.healthBar+", hunger: "+this.hungerBar);
+
+    this.sess.setExperience(this.expBar);
+    this.sess.setHealth(this.healthBar);
+    this.sess.setHunger(this.hungerBar);
   }
 }

@@ -19,30 +19,26 @@ export class ManageStatusService {
   raiseBar(id,percent)
   {
     this.bar = this.getBar(id);
-    // this.fullbar = document.querySelector(".bar-wrapper").clientWidth;
-    // this.setFullBar("");
     
     this.bar += (this.fullbar*(percent/100));
 
-    if(this.bar >= this.fullbar){
-      this.setBar(this.fullbar);
-      //document.getElementById(id).style.width = fullbar + "px";
+    if(this.bar >= this.fullbar)
+    {
+      document.getElementById(id).style.width = this.fullbar +1+ "px";
     }else{
       document.getElementById(id).style.width  = this.bar + "px";
     }
 
-    //document.getElementById(id).style.width  = this.bar + "px";
   }
 
   lowerBar(id,percent)
   {
     this.bar = this.getBar(id);
-    //this.fullbar = document.querySelector(".bar-wrapper").clientWidth;
     
     this.bar -= (this.fullbar*(percent/100));
 
     if(this.bar <= 0){
-      this.setBar(0);
+      document.getElementById(id).style.width = "0px";
     }else{
       document.getElementById(id).style.width  = this.bar + "px";
     }
@@ -53,14 +49,23 @@ export class ManageStatusService {
     return document.getElementById(id).clientWidth;
   }
 
-  setBar(percent)
+  resetBar()
   {
-    // var fullbar = document.querySelector(".bar-wrapper").clientWidth;
-    // this.bar = (fullbar*(percent/100));
+    //document.getElementById(".bar").style.width = this.fullbar + "px";
+  }
 
-    // document.getElementById("experience").style.width  = fullbar + "px";
-    // document.getElementById("health").style.width  = fullbar + "px";
-    // document.getElementById("hunger").style.width  = fullbar + "px";
+  setBar(id,percent){
+    this.bar = this.getBar(id);
+    
+    this.bar = (this.fullbar*(percent/100));
+
+    document.getElementById(id).style.width = this.bar + "px";
+  }
+
+  getBarPercent(id){
+    this.bar = this.getBar(id);
+
+    return (this.bar/this.fullbar)*100;
   }
 
   addExp()

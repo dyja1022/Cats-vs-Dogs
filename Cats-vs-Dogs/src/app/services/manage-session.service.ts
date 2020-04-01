@@ -29,6 +29,14 @@ export class ManageSessionService {
     return sessionStorage.getItem("hunger");
   }
 
+  setExperience(someValue){
+    sessionStorage.setItem("exp",someValue);
+  }
+
+  getExperience(){
+    return sessionStorage.getItem("exp");
+  }
+
   //add a method for keeping user signed in by saving to session storage
   //you'll need a service for authentication, meaning it needs an api backend
 

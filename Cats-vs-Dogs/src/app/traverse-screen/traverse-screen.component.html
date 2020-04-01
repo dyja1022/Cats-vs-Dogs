@@ -17,19 +17,18 @@
     
     <img id="logout" (click)="Logout()" src="/assets/images/logout2.png" >
 
-
-
-
     <div style="top: 1%;left:35%; width: 15%">
-        <button (click)="this.status.lowerBar('experience',5)">Lower</button>
-        <button style="left: 50%"(click)="this.status.raiseBar('experience',5)">Raise</button>
+        <button (click)="lowerBar('experience')">Lower</button>
+        <button style="left: 50%"(click)="raiseBar('experience')">Raise</button>
         <br><br>
-        <button style="top: 25%"(click)="this.status.lowerBar('health',5)">Lower</button>
+        <button style="top: 25%"(click)="lowerBar('health')">Lower</button>
         <br><br>
-        <button style="top: 25%; left: 50%" (click)="this.status.raiseBar('health',5)">Raise</button>
+        <button style="top: 25%; left: 50%" (click)="raiseBar('health')">Raise</button>
         <br><br>
-        <button style="top: 50%;" (click)="this.status.lowerBar('hunger',5)">Lower</button>
-        <button style="top: 50%; left: 50%" (click)="this.status.raiseBar('hunger',5)">Raise</button>
+        <button style="top: 50%;" (click)="lowerBar('hunger')">Lower</button>
+        <button style="top: 50%; left: 50%" (click)="raiseBar('hunger')">Raise</button>
+        <br><br>
+        <!-- <button style="top: 80%; left: 50%"(click)="this.status.setBar('experience',50)">Set bar to  50</button> -->
     </div>
 
 

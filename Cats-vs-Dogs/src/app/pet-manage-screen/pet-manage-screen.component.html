@@ -32,14 +32,12 @@
     </div>
 
     <div style="top: 1%;left:28%; width: 15%">
-        <button (click)="this.status.lowerBar('experience',5)">Lower</button>
-        <button style="left: 100%"(click)="this.status.raiseBar('experience',5)">Raise</button>
+        <button (click)="lowerBar('experience')">Lower</button>
+        <button style="left: 100%"(click)="raiseBar('experience')">Raise</button>
         <br><br>
-        <button style="top: 40%"(click)="this.status.lowerBar('health',5)">Lower</button>
+        <button style="top: 40%"(click)="lowerBar('health')">Lower</button>
         <br><br>
-        <!-- <button style="top: 40%; left: 100%" (click)="this.status.raiseBar('health',5)">Raise</button>  -->
         <br><br>
-        <button style="top: 80%;" (click)="this.status.lowerBar('hunger',5)">Lower</button>
-         <!-- <button style="top: 80%; left: 100%" (click)="this.status.raiseBar('hunger',5)">Raise</button>  -->
+        <button style="top: 80%;" (click)="lowerBar('hunger')">Lower</button>
     </div>
 </div>
