@@ -1,7 +1,7 @@
 #frame{
     position: relative;
     top: 5vh;
-    border: 1px solid blue;
+    border: 20px ridge rgb(27, 54, 70);
     width:60vw; 
     min-height: 90vh;
     margin: 0 auto;

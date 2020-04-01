@@ -10,7 +10,7 @@
     height: 90vh;
     max-height: 90vh;
     width: 100%;
-    border: 20px ridge rgb(27, 54, 70);
+    /* border: 20px ridge rgb(27, 54, 70); */
 }
 
 #manage-wrapper *{
