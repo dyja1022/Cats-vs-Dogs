@@ -36,7 +36,7 @@ export class LoginRegisterComponent implements OnInit {
     private account:AccountService) { }
 
   ngOnInit(): void {
-    //this.playMusic()
+    this.playMusic()
   }
 
   playMusic() {
@@ -44,6 +44,7 @@ export class LoginRegisterComponent implements OnInit {
     audio.src = 'https://files.freemusicarchive.org/storage-freemusicarchive-org/music/ccCommunity/Chad_Crouch/Arps/Chad_Crouch_-_Algorithms.mp3';
     audio.load();
     audio.play();
+    audio.loop = true;
   }
 
   async Login()
@@ -54,7 +55,7 @@ export class LoginRegisterComponent implements OnInit {
     console.log(this.password);
 
     this.user = await this.account.login(this.username, this.password) as User;
-    
+
     console.log('user', this.user);
     
     // if user is null, then invalid username + password combination
