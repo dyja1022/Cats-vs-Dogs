@@ -1,0 +1,99 @@
+#traverse-map{
+    position: relative;
+    background-image: url("/assets/images/LPC_forest/preview.png"); 
+    background-position: center; 
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 90vh;
+    width: 100%;
+    text-align: left;
+}
+
+#traverse-map *{
+    position: absolute;
+}
+
+#portrait
+  {
+    top: -2%;
+    left: -1%;
+    transform: scale(0.75);
+    z-index: 2;
+  }
+
+  #portrait:hover{
+    cursor: pointer;
+  }
+  
+.bar-wrapper{
+    left:12%;
+    width: 20%;
+    height: 4%;
+    border: 4px groove goldenrod;
+}
+
+.bar{
+    width: 100%;
+    height: 100%;
+}
+
+#exp-lvl{
+  font-size: 12px;
+  font-weight: bold;
+  top: 100%;
+  left: -2%;
+  padding: 0 3px;
+  background: white;
+  border: 1px solid black;
+  z-index: 3;
+}
+
+#exp-wrapper
+{
+  top: 3%;
+}
+
+#experience{
+  background: linear-gradient(to right, #ffb74d 0%,#ffe0a9 55%,#ffb74d);
+}
+
+#health-wrapper{
+    top: 8%;
+}
+
+#health{
+    background: linear-gradient(to right, rgb(226, 9, 9) 0%,rgb(248, 90, 90) 55%,rgb(177, 3, 3));
+}
+
+#hunger-wrapper{
+  top: 13%;
+}
+#hunger{
+  background: linear-gradient(to right, #12B1DB 0%, #A2D2DE 55%, #0090DB 100%);
+}
+
+  #player{
+
+    bottom: 5%;
+    left: 35%;
+    width: 24px;
+    height: 36px;
+    transform: scale(2);
+    background: url("/assets/images/dog-ss.PNG") -48px -24px;
+    /*============================================left , top
+    background-color: white;*/
+  }
+
+  #logout{
+    bottom: 0;
+    right: 0;
+    width: 5%;
+    height: 8%;
+    background: black;
+    border: 1px ridge #d8c601;
+    padding: 1% 0 1% 1%;
+  }
+
+  #logout:hover{
+    cursor: pointer;
+  }

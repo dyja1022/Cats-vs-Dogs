@@ -1,2 +1,18 @@
-<h3>Login Register Preview</h3>
-<img src="/assets/images/Ronnan-login-box.png">
+
+<div id="login">
+
+    <img id="dog-faceoff" src="/assets/images/dog-faceoff.png">
+    <span id="game-title"><h1>CATS VS DOGS</h1></span>
+    <img  id="city" src="/assets/images/city-burn.png">
+    <img id="cat-faceoff" src="/assets/images/cat-faceoff.png">
+
+    <div class="container">
+        <form id="login-form" class="form" (submit)="Login()">
+            <label id="lbl-user">username</label>
+            <input id="username" class="field" type="text" name="username" required>
+            <label id="lbl-pass">password</label>
+            <input id="password" class="field" type="password" name="password" required>
+            <input id="submit" type="submit" name="submit" value="Sign In">
+        </form>
+    </div>
+</div>

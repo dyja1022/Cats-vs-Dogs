@@ -1,0 +1,171 @@
+::selection {
+    color: none;
+    background: none;
+}
+#manage-wrapper{
+    position: relative;
+    background: url("/assets/images/room.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 90vh;
+    max-height: 90vh;
+    width: 100%;
+    /* border: 20px ridge rgb(27, 54, 70); */
+}
+
+#manage-wrapper *{
+    position: absolute;
+}
+
+.bar-wrapper{
+    left:3%;
+    margin: 1% ;
+    width: 30%;
+    height: 25px;
+    border: 4px groove goldenrod;
+}
+.bar{
+    width: 100%;
+    height: 100%;
+    /* border: 4px groove goldenrod; */
+}
+
+#exp-icon
+{
+    left: 0;
+    width: 6%;
+    background: white;
+    border-radius: 50%;
+    border: 2px solid black;
+    padding: 5px;
+    z-index: 2;
+}
+
+#exp-lvl{
+    font-size: 12px;
+    font-weight: bold;
+    top: 100%;
+    left: -2%;
+    padding: 0 3px;
+    background: white;
+    border: 1px solid black;
+    z-index: 3;
+}
+
+#experience{
+    background: linear-gradient(to right, #ffb74d 0%,#ffe0a9 55%,#ffb74d);
+}
+
+#health-wrapper{
+    top: 10%;
+}
+
+#health-icon{
+    top: 10%;
+    left: 0;
+    width: 6%;
+    background: white;
+    border-radius: 50%;
+    border: 2px solid black;
+    padding: 5px;
+    z-index: 2;
+} 
+
+#health{
+    /* width: 50%; this is the value that will change whenever health goes up or down*/
+    background: linear-gradient(to right, rgb(226, 9, 9) 0%,rgb(248, 90, 90) 55%,rgb(177, 3, 3));
+}
+
+#food-icon{
+    left: 0;
+    top: 20%;
+    width: 6%;
+    background: white;
+    border-radius: 50%;
+    border: 2px solid black;
+    padding: 5px;
+    z-index: 2;
+}
+
+#hunger-wrapper{
+    top: 20%;
+}
+#hunger{
+    
+    background: linear-gradient(to right, #12B1DB 0%, #A2D2DE 55%, #0090DB 100%);
+}
+
+
+#pet-manage-options{
+    background: url("/assets/images/paperback.png");
+    background-size: cover;
+    width: 30%;
+    height: 30%;
+    bottom:1%;
+    left: 1%;
+    border: 2px ridge rgb(94, 93, 93);
+}
+
+.btn-control
+{
+    background: url("/assets/images/paperback.png");
+    background-size: cover;
+    left: 10%;
+    width: 80%;
+    display: block;
+    color: rgb(102, 62, 24);
+    font-weight: bold;
+    font-style: italic;
+    font-family: cu;
+    padding: 5%;
+    margin: 10% 0;
+    border-radius: 3px;
+}
+
+.btn-control:hover
+{
+    cursor: pointer;
+}
+
+#btn-potion{
+    top: 5%;
+}
+
+#btn-feed{
+    top: 45%;
+}
+
+#logout{
+    bottom: 0;
+    right: 0;
+    width: 5%;
+    height: 8%;
+    background: black;
+    border: 1px ridge #d8c601;
+    padding: 1% 0 1% 1%;
+  }
+
+#logout:hover{
+    cursor: pointer;
+}
+
+#close{
+    right: 0;
+    color:white;
+    background: radial-gradient(ellipse at center, #460000 0%, #FF0000 0%, #460000 100%);
+    padding: 1% 2%;
+    border: 3px groove goldenrod;
+    border-radius: 8px;
+}
+
+#close:hover{
+    cursor: pointer;
+    background: rgb(226, 2, 2);
+    border: 3px ridge goldenrod;
+}
+
+#pet{
+    left: 45%;
+    bottom: 20%;
+    width: 10%;
+}

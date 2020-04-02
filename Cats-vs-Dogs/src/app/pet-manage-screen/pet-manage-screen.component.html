@@ -1,4 +1,43 @@
-<h3>Manage Pet Screen Preview</h3>
+<div id="manage-wrapper">
 
-<img src="/assets/images/SleekBars.png">
-<img src="/assets/images/dogconcept.PNG">
+    
+    <img id="exp-icon" src="/assets/images/shield.png">
+    <div id="exp-wrapper" class="bar-wrapper">
+        <span id="exp-lvl">1</span>
+        <div id="experience" class="bar"></div>
+    </div>
+    
+    <img id="health-icon" src="/assets/images/HUD/Buttons/Heart_1.png">
+    <div id="health-wrapper" class="bar-wrapper">
+        <div id="health" class="bar"></div>
+    </div>
+
+    <img id="food-icon" src="/assets/images/food.PNG">
+    <div id="hunger-wrapper" class="bar-wrapper">
+        <div id="hunger" class="bar"></div>
+    </div>
+    
+    <!--button id="logout" (click)="Logout()">Logout</button-->
+    <img id="logout" (click)="Logout()" src="/assets/images/logout2.png" >
+
+    <!-- <img id="close" src="/assets/images/HUD/Buttons/Cancel_1.png" (click)="Close()"> -->
+
+    <h3 id="close" (click)="Close()">X</h3>
+    <img id="pet" src="/assets/images/dogconcept2.png">
+
+    <!-- A service for retrieving and sending session data about health,hunger, etc. -->
+    <div id="pet-manage-options">
+        <div id="btn-potion" class="btn-control" (click)="GivePotion()">POTION</div>
+        <div id="btn-feed" class="btn-control" (click)="GiveFood()">FEED</div>
+    </div>
+
+    <div style="top: 1%;left:28%; width: 15%">
+        <button (click)="lowerBar('experience')">Lower</button>
+        <button style="left: 100%"(click)="raiseBar('experience')">Raise</button>
+        <br><br>
+        <button style="top: 40%"(click)="lowerBar('health')">Lower</button>
+        <br><br>
+        <br><br>
+        <button style="top: 80%;" (click)="lowerBar('hunger')">Lower</button>
+    </div>
+</div>

@@ -1,3 +1,36 @@
-<h3>Traverse Screen Preview</h3>
+<div id="traverse-map">
+    <img id="player" src="/assets/images/trans-img.png">
+    <img id="portrait" src="/assets/images/HUD/Character/dog-portrait.png" (click)="ManagePet()">
+    
+    <span id="exp-lvl">1</span> >
+    <div id="exp-wrapper" class="bar-wrapper">
+        <div id="experience" class="bar"></div>
+    </div>
+    
+    <div id="health-wrapper" class="bar-wrapper">
+        <div id="health" class="bar"></div>
+    </div>
 
-<img src="/assets/images/LPC_forest/preview.png">
+    <div id="hunger-wrapper" class="bar-wrapper">
+        <div id="hunger" class="bar"></div>
+    </div> >
+    
+    <img id="logout" (click)="Logout()" src="/assets/images/logout2.png" >
+
+    <div style="top: 1%;left:35%; width: 15%">
+        <button (click)="lowerBar('experience')">Lower</button>
+        <button style="left: 50%"(click)="raiseBar('experience')">Raise</button>
+        <br><br>
+        <button style="top: 25%"(click)="lowerBar('health')">Lower</button>
+        <br><br>
+        <button style="top: 25%; left: 50%" (click)="raiseBar('health')">Raise</button>
+        <br><br>
+        <button style="top: 50%;" (click)="lowerBar('hunger')">Lower</button>
+        <button style="top: 50%; left: 50%" (click)="raiseBar('hunger')">Raise</button>
+        <br><br>
+        <!-- <button style="top: 80%; left: 50%"(click)="this.status.setBar('experience',50)">Set bar to  50</button> -->
+    </div>
+
+
+    <button style="top: 0; right: 0;"(click)="startBattle()">Start Battle</button>
+</div>

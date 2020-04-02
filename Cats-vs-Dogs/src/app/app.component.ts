@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { SwitchPageService } from './services/switch-page.service';
 
 @Component({
   selector: 'app-root',
@@ -7,11 +8,16 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Cats-vs-Dogs';
-  page = "init";
+  //page = "init";
+  //page = "traverse";
+  constructor(public switchpage:SwitchPageService){}
 
+  ngOnInit(){
 
-  changePage(page:string)
+  }
+
+  setBackground()
   {
-    this.page = page;
+    document.getElementById("");
   }
 }
