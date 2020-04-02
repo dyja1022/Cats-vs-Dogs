@@ -5,81 +5,6 @@ import { SwitchPageService } from '../services/switch-page.service';
 import { ManageSessionService } from '../services/manage-session.service';
 import { ManageStatusService } from '../services/manage-status.service';
 
-// var num = 0;
-// var direction = 1;
-// var player,enemy;
-
-// //dog sprite sheet columns
-// var dog_ss = {
-//   idle:[50,108,179,236],
-//   walk: [],
-//   strike: []
-// };
-
-// //cat sprite sheet columns
-// var cat_ss = {
-//   idle:[21,85,149,213],
-//   walk:[],
-//   strike: []
-// }
-
-// function init(){
-//   player = document.getElementById("player");
-//   enemy = document.getElementById("enemy");
-// }
-
-// //keydown events
-// document.onkeydown = function(e)
-// {
-//   //if right arrow is pressed
-//   if(e.keyCode == 39)
-//   {
-//     num+=10;
-//     direction = 1;
-//   }//if left arrow is pressed
-//   else if(e.keyCode == 37)
-//   {
-//     num-=10;
-//     direction = -1;
-//   }
-  
-//   player.style.left =  (num +"px");
-
-//   //matrix(scaleX(),skewY(),skewX(),scaleY(),translateX(),translateY())
-//   player.style.transform = "matrix("+(2*direction)+",0,0,2,"+num+",0)";
-// }
-
-// var i = 0;
-// setInterval(()=>
-// {
-  
-//   AnimateCharacter(dog_ss.idle,player);
-//   AnimateCharacter(cat_ss.idle,enemy);
-
-//   //use switch statement to toggle between different animations
-// },1000/5)
-
-// function AnimateCharacter(characterMovement,actor)
-// {
-//   actor.style.backgroundPositionX = -(characterMovement[i]) + 'px';
-//   //if you reach end of array, restart
-//   if(i >= characterMovement.length)
-//   {
-//     i = 0;
-//   }
-//   else
-//   {
-//     i++;
-//   }
-// }
-
-// function getPositionX(element) 
-// { 
-//   var rect = element.getBoundingClientRect();
-
-//   return rect.x;
-// } 
-
 @Component({
   selector: 'app-battle-screen',
   templateUrl: './battle-screen.component.html',
@@ -88,6 +13,7 @@ import { ManageStatusService } from '../services/manage-status.service';
 export class BattleScreenComponent implements OnInit {
 
   myTimer;
+  
   player = {
     speed: 4,
     x: 250,
@@ -101,43 +27,28 @@ export class BattleScreenComponent implements OnInit {
   
   healthBar;
 
-  //dog sprite sheet columns
-  dog_ss = {
-    idle:[50,108,179,236],
-    walk: [],
-    strike: []
-  };
-
-//cat sprite sheet columns
-  cat_ss = {
-    idle:[21,85,149,213],
-    walk:[],
-    strike: []
-  }
-
   constructor(private controls:ControlsService,
-    public animate:AnimationService,
+    public anim:AnimationService,
     public switchpage:SwitchPageService,
     public status:ManageStatusService,
     public sess:ManageSessionService) { }
 
   ngOnInit(): void {
     this.controls.init();
-    this.animate.init();
+    this.anim.init();
     //this.myTimer = setInterval(this.foo,1000/5);
   }
 
-  foo()
+  startAnimate()
   {
-    //console.log("test")
-    //this.animate.test();
-    this.animate.AnimateCharacter(this.dog_ss.idle,this.player);
-    this.animate.AnimateCharacter(this.cat_ss.idle,this.enemy);
+
+    this.anim.AnimateCharacter(this.anim.dog_ss.idle, document.getElementById("player"));
+    this.anim.AnimateCharacter(this.anim.cat_ss.idle, document.getElementById("enemy"));
   }
 
 
   ngAfterViewInit() { 
-    // this.myTimer = setInterval(()=>{this.foo()},1000/5);
+    this.myTimer = setInterval(()=>{this.startAnimate()},1000/5);
 
     this.status.setFullBar(".bar-wrapper");
   
@@ -173,7 +84,7 @@ export class BattleScreenComponent implements OnInit {
   ngOnDestroy(){
     //if die, die and reset health
     //else retrieve health
-
+    clearInterval(this.myTimer);
     this.sess.setHealth(this.healthBar);
   }
 

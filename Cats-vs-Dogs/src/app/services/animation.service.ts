@@ -12,6 +12,22 @@ export class AnimationService {
   player;
   enemy;
 
+  //dog sprite sheet columns
+  dog_ss = {
+    idle:[50,108,179,236],
+    walk: [50,113,176,240,303,371,434,496],
+    strike: [],
+    defeat: [],
+    row: [24,84]
+  };
+
+//cat sprite sheet columns
+  cat_ss = {
+    idle:[21,85,149,213],
+    walk:[],
+    strike: []
+  }
+
   constructor() { }
 
   init(){
@@ -22,6 +38,7 @@ export class AnimationService {
   AnimateCharacter(characterMovement,actor)
   {
     actor.style.backgroundPositionX = -(characterMovement[this.i]) + 'px';
+    
     //if you reach end of array, restart
     if(this.i >= characterMovement.length)
     {
@@ -31,6 +48,10 @@ export class AnimationService {
     {
       this.i++;
     }
+  }
+
+  setSpriteSheetRow(actor,row){
+    actor.style.backgroundPositionY = -row+'px';
   }
 
   getPositionX(element) 
