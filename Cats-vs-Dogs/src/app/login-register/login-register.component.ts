@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SwitchPageService } from '../services/switch-page.service';
 import { ManageSessionService } from '../services/manage-session.service';
 import { AccountService } from '../services/account.service';
+import {Howl, Howler} from 'howler';
 
 interface Animal {
 
@@ -20,11 +21,14 @@ interface User {
   templateUrl: './login-register.component.html',
   styleUrls: ['./login-register.component.css']
 })
+
 export class LoginRegisterComponent implements OnInit {
 
   username: string;
   password: string;
   user: User;
+
+
 
   constructor(
     public switchpage:SwitchPageService,
@@ -32,24 +36,33 @@ export class LoginRegisterComponent implements OnInit {
     private account:AccountService) { }
 
   ngOnInit(): void {
+    //this.playMusic()
   }
 
-  Login()
+  playMusic() {
+    let audio = new Audio();
+    audio.src = 'https://files.freemusicarchive.org/storage-freemusicarchive-org/music/ccCommunity/Chad_Crouch/Arps/Chad_Crouch_-_Algorithms.mp3';
+    audio.load();
+    audio.play();
+  }
+
+  async Login()
   {
+
     //do validation, then changepage if user
     console.log(this.username);
     console.log(this.password);
-    this.account.login(this.username, this.password).subscribe(
-      (data) => 
-      this.user = data as User
-    )
+
+    this.user = await this.account.login(this.username, this.password) as User;
+    
+    console.log('user', this.user);
     
     // if user is null, then invalid username + password combination
-    if (this.user === null) {
+    if (this.user == null || this.user == undefined) {
+      console.log('login failed');
+    } else {
       console.log('login success')
       this.switchpage.changePage('traverse');
-    } else {
-      console.log('login failed')
     }
 
     //this.switchpage.changePage('traverse');

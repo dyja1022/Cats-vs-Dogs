@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
 
 
 interface Animal {
@@ -28,8 +27,9 @@ export class AccountService {
   //https://localhost:44363/api/user/login?Username=bananaman&Password=bananaman
   constructor(private client: HttpClient) { }
 
-  login(username:string, password:string) : Observable<any> {
-    return this.client.get(this.baseUrl + `/user/login?Username=${username}&Password=${password}`);
+  async login(username:string, password:string) {
+    const resp = await this.client.get(this.baseUrl + `/user/login?Username=${username}&Password=${password}`).toPromise();
+    return resp;
   }
 
 
