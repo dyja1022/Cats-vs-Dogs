@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import {ControlsService} from '../services/controls.service';
 import { AnimationService } from '../services/animation.service';
 import { SwitchPageService } from '../services/switch-page.service';
+import { ManageSessionService } from '../services/manage-session.service';
+import { ManageStatusService } from '../services/manage-status.service';
 
 // var num = 0;
 // var direction = 1;
@@ -78,9 +80,6 @@ import { SwitchPageService } from '../services/switch-page.service';
 //   return rect.x;
 // } 
 
-
-
-
 @Component({
   selector: 'app-battle-screen',
   templateUrl: './battle-screen.component.html',
@@ -89,8 +88,19 @@ import { SwitchPageService } from '../services/switch-page.service';
 export class BattleScreenComponent implements OnInit {
 
   myTimer;
-  player;
-  enemy;
+  player = {
+    speed: 4,
+    x: 250,
+    y: 500
+  }
+  enemy = {
+    speed: 4,
+    x: 250,
+    y: 500
+  }
+  
+  healthBar;
+
   //dog sprite sheet columns
   dog_ss = {
     idle:[50,108,179,236],
@@ -105,7 +115,11 @@ export class BattleScreenComponent implements OnInit {
     strike: []
   }
 
-  constructor(private controls:ControlsService,public animate:AnimationService,public switchpage:SwitchPageService) { }
+  constructor(private controls:ControlsService,
+    public animate:AnimationService,
+    public switchpage:SwitchPageService,
+    public status:ManageStatusService,
+    public sess:ManageSessionService) { }
 
   ngOnInit(): void {
     this.controls.init();
@@ -123,11 +137,44 @@ export class BattleScreenComponent implements OnInit {
 
 
   ngAfterViewInit() { 
-    this.myTimer = setInterval(()=>{this.foo()},1000/5);
+    // this.myTimer = setInterval(()=>{this.foo()},1000/5);
+
+    this.status.setFullBar(".bar-wrapper");
+  
+    this.healthBar = this.sess.getHealth();
+  
+    this.status.setBar("health",this.healthBar);
+
+    document.getElementById("player").style.left = this.player.x + "px";
   }
 
   LeaveBattle(){
     this.switchpage.changePage("traverse");
+  }
+
+
+  @HostListener('document:keydown', ['$event'])
+  onKeyDown(event:KeyboardEvent) {
+    switch(event.keyCode)
+    {
+      case 37:
+        this.player.x -= this.player.speed;
+        document.getElementById("player").style.transform = "matrix(-2,0,0,2,0,0)";
+        break;
+      case 39:
+        this.player.x += this.player.speed;
+        document.getElementById("player").style.transform = "matrix(2,0,0,2,0,0)";
+        break;
+    }
+
+    document.getElementById("player").style.left = this.player.x + "px";
+  }
+
+  ngOnDestroy(){
+    //if die, die and reset health
+    //else retrieve health
+
+    this.sess.setHealth(this.healthBar);
   }
 
 }
