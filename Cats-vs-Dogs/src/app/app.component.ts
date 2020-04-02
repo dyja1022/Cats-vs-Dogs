@@ -6,5 +6,12 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  
+  title = 'Cats-vs-Dogs';
+  page = "init";
+
+
+  changePage(page:string)
+  {
+    this.page = page;
+  }
 }

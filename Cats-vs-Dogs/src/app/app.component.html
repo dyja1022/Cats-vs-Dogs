@@ -1,2 +1,24 @@
-<app-nav></app-nav>
-<router-outlet></router-outlet>
+
+
+<div id="frame">
+  <button (click)="changePage('init')">Base Frame(temporary)</button>
+  <button (click)="changePage('login')">Login Page</button>
+  <button (click)="changePage('menu')">Main Menu</button>
+  <button (click)="changePage('battle')">Start Battle</button>
+  <button (click)="changePage('pet')">Manage Pet</button>
+
+  <app-base-frame *ngIf="page == 'init'"></app-base-frame>
+
+  <app-login-register *ngIf="page == 'login'"></app-login-register>
+  <app-menu *ngIf="page == 'menu'"></app-menu>
+  <app-battle-screen *ngIf="page == 'battle'"></app-battle-screen>
+  <app-traverse-screen *ngIf="page == 'traverse'"></app-traverse-screen>
+  <app-pet-manage-screen *ngIf="page == 'pet'"></app-pet-manage-screen>
+</div>
+
+<!--img id="frame" src="/assets/images/LPC Base Assets/UI/frame.gif"-->
+<!--move base frame code to app component-->
+<!--images are preview images for now-->
+
+
+<!--router-outlet></router-outlet-->

@@ -3,20 +3,22 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NavComponent } from './nav/nav.component';
-import { HomeComponent } from './home/home.component';
-import { AboutComponent } from './about/about.component';
-import { ProfileComponent } from './profile/profile.component';
-
-import { HttpClientModule } from '@angular/common/http'; 
+import { LoginRegisterComponent } from './login-register/login-register.component';
+import { BaseFrameComponent } from './base-frame/base-frame.component';
+import { MenuComponent } from './menu/menu.component';
+import { BattleScreenComponent } from './battle-screen/battle-screen.component';
+import { TraverseScreenComponent } from './traverse-screen/traverse-screen.component';
+import { PetManageScreenComponent } from './pet-manage-screen/pet-manage-screen.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavComponent,
-    HomeComponent,
-    AboutComponent,
-    ProfileComponent
+    LoginRegisterComponent,
+    BaseFrameComponent,
+    MenuComponent,
+    BattleScreenComponent,
+    TraverseScreenComponent,
+    PetManageScreenComponent
   ],
   imports: [
     BrowserModule,

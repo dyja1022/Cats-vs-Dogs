@@ -1,0 +1,8 @@
+#frame{
+    border: 1px solid blue;
+    width:60vw; 
+    min-height: 90vh;
+    margin: 0 auto;
+    text-align: center;
+    overflow: hidden;
+}
