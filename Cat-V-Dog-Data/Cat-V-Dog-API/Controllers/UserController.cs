@@ -38,7 +38,7 @@ namespace Cat_V_Dog_API.Controllers
 
         [Route("login")]
         [HttpGet]
-        public IActionResult Login([FromBody, Bind("username,password")]User u)
+        public IActionResult Login([FromQuery, Bind("Username,Password")]User u)
         {
             var user = _usersRepo.Login(u.Username, u.Password);
             if (user != null)

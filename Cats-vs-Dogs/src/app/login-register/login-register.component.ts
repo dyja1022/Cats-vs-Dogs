@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SwitchPageService } from '../services/switch-page.service';
 import { ManageSessionService } from '../services/manage-session.service';
+import { AccountService } from '../services/account.service';
 
 @Component({
   selector: 'app-login-register',
@@ -11,7 +12,8 @@ export class LoginRegisterComponent implements OnInit {
 
   constructor(
     public switchpage:SwitchPageService,
-    public sess:ManageSessionService) { }
+    public sess:ManageSessionService,
+    private account:AccountService) { }
 
   ngOnInit(): void {
   }
