@@ -43,7 +43,8 @@ export class LoginRegisterComponent implements OnInit {
       (data) => 
       this.user = data as User
     )
-
+    
+    // if user is null, then invalid username + password combination
     if (this.user === null) {
       console.log('login success')
     } else {
