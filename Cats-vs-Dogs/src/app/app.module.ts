@@ -24,7 +24,6 @@ import { AnimationService } from './services/animation.service';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
   ],
   providers: [
     ControlsService,
