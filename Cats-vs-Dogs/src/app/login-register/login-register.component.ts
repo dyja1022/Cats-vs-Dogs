@@ -24,10 +24,12 @@ export class LoginRegisterComponent implements OnInit {
   Login()
   {
     //do validation, then changepage if user
-    
-    
     console.log(this.username);
     console.log(this.password);
+    this.account.login(this.username, this.password).subscribe(
+      (data) => 
+      console.log(data)
+    )
 
     //this.switchpage.changePage('traverse');
   }

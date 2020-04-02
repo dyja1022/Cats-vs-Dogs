@@ -6,6 +6,7 @@ using Cat_V_Dog_Data.Repositories;
 using Cat_V_Dog_Library;
 using Cat_V_Dog_Library.Interfaces;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
@@ -20,6 +21,9 @@ namespace Cat_V_Dog_API
 {
     public class Startup
     {
+
+        private const string Policy = "DefaultPolicy";
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -30,6 +34,17 @@ namespace Cat_V_Dog_API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy(Policy, builder =>
+                {
+                    builder.WithOrigins("http://localhost:4200",
+                                        "https://localhost:4200")
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowCredentials();
+                });          
+            });
 
             services.AddControllers(options =>
             {
@@ -83,7 +98,7 @@ namespace Cat_V_Dog_API
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
+            app.UseCors(Policy);
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
