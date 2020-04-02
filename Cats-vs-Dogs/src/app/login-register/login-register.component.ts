@@ -3,6 +3,18 @@ import { SwitchPageService } from '../services/switch-page.service';
 import { ManageSessionService } from '../services/manage-session.service';
 import { AccountService } from '../services/account.service';
 
+interface Animal {
+
+}
+
+interface User {
+  id : number;
+  username : string;
+  firstLogin : boolean;
+  animal : Animal
+}
+
+
 @Component({
   selector: 'app-login-register',
   templateUrl: './login-register.component.html',
@@ -12,6 +24,7 @@ export class LoginRegisterComponent implements OnInit {
 
   username: string;
   password: string;
+  user: User;
 
   constructor(
     public switchpage:SwitchPageService,
@@ -28,8 +41,14 @@ export class LoginRegisterComponent implements OnInit {
     console.log(this.password);
     this.account.login(this.username, this.password).subscribe(
       (data) => 
-      console.log(data)
+      this.user = data as User
     )
+
+    if (this.user === null) {
+      console.log('login success')
+    } else {
+      console.log('login failed')
+    }
 
     //this.switchpage.changePage('traverse');
   }
