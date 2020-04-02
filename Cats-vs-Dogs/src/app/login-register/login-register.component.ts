@@ -47,12 +47,15 @@ export class LoginRegisterComponent implements OnInit {
     // if user is null, then invalid username + password combination
     if (this.user === null) {
       console.log('login success')
+      this.switchpage.changePage('traverse');
     } else {
       console.log('login failed')
     }
 
     //this.switchpage.changePage('traverse');
   }
+
+  
 
   ResetStats()
   {
