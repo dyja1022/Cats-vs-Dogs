@@ -28,7 +28,7 @@ export class LoginRegisterComponent implements OnInit {
   password: string;
   user: User;
 
-
+  music: HTMLAudioElement;
 
   constructor(
     public switchpage:SwitchPageService,
@@ -36,15 +36,16 @@ export class LoginRegisterComponent implements OnInit {
     private account:AccountService) { }
 
   ngOnInit(): void {
-    this.playMusic()
+    if (this.music == undefined || this.music == null)
+      this.playMusic()
   }
 
+
   playMusic() {
-    let audio = new Audio();
-    audio.src = 'https://files.freemusicarchive.org/storage-freemusicarchive-org/music/ccCommunity/Chad_Crouch/Arps/Chad_Crouch_-_Algorithms.mp3';
-    audio.load();
-    audio.play();
-    audio.loop = true;
+    this.music = new Audio();
+    this.music.src = 'https://files.freemusicarchive.org/storage-freemusicarchive-org/music/ccCommunity/Chad_Crouch/Arps/Chad_Crouch_-_Algorithms.mp3';
+    this.music.play();
+    this.music.loop = true;
   }
 
   async Login()
