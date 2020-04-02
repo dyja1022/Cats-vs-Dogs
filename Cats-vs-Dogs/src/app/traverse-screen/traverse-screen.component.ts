@@ -3,6 +3,9 @@ import {ControlsService} from '../services/controls.service';
 import { SwitchPageService } from '../services/switch-page.service';
 import { ManageStatusService } from '../services/manage-status.service';
 import { ManageSessionService } from '../services/manage-session.service';
+import {HostListener, /*KeyboardEvent*/} from '@angular/core';
+import { empty } from 'rxjs';
+import { AnimationService } from '../services/animation.service';
 
 /*
 var direction = 1;
@@ -113,16 +116,25 @@ export class TraverseScreenComponent implements OnInit {
   healthBar;
   hungerBar;
 
+  player = {
+    speed: 4,
+    x: 250,
+    y: 500,
+    elem: null
+  }
+
   constructor(
     private controls:ControlsService,
     private switchpage:SwitchPageService,
     public status:ManageStatusService,
-    private sess:ManageSessionService) { }
+    private sess:ManageSessionService,
+    public anim:AnimationService
+  ) { }
 
   ngOnInit(): void {
     this.controls.init();
-    
   }
+  
 
   ngAfterViewInit()
   {
@@ -137,6 +149,11 @@ export class TraverseScreenComponent implements OnInit {
     this.status.setBar("experience",this.expBar);
     this.status.setBar("health",this.healthBar);
     this.status.setBar("hunger",this.hungerBar);
+
+    //===================================
+    document.getElementById("player").style.left = this.player.x + "px";
+    document.getElementById("player").style.top = this.player.y + "px"
+    //this.player.x = this.player.elem.getBoundingClientRect.x;
   }
 
   //decrease hunger bar over time
@@ -175,9 +192,39 @@ export class TraverseScreenComponent implements OnInit {
     this.switchpage.changePage('login')
   }
 
+
+  @HostListener('document:keydown', ['$event'])
+  onKeyDown(event:KeyboardEvent) {
+    switch(event.keyCode)
+    {
+      case 37:
+        this.player.x -= this.player.speed;
+         //matrix(scaleX(),skewY(),skewX(),scaleY(),translateX(),translateY())
+        document.getElementById("player").style.transform = "matrix(-2,0,0,2,0,0)";
+        break;
+      case 38:
+        this.player.y -= this.player.speed;
+        break;
+      case 39:
+        this.player.x += this.player.speed;
+        document.getElementById("player").style.transform = "matrix(2,0,0,2,0,0)";
+        break;
+      case 40:
+        this.player.y += this.player.speed;
+        break;
+    }
+    console.log("in document: "+document.getElementById("player").style.left);
+    console.log("in code: "+this.player.x);
+    //this.player.elem.style.left = this.player.x + "px";
+    document.getElementById("player").style.left = this.player.x + "px";
+    document.getElementById("player").style.top = this.player.y + "px";
+
+    //document.getElementById("player").style.transform = "matrix("+(2*1)+",0,0,2,"+this.player.x+",0)";
+  }
+
   ngOnDestroy()
   {
-    alert("experience: "+this.expBar+", health: "+this.healthBar+", hunger: "+this.hungerBar);
+    //alert("experience: "+this.expBar+", health: "+this.healthBar+", hunger: "+this.hungerBar);
 
     this.sess.setExperience(this.expBar);
     this.sess.setHealth(this.healthBar);

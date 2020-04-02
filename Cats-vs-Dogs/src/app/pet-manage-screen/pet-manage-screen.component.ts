@@ -82,7 +82,7 @@ export class PetManageScreenComponent implements OnInit {
   }
 
   ngOnDestroy(){
-    alert("experience: "+this.expBar+", health: "+this.healthBar+", hunger: "+this.hungerBar);
+    //alert("experience: "+this.expBar+", health: "+this.healthBar+", hunger: "+this.hungerBar);
 
     this.sess.setExperience(this.expBar);
     this.sess.setHealth(this.healthBar);
