@@ -9,9 +9,9 @@
     <div class="container">
         <form id="login-form" class="form" (submit)="Login()">
             <label id="lbl-user">username</label>
-            <input id="username" class="field" type="text" name="username" required>
+            <input [(ngModel)]="username" id="username" class="field" type="text" name="username" required>
             <label id="lbl-pass">password</label>
-            <input id="password" class="field" type="password" name="password" required>
+            <input [(ngModel)]="password" id="password" class="field" type="password" name="password" required>
             <input id="submit" type="submit" name="submit" value="Sign In">
         </form>
     </div>

@@ -10,6 +10,9 @@ import { AccountService } from '../services/account.service';
 })
 export class LoginRegisterComponent implements OnInit {
 
+  username: string;
+  password: string;
+
   constructor(
     public switchpage:SwitchPageService,
     public sess:ManageSessionService,
@@ -21,7 +24,12 @@ export class LoginRegisterComponent implements OnInit {
   Login()
   {
     //do validation, then changepage if user
-    this.switchpage.changePage('traverse');
+    
+    
+    console.log(this.username);
+    console.log(this.password);
+
+    //this.switchpage.changePage('traverse');
   }
 
   ResetStats()

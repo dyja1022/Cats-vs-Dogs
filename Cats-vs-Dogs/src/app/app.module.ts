@@ -10,6 +10,9 @@ import { TraverseScreenComponent } from './traverse-screen/traverse-screen.compo
 import { PetManageScreenComponent } from './pet-manage-screen/pet-manage-screen.component';
 import { ControlsService } from './services/controls.service';
 import { AnimationService } from './services/animation.service';
+import { FormsModule } from '@angular/forms';
+import { AccountService } from './services/account.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -24,10 +27,13 @@ import { AnimationService } from './services/animation.service';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    FormsModule,
+    HttpClientModule
   ],
   providers: [
     ControlsService,
-    AnimationService
+    AnimationService,
+    AccountService
   ],
   bootstrap: [AppComponent]
 })
