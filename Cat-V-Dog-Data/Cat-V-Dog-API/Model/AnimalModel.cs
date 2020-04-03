@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace Cat_V_Dog_Library
+namespace Cat_V_Dog_API.Model
 {
-    public partial class Animal
+    public class AnimalModel
     {
         public int Id { get; set; }
         public int? Strength { get; set; }
@@ -13,7 +15,5 @@ namespace Cat_V_Dog_Library
         public int? Age { get; set; }
         public int? NumberOfBattles { get; set; }
         public int? UserId { get; set; }
-
-        public virtual User User { get; set; }
     }
 }

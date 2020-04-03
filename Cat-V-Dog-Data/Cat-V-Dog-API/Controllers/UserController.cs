@@ -18,7 +18,7 @@ namespace Cat_V_Dog_API.Controllers
 
         public UserController(IUserRepo usersRepo)
         {
-           _usersRepo = usersRepo;
+            _usersRepo = usersRepo;
         }
 
         [Route("create")]
@@ -27,7 +27,7 @@ namespace Cat_V_Dog_API.Controllers
         {
             try
             {
-                _usersRepo.CreateUser(user);
+                _usersRepo.CreateUser(user.Username, user.Password);
                 return Ok(true);
             }
             catch (ArgumentException)
@@ -40,6 +40,7 @@ namespace Cat_V_Dog_API.Controllers
         [HttpGet]
         public IActionResult Login([FromQuery, Bind("Username,Password")]User u)
         {
+
             var user = _usersRepo.Login(u.Username, u.Password);
             if (user != null)
             {
@@ -65,7 +66,21 @@ namespace Cat_V_Dog_API.Controllers
             return Ok(_usersRepo.GetAll());
         }
 
+        // GET: api/User/stats/{id}
+        [Route("stats/{id}")]
+        [HttpGet]
+        public IActionResult Stats(int id)
+        {
+            return Ok(_usersRepo.GetUserStats(id));
+        }
 
-
+        // GET: api/User/affiliation/{id}
+        [Route("affiliation")]
+        [HttpPut]
+        public IActionResult Affiliation(int id, string affil)
+        {
+            _usersRepo.AssignAffiliation(affil, id);
+            return Ok();
+        }
     }
 }

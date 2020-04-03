@@ -2,6 +2,7 @@
 using Cat_V_Dog_Library.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Cat_V_Dog_Data.Repositories
@@ -21,6 +22,10 @@ namespace Cat_V_Dog_Data.Repositories
             { 
                 // check if referenced userID exists
                 var user = _db.User.Where(u => u.Id == animal.UserId).Single();
+                // check if user already has animal
+                if (_db.Animal.Any(a => a.UserId == animal.UserId))
+                    return false;
+
                 _db.Animal.Add(animal);
                 _db.SaveChanges();
                 return true;
@@ -41,9 +46,15 @@ namespace Cat_V_Dog_Data.Repositories
             try
             {
                 //check if referenced animal exists
-                var refAnim = _db.Animal.Where(a => a.Id == animal.Id).Single();
+                var refAnim = _db.Animal.Where(a => a.UserId == animal.UserId).Single();
 
-                _db.Animal.Update(animal);
+                refAnim.Strength = animal.Strength.HasValue ? animal.Strength.Value : refAnim.Strength;
+                refAnim.Speed = animal.Speed.HasValue ? animal.Speed.Value : refAnim.Speed;
+                refAnim.Intelligence = animal.Intelligence.HasValue ? animal.Intelligence.Value : refAnim.Intelligence;
+                refAnim.NumberOfBattles = animal.NumberOfBattles.HasValue ? animal.NumberOfBattles.Value : refAnim.NumberOfBattles;
+                refAnim.Xp = animal.Xp.HasValue ? animal.Xp.Value : refAnim.Xp;
+
+                _db.Animal.Update(refAnim);
                 _db.SaveChanges();
                 return true;
             } catch (InvalidOperationException)
@@ -57,12 +68,24 @@ namespace Cat_V_Dog_Data.Repositories
             }
         }
 
-        public void Delete(int animalId)
+        public void Delete(int userId)
         {
-            var animToRemove = _db.Animal.Where(a => a.Id == animalId).Single();
+            var animToRemove = _db.Animal.Where(a => a.UserId == userId).Single();
 
             _db.Remove(animToRemove);
             _db.SaveChanges();
+        }
+
+        public Animal Info(int userId)
+        {
+            var anim = _db.Animal.Where(a => a.UserId == userId).Single();
+            return anim;
+        }
+
+        public List<Animal> GetAll()
+        {
+            var animals = _db.Animal.Select(u => u).ToList();
+            return animals;
         }
     }
 }

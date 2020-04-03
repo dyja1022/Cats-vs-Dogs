@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Cat_V_Dog_API.Model;
 using Cat_V_Dog_Library;
 using Cat_V_Dog_Library.Interfaces;
 using Microsoft.AspNetCore.Http;
@@ -21,29 +22,31 @@ namespace Cat_V_Dog_API.Controllers
         }
 
 
-        // GET: api/Animal
+        // GET: api/Animal/all
+        [Route("all")]
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IActionResult All()
         {
-            return new string[] { "value1", "value2" };
+            return Ok(_animalRepo.GetAll());
         }
+        
 
         // GET: api/Animal/5
-        [HttpGet("{id}", Name = "Get")]
-        public string Get(int userId)
+        [HttpGet("{userId}", Name = "Get")]
+        public IActionResult Get(int userId)
         {
-            return "value";
+            return  Ok(_animalRepo.Info(userId));
         }
 
-        // POST: api/Animal
+        // POST: api/Animal/create?
+        [Route("Create")]
         [HttpPost]
-        public IActionResult Post([FromBody, Bind("Strength, Speed, Agility, Intelligence, Age, UserId")] Animal a)
+        public IActionResult Post([FromQuery, Bind("Strength, Speed, Intelligence, Age, UserId")] AnimalModel a)
         {
             Animal animal = new Animal()
             {
                 Strength = a.Strength,
                 Speed = a.Speed,
-                Agility = a.Agility,
                 Intelligence = a.Intelligence,
                 Age = a.Age,
                 UserId = a.UserId
@@ -53,26 +56,30 @@ namespace Cat_V_Dog_API.Controllers
         }
 
         // PUT: api/Animal/5
-        [HttpPut("{id}")]
-        public IActionResult Put([FromBody, Bind("Id, Strength, Speed, Agility, Intelligence, Age, UserId")] Animal a)
+        [Route("Update")]
+        [HttpPut]
+        public IActionResult Put([FromQuery, Bind("Strength, Speed, Intelligence, Age, Xp, UserId")] AnimalModel a)
         {
             Animal animal = new Animal()
             {
                 Strength = a.Strength,
                 Speed = a.Speed,
-                Agility = a.Agility,
                 Intelligence = a.Intelligence,
                 Age = a.Age,
-                UserId = a.UserId
+                UserId = a.UserId,
+                Xp = a.Xp
             };
 
-            return Ok(_animalRepo.Create(animal));
+            return Ok(_animalRepo.Update(animal));
         }
 
         // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [Route("Delete")]
+        [HttpDelete]
+        public IActionResult Delete(int userId)
         {
+            _animalRepo.Delete(userId);
+            return Ok(userId);
         }
     }
 }
