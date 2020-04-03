@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -14,6 +15,7 @@ namespace Cat_V_Dog_API.Model
         public int? Xp { get; set; }
         public int? Age { get; set; }
         public int? NumberOfBattles { get; set; }
-        public int? UserId { get; set; }
+        [Required]
+        public int UserId { get; set; }
     }
 }

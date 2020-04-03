@@ -21,21 +21,24 @@ namespace Cat_V_Dog_API.Controllers
             _usersRepo = usersRepo;
         }
 
+        /// <summary>
+        /// Creates User with given Username and Password
+        /// </summary>
+        /// <response code="200">User successfully created</response>
+        /// <response code="500">Creating user failed</response>
         [Route("create")]
         [HttpPost]
-        public IActionResult Create([FromBody, Bind("username,password")]User user)
+        public IActionResult Create(string username, string password)
         {
-            try
-            {
-                _usersRepo.CreateUser(user.Username, user.Password);
-                return Ok(true);
-            }
-            catch (ArgumentException)
-            {
-                return Ok(false);
-            }
+            return Ok(_usersRepo.CreateUser(username, password));
         }
 
+        /// <summary>
+        /// Validates if user exists with given Username and Password
+        /// and updates firstlogin to false
+        /// </summary>
+        /// <response code="200">Login success</response>
+        /// <response code="204">Login failed</response>
         [Route("login")]
         [HttpGet]
         public IActionResult Login([FromQuery, Bind("Username,Password")]User u)
@@ -59,6 +62,9 @@ namespace Cat_V_Dog_API.Controllers
             }
         }
 
+        /// <summary>
+        /// Returns all users
+        /// </summary>
         [Route("all")]
         [HttpGet]
         public IActionResult All()
@@ -67,19 +73,26 @@ namespace Cat_V_Dog_API.Controllers
         }
 
         // GET: api/User/stats/{id}
-        [Route("stats/{id}")]
+        /// <summary>
+        /// Returns UserStats given userId
+        /// </summary>
+        [Route("stats/{userId}")]
         [HttpGet]
-        public IActionResult Stats(int id)
+        public IActionResult Stats(int userId)
         {
-            return Ok(_usersRepo.GetUserStats(id));
+            return Ok(_usersRepo.GetUserStats(userId));
         }
 
         // GET: api/User/affiliation/{id}
+        /// <summary>
+        /// Updates User Affilitation given userId
+        /// </summary>
+        /// <param name="affil">'Cats' or 'Dogs'</param>
         [Route("affiliation")]
         [HttpPut]
-        public IActionResult Affiliation(int id, string affil)
+        public IActionResult Affiliation(int userId, string affil)
         {
-            _usersRepo.AssignAffiliation(affil, id);
+            _usersRepo.AssignAffiliation(affil, userId);
             return Ok();
         }
     }

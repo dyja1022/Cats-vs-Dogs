@@ -30,6 +30,10 @@ namespace Cat_V_Dog_Data.Repositories
             {
                 throw;
             }
+            catch (InvalidOperationException)
+            {
+                throw;
+            }
             
         }
 

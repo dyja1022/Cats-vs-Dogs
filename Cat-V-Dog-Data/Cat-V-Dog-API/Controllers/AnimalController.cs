@@ -23,22 +23,31 @@ namespace Cat_V_Dog_API.Controllers
 
 
         // GET: api/Animal/all
-        [Route("all")]
+        /// <summary>
+        /// Returns all animals
+        /// </summary>
+        [Route("all")]  
         [HttpGet]
         public IActionResult All()
         {
             return Ok(_animalRepo.GetAll());
         }
-        
+
 
         // GET: api/Animal/5
-        [HttpGet("{userId}", Name = "Get")]
+        /// <summary>
+        /// Returns animal with required userId
+        /// </summary>
+        [HttpGet]
         public IActionResult Get(int userId)
         {
             return  Ok(_animalRepo.Info(userId));
         }
 
-        // POST: api/Animal/create?
+        // POST: api/Animal/create
+        /// <summary>
+        /// Creates Animal with required UserId
+        /// </summary>
         [Route("Create")]
         [HttpPost]
         public IActionResult Post([FromQuery, Bind("Strength, Speed, Intelligence, Age, UserId")] AnimalModel a)
@@ -55,7 +64,10 @@ namespace Cat_V_Dog_API.Controllers
             return Ok(_animalRepo.Create(animal));
         }
 
-        // PUT: api/Animal/5
+        // PUT: api/Animal/Update
+        /// <summary>
+        /// Updates Animal stats with required UserId
+        /// </summary>
         [Route("Update")]
         [HttpPut]
         public IActionResult Put([FromQuery, Bind("Strength, Speed, Intelligence, Age, Xp, UserId")] AnimalModel a)
@@ -73,7 +85,11 @@ namespace Cat_V_Dog_API.Controllers
             return Ok(_animalRepo.Update(animal));
         }
 
-        // DELETE: api/ApiWithActions/5
+        // DELETE: api/Animal/Delete
+        /// <summary>
+        /// Removes Animal with required userId
+        /// </summary>
+        /// <param name="userId"></param>      
         [Route("Delete")]
         [HttpDelete]
         public IActionResult Delete(int userId)

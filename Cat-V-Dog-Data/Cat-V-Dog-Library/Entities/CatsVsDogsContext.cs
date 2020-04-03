@@ -52,6 +52,10 @@ namespace Cat_V_Dog_Library
 
             modelBuilder.Entity<User>(entity =>
             {
+                entity.HasIndex(e => e.Username)
+                    .HasName("UQ__User__536C85E4783CAF12")
+                    .IsUnique();
+
                 entity.Property(e => e.FirstLogin).HasDefaultValueSql("((1))");
 
                 entity.Property(e => e.Password)
