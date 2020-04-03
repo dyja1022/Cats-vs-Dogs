@@ -132,7 +132,8 @@ export class TraverseScreenComponent implements OnInit {
       case 37:
         this.player.x -= this.player.speed;
          //matrix(scaleX(),skewY(),skewX(),scaleY(),translateX(),translateY())
-         this.player.box.style.transform = "matrix(-2,0,0,2,0,0)";
+        //  this.player.box.style.transform = "matrix(-2,0,0,2,0,0)";
+         this.player.box.style.transform = "matrix(-2,0,0,2,-10,0)";
          this.anim.chooseAnimation(this.player.animal, this.player.box,"walk");
         break;
       case 38:
@@ -141,7 +142,8 @@ export class TraverseScreenComponent implements OnInit {
         break;
       case 39:
         this.player.x += this.player.speed;
-        this.player.box.style.transform = "matrix(2,0,0,2,0,0)";
+        // this.player.box.style.transform = "matrix(2,0,0,2,0,0)";
+        this.player.box.style.transform = "matrix(2,0,0,2,10,0)";
         this.anim.chooseAnimation(this.player.animal, this.player.box,"walk");
         break;
       case 40:

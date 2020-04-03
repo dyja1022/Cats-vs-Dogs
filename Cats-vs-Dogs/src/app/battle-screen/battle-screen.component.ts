@@ -234,12 +234,12 @@ export class BattleScreenComponent implements OnInit {
         break;
       case 37:
         this.player.x -= this.player.speed;
-        this.player.box.style.transform = "matrix(-2,0,0,2,0,0)";
+        this.player.box.style.transform = "matrix(-2,0,0,2,-10,0)";
         //this.updateAnimation("walk",this.enemy.currentMotion);
         break;
       case 39:
         this.player.x += this.player.speed;
-        this.player.box.style.transform = "matrix(2,0,0,2,0,0)";
+        this.player.box.style.transform = "matrix(2,0,0,2,10,0)";
         //this.updateAnimation("walk",this.enemy.currentMotion);
         break;
     }
