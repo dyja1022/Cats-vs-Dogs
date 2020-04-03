@@ -37,13 +37,12 @@ namespace Cat_V_Dog_API.Controllers
 
         // POST: api/Animal
         [HttpPost]
-        public IActionResult Post([FromBody, Bind("Strength, Speed, Agility, Intelligence, Age, UserId")] Animal a)
+        public IActionResult Post([FromBody, Bind("Strength, Speed, Intelligence, Age, UserId")] Animal a)
         {
             Animal animal = new Animal()
             {
                 Strength = a.Strength,
                 Speed = a.Speed,
-                Agility = a.Agility,
                 Intelligence = a.Intelligence,
                 Age = a.Age,
                 UserId = a.UserId
@@ -54,13 +53,12 @@ namespace Cat_V_Dog_API.Controllers
 
         // PUT: api/Animal/5
         [HttpPut("{id}")]
-        public IActionResult Put([FromBody, Bind("Id, Strength, Speed, Agility, Intelligence, Age, UserId")] Animal a)
+        public IActionResult Put([FromBody, Bind("Id, Strength, Speed, Intelligence, Age, UserId")] Animal a)
         {
             Animal animal = new Animal()
             {
                 Strength = a.Strength,
                 Speed = a.Speed,
-                Agility = a.Agility,
                 Intelligence = a.Intelligence,
                 Age = a.Age,
                 UserId = a.UserId
