@@ -22,11 +22,40 @@ export class PetManageScreenComponent implements OnInit {
     public sounds:SoundsService
   ) { }
 
+  animateOnClick() {
+    let elem = document.getElementById("pet");
+
+    if (elem.style.backgroundPositionX == "-288px")
+      elem.style.backgroundPosition = `0px 0px`;
+    else 
+      elem.style.backgroundPosition = `-288px 0px`;
+  }
+
+  animateScript() {
+    let elem = document.getElementById("pet");
+    var tID; //we will use this variable to clear the setInterval()
+    var    position = 288; //start position for the image slicer
+    const  interval = 300; //100 ms of interval for the setInterval()
+
+    tID = setInterval ( () => {
+
+      elem.style.backgroundPositionX = `-${position}px`;
+      if (position < 576)
+       { position += position;}
+      //we increment the position by 256 each time
+      else
+        { position = 288; }
+
+    }, interval );
+
+  }
+
   ngOnInit(): void {
     //this.status.setFullBar(".bar-wrapper");
     //alert('init working');
    // sessionStorage.getItem("");
    this.sounds.playLoop(this.sounds.list().profile)
+   this.animateScript();
   }
 
   ngAfterViewInit()
