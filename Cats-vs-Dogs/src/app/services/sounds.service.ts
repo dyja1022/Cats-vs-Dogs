@@ -6,7 +6,7 @@ enum Sounds {
   profile = "https://files.freemusicarchive.org/storage-freemusicarchive-org/music/Music_for_Video/Komiku/Captain_Glouglous_Incredible_Week_Soundtrack/Komiku_-_04_-_Skate.mp3",
   home = "https://files.freemusicarchive.org/storage-freemusicarchive-org/music/Music_for_Video/Komiku/Captain_Glouglous_Incredible_Week_Soundtrack/Komiku_-_02_-_Home.mp3",
   flee = "https://freesound.org/people/pfranzen/sounds/383073/download/383073__pfranzen__running-away-on-solid-floor.ogg",
-  eat = "https://freesound.org/people/yottasounds/sounds/232133/download/232133__yottasounds__crunchy-bite-001.wav",
+  eat = "https://freesound.org/people/InspectorJ/sounds/429593/download/429593__inspectorj__chewing-breadstick-single-b.wav",
 };
 
 @Injectable({
