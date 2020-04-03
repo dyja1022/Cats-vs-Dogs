@@ -165,7 +165,10 @@
 }
 
 #pet{
-    left: 45%;
-    bottom: 20%;
-    width: 10%;
+    height: 448px;
+    width: 288px;
+    background-image: url("/assets/images/dog_test_sprite.png");
+    position: relative;
+    left: 200px;
+    top: 100px;
 }
