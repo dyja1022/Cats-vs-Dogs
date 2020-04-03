@@ -24,13 +24,13 @@ namespace Cat_V_Dog_Data.Repositories
             {
                 // stored procedure to create user + create userstats entries
                 var user = _db.User.FromSqlRaw("EXEC CreateUser @UserId={0}, @Username={1}, @Password={2}", 0, username, password).AsEnumerable().Single();
-                _db.SaveChanges();
                 return user.Id;
             }
-            catch (DbUpdateException)
+            catch (ArgumentNullException)
             {
                 throw;
             }
+            
         }
 
         public User Login(string username, string password)
