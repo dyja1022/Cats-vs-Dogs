@@ -38,7 +38,7 @@ export class LoginRegisterComponent implements OnInit {
   ngOnInit(): void {
     //if (this.music == undefined || this.music == null)
     //  this.playMusic()
-    this.sounds.playLoop(0);
+    this.sounds.playLoop(this.sounds.list().login);
   }
 
   async Login()

@@ -26,7 +26,7 @@ export class PetManageScreenComponent implements OnInit {
     //this.status.setFullBar(".bar-wrapper");
     //alert('init working');
    // sessionStorage.getItem("");
-   this.sounds.playLoop(2)
+   this.sounds.playLoop(this.sounds.list().profile)
   }
 
   ngAfterViewInit()
@@ -61,6 +61,7 @@ export class PetManageScreenComponent implements OnInit {
 
   GiveFood()
   {
+    this.sounds.playOnce(this.sounds.list().eat)
     this.status.raiseBar('hunger',5);
     this.getAllBars();
   }
