@@ -6,7 +6,7 @@ namespace Cat_V_Dog_Library.Interfaces
 {
     public interface IUserRepo
     {
-        public int CreateUser(User user); // create user and return newuser id
+        public int CreateUser(string username, string password); // create user and return newuser id
         public User Login(string username, string password);
         public List<User> GetAll();
     }

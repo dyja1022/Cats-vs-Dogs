@@ -17,10 +17,13 @@ namespace Cat_V_Dog_Data.Repositories
             _db = db ?? throw new ArgumentNullException(nameof(db));
         }
 
-        public int CreateUser(User user)
+        public int CreateUser(string username, string password)
         {
             try
             {
+                // stored procedure to create user + create userstats entries
+                var user = _db.User.FromSqlInterpolated(
+                      $"EXEC dbo.CreateUser @UserId=0, @Username={username}, @Password={password}").Single();
                 _db.Add(user);
                 _db.SaveChanges();
                 return user.Id;

@@ -27,7 +27,7 @@ namespace Cat_V_Dog_API.Controllers
         {
             try
             {
-                _usersRepo.CreateUser(user);
+                _usersRepo.CreateUser(user.Username, user.Password);
                 return Ok(true);
             }
             catch (ArgumentException)
@@ -40,6 +40,7 @@ namespace Cat_V_Dog_API.Controllers
         [HttpGet]
         public IActionResult Login([FromQuery, Bind("Username,Password")]User u)
         {
+            
             var user = _usersRepo.Login(u.Username, u.Password);
             if (user != null)
             {
