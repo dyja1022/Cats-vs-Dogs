@@ -74,5 +74,13 @@ namespace Cat_V_Dog_API.Controllers
             return Ok(_usersRepo.GetUserStats(id));
         }
 
-}
+        // GET: api/User/affiliation/{id}
+        [Route("affiliation")]
+        [HttpPut]
+        public IActionResult Affiliation(int id, string affil)
+        {
+            _usersRepo.AssignAffiliation(affil, id);
+            return Ok();
+        }
+    }
 }

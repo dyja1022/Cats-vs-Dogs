@@ -41,7 +41,7 @@ namespace Cat_V_Dog_Data.Repositories
                 // update firstlogin to true
                 if (!user.FirstLogin.Value)
                 {
-                    user.FirstLogin = true;
+                    user.FirstLogin = false;
                 }
                 _db.Update(user);
                 _db.SaveChanges();
@@ -64,6 +64,14 @@ namespace Cat_V_Dog_Data.Repositories
             var userStat = _db.UserStats.Where(u => u.UserId == userId).Single();
 
             return userStat;
+        }
+
+        public void AssignAffiliation(string affil, int userId)
+        {
+            var user = _db.UserStats.Where(u => u.UserId == userId).Single();
+            user.Affiliation = affil;
+            _db.Update(user);
+            _db.SaveChanges();
         }
     }
 }

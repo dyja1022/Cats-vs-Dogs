@@ -47,7 +47,7 @@ namespace Cat_V_Dog_Library
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.Animal)
                     .HasForeignKey(d => d.UserId)
-                    .HasConstraintName("FK__Animal__UserId__797309D9");
+                    .HasConstraintName("FK__Animal__UserId__0C85DE4D");
             });
 
             modelBuilder.Entity<User>(entity =>
@@ -67,8 +67,6 @@ namespace Cat_V_Dog_Library
 
             modelBuilder.Entity<UserStats>(entity =>
             {
-                entity.HasNoKey();
-
                 entity.Property(e => e.Affiliation)
                     .HasMaxLength(5)
                     .IsUnicode(false);
@@ -82,9 +80,9 @@ namespace Cat_V_Dog_Library
                 entity.Property(e => e.Wins).HasDefaultValueSql("((0))");
 
                 entity.HasOne(d => d.User)
-                    .WithMany()
+                    .WithMany(p => p.UserStats)
                     .HasForeignKey(d => d.UserId)
-                    .HasConstraintName("FK__UserStats__UserI__00200768");
+                    .HasConstraintName("FK__UserStats__UserI__14270015");
             });
 
             OnModelCreatingPartial(modelBuilder);

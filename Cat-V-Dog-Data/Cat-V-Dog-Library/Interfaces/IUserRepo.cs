@@ -10,5 +10,6 @@ namespace Cat_V_Dog_Library.Interfaces
         public User Login(string username, string password);
         public List<User> GetAll();
         public UserStats GetUserStats(int userId);
+        public void AssignAffiliation(string affil, int userId); //Cats or Dogs
     }
 }

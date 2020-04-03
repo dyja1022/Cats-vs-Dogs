@@ -5,6 +5,7 @@ namespace Cat_V_Dog_Library
 {
     public partial class UserStats
     {
+        public int Id { get; set; }
         public int? TotalBattles { get; set; }
         public int? Wins { get; set; }
         public int? Loss { get; set; }
