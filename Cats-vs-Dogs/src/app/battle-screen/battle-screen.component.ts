@@ -126,7 +126,7 @@ export class BattleScreenComponent implements OnInit {
   ngOnInit(): void {
     this.controls.init();
     this.animate.init();
-    this.sounds.playLoop(1);
+    this.sounds.playLoop(this.sounds.list().battle);
     //this.myTimer = setInterval(this.foo,1000/5);
   }
 
@@ -152,6 +152,7 @@ export class BattleScreenComponent implements OnInit {
   }
 
   LeaveBattle(){
+    this.sounds.playOnce(this.sounds.list().flee);
     this.switchpage.changePage("traverse");
   }
 

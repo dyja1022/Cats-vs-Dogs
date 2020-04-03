@@ -135,7 +135,7 @@ export class TraverseScreenComponent implements OnInit {
 
   ngOnInit(): void {
     this.controls.init();
-    this.sounds.playLoop(3);
+    this.sounds.playLoop(this.sounds.list().home);
   }
   
 
