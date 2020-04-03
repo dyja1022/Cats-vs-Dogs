@@ -5,6 +5,7 @@ using System.Text;
 using Microsoft.EntityFrameworkCore;
 using Cat_V_Dog_Library.Interfaces;
 using Cat_V_Dog_Library;
+using Microsoft.Data.SqlClient;
 
 namespace Cat_V_Dog_Data.Repositories
 {
@@ -22,9 +23,7 @@ namespace Cat_V_Dog_Data.Repositories
             try
             {
                 // stored procedure to create user + create userstats entries
-                var user = _db.User.FromSqlInterpolated(
-                      $"EXEC dbo.CreateUser @UserId=0, @Username={username}, @Password={password}").Single();
-                _db.Add(user);
+                var user = _db.User.FromSqlRaw("EXEC CreateUser @UserId={0}, @Username={1}, @Password={2}", 0, username, password).AsEnumerable().Single();
                 _db.SaveChanges();
                 return user.Id;
             }
