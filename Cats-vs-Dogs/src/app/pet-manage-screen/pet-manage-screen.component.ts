@@ -38,6 +38,11 @@ export class PetManageScreenComponent implements OnInit {
     this.status.setBar("health",this.healthBar);
     this.status.setBar("hunger",this.hungerBar);
 
+    // alert("working");
+    // this.status.setBar("experience",this.expBar);
+    // this.status.setBar("health",100);
+    // this.status.setBar("hunger",100);
+
   }
   
   lowerBar(id){
@@ -52,13 +57,13 @@ export class PetManageScreenComponent implements OnInit {
 
   GivePotion()
   {
-    this.status.raiseBar('health',5);
+    this.status.raiseBar('health',25);
     this.getAllBars();
   }
 
   GiveFood()
   {
-    this.status.raiseBar('hunger',5);
+    this.status.raiseBar('hunger',50);
     this.getAllBars();
   }
 
@@ -68,8 +73,6 @@ export class PetManageScreenComponent implements OnInit {
     this.healthBar = this.status.getBarPercent("health");
     this.hungerBar = this.status.getBarPercent("hunger");
   }
-
-
 
   Logout()
   {

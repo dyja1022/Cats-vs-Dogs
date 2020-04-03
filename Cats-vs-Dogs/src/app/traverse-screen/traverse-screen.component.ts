@@ -14,6 +14,7 @@ import { AnimationService } from '../services/animation.service';
   styleUrls: ['./traverse-screen.component.css']
 })
 export class TraverseScreenComponent implements OnInit {
+  myTimer;
   expBar;
   healthBar;
   hungerBar;
@@ -22,8 +23,12 @@ export class TraverseScreenComponent implements OnInit {
     speed: 4,
     x: 250,
     y: 500,
-    elem: null
+    hp:5,
+    box: null,
+    animal: null,
+    currentMotion: "idle"
   }
+  
 
   constructor(
     private controls:ControlsService,
@@ -43,6 +48,7 @@ export class TraverseScreenComponent implements OnInit {
     this.status.setFullBar(".bar-wrapper");
     this.getAllBars();
 
+    this.player.animal = this.anim.dog_ss;
     //===================================
     this.expBar = this.sess.getExperience();
     this.healthBar = this.sess.getHealth();
@@ -50,17 +56,39 @@ export class TraverseScreenComponent implements OnInit {
 
     this.status.setBar("experience",this.expBar);
     this.status.setBar("health",this.healthBar);
+    //this.status.setBar("health",100)
     this.status.setBar("hunger",this.hungerBar);
 
+    this.lowerHungerOverTime();
+
+    this.player.box = document.getElementById("player");
     //===================================
-    document.getElementById("player").style.left = this.player.x + "px";
-    document.getElementById("player").style.top = this.player.y + "px"
+    this.player.box.style.left = this.player.x + "px";
+    this.player.box.style.top = this.player.y + "px"
     //this.player.x = this.player.elem.getBoundingClientRect.x;
   }
 
   //decrease hunger bar over time
   lowerHungerOverTime()
   { 
+    this.myTimer = setInterval(()=>{
+      this.status.lowerBar("hunger",2);
+      this.getAllBars();
+
+      if(this.status.getBarPercent("hunger") <= 0){
+        //half the hp
+        //lower health
+        this.status.lowerBar("health",1)
+      }
+      if(this.status.getBarPercent("health") <= 0){
+        //alert("you died");
+       // this.anim.chooseAnimation(this.player.animal,this.player.box,"defeat");
+
+        this.anim.AnimateCharacter(this.player.animal.defeat,this.player.box,this.player.animal.row.defeat);
+        alert("you died");
+        this.status.setBar("health",100)
+      }
+    },1000);
   } 
 
   lowerBar(id){
@@ -87,7 +115,8 @@ export class TraverseScreenComponent implements OnInit {
   }
 
   startBattle(){
-    this.switchpage.changePage('battle')
+    
+    this.switchpage.changePage('battle');
   }
   Logout()
   {
@@ -99,39 +128,42 @@ export class TraverseScreenComponent implements OnInit {
   onKeyDown(event:KeyboardEvent) {
     switch(event.keyCode)
     {
+      case 32:this.anim.chooseAnimation(this.player.animal, this.player.box,"defeat");break;
       case 37:
         this.player.x -= this.player.speed;
          //matrix(scaleX(),skewY(),skewX(),scaleY(),translateX(),translateY())
-        document.getElementById("player").style.transform = "matrix(-2,0,0,2,0,0)";
+         this.player.box.style.transform = "matrix(-2,0,0,2,0,0)";
+         this.anim.chooseAnimation(this.player.animal, this.player.box,"walk");
         break;
       case 38:
         this.player.y -= this.player.speed;
+        this.anim.chooseAnimation(this.player.animal, this.player.box,"walk");
         break;
       case 39:
         this.player.x += this.player.speed;
-        document.getElementById("player").style.transform = "matrix(2,0,0,2,0,0)";
+        this.player.box.style.transform = "matrix(2,0,0,2,0,0)";
+        this.anim.chooseAnimation(this.player.animal, this.player.box,"walk");
         break;
       case 40:
         this.player.y += this.player.speed;
+        this.anim.chooseAnimation(this.player.animal, this.player.box,"walk");
         break;
     }
-    // console.log("in document: "+document.getElementById("player").style.left);
-    // console.log("in code: "+this.player.x);
-
-    this.anim.setSpriteSheetRow(document.getElementById("player"),this.anim.dog_ss.row[1]);
-    this.anim.AnimateCharacter(this.anim.dog_ss.walk, document.getElementById("player"));
     
-    //this.player.elem.style.left = this.player.x + "px";
-    document.getElementById("player").style.left = this.player.x + "px";
-    document.getElementById("player").style.top = this.player.y + "px";
 
-    //document.getElementById("player").style.transform = "matrix("+(2*1)+",0,0,2,"+this.player.x+",0)";
+    //animate only on those keys
+    //this.anim.chooseAnimation(this.player.animal, this.player.box,"walk");
+    
+    //move
+    this.player.box.style.left = this.player.x + "px";
+    this.player.box.style.top = this.player.y + "px";
+
   }
 
   ngOnDestroy()
   {
     //alert("experience: "+this.expBar+", health: "+this.healthBar+", hunger: "+this.hungerBar);
-
+    clearInterval(this.myTimer);
     this.sess.setExperience(this.expBar);
     this.sess.setHealth(this.healthBar);
     this.sess.setHunger(this.hungerBar);
