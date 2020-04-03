@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SwitchPageService } from '../services/switch-page.service';
 import { ManageStatusService } from '../services/manage-status.service';
 import { ManageSessionService } from '../services/manage-session.service';
+import { SoundsService } from '../services/sounds.service';
 
 @Component({
   selector: 'app-pet-manage-screen',
@@ -17,13 +18,15 @@ export class PetManageScreenComponent implements OnInit {
   constructor(
     private switchpage:SwitchPageService,
     public status:ManageStatusService,
-    public sess:ManageSessionService
+    public sess:ManageSessionService,
+    public sounds:SoundsService
   ) { }
 
   ngOnInit(): void {
     //this.status.setFullBar(".bar-wrapper");
     //alert('init working');
    // sessionStorage.getItem("");
+   this.sounds.playLoop(2)
   }
 
   ngAfterViewInit()

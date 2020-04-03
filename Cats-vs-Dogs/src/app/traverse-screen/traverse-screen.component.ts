@@ -6,6 +6,7 @@ import { ManageSessionService } from '../services/manage-session.service';
 import {HostListener, /*KeyboardEvent*/} from '@angular/core';
 import { empty } from 'rxjs';
 import { AnimationService } from '../services/animation.service';
+import { SoundsService } from '../services/sounds.service';
 
 /*
 var direction = 1;
@@ -128,11 +129,13 @@ export class TraverseScreenComponent implements OnInit {
     private switchpage:SwitchPageService,
     public status:ManageStatusService,
     private sess:ManageSessionService,
-    public anim:AnimationService
+    public anim:AnimationService,
+    public sounds:SoundsService
   ) { }
 
   ngOnInit(): void {
     this.controls.init();
+    this.sounds.playLoop(3);
   }
   
 

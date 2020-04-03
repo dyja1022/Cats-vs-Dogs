@@ -4,6 +4,7 @@ import { AnimationService } from '../services/animation.service';
 import { SwitchPageService } from '../services/switch-page.service';
 import { ManageSessionService } from '../services/manage-session.service';
 import { ManageStatusService } from '../services/manage-status.service';
+import { SoundsService } from '../services/sounds.service';
 
 // var num = 0;
 // var direction = 1;
@@ -119,11 +120,13 @@ export class BattleScreenComponent implements OnInit {
     public animate:AnimationService,
     public switchpage:SwitchPageService,
     public status:ManageStatusService,
-    public sess:ManageSessionService) { }
+    public sess:ManageSessionService,
+    public sounds:SoundsService) { }
 
   ngOnInit(): void {
     this.controls.init();
     this.animate.init();
+    this.sounds.playLoop(1);
     //this.myTimer = setInterval(this.foo,1000/5);
   }
 
