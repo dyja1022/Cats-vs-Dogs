@@ -59,6 +59,11 @@ namespace Cat_V_Dog_Data.Repositories
             return users;
         }
 
+        public UserStats GetUserStats(int userId)
+        {
+            var userStat = _db.UserStats.Where(u => u.UserId == userId).Single();
 
+            return userStat;
+        }
     }
 }
