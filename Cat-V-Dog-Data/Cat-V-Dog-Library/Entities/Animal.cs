@@ -8,7 +8,6 @@ namespace Cat_V_Dog_Library
         public int Id { get; set; }
         public int? Strength { get; set; }
         public int? Speed { get; set; }
-        public int? Agility { get; set; }
         public int? Intelligence { get; set; }
         public int? Xp { get; set; }
         public int? Age { get; set; }
