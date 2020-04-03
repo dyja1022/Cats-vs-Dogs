@@ -152,6 +152,7 @@ export class BattleScreenComponent implements OnInit {
   }
 
   LeaveBattle(){
+    this.sounds.playOnce(4);
     this.switchpage.changePage("traverse");
   }
 
