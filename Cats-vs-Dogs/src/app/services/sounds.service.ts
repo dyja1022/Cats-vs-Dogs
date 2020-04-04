@@ -6,7 +6,7 @@ enum Sounds {
   profile = "https://files.freemusicarchive.org/storage-freemusicarchive-org/music/Music_for_Video/Komiku/Captain_Glouglous_Incredible_Week_Soundtrack/Komiku_-_04_-_Skate.mp3",
   home = "https://files.freemusicarchive.org/storage-freemusicarchive-org/music/Music_for_Video/Komiku/Captain_Glouglous_Incredible_Week_Soundtrack/Komiku_-_02_-_Home.mp3",
   flee = "https://freesound.org/people/pfranzen/sounds/383073/download/383073__pfranzen__running-away-on-solid-floor.ogg",
-  eat = "https://freesound.org/people/InspectorJ/sounds/429593/download/429593__inspectorj__chewing-breadstick-single-b.wav",
+  eat = "https://freesound.org/people/xtrgamr/sounds/253615/download/253615__xtrgamr__good-potato-chip-crunch.wav",
 };
 
 @Injectable({
@@ -14,6 +14,7 @@ enum Sounds {
 })
 export class SoundsService {
   music: HTMLAudioElement;
+  quick: HTMLAudioElement;
 
   constructor(){ 
     this.music = new Audio();
@@ -31,11 +32,10 @@ export class SoundsService {
   }
 
   playOnce(sound:Sounds) {
-    let quick: HTMLAudioElement;
-    quick = new Audio();
-    quick.src = sound;
-    quick.play();
-    quick.loop = false;
+    this.quick = new Audio();
+    this.quick.src = sound;
+    this.quick.loop = false;
+    this.quick.play();
   }
 
   stop() {
