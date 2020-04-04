@@ -124,25 +124,6 @@ export class BattleScreenComponent implements OnInit {
     return Math.sqrt(squared);
   }
 
-  // chooseAnimation(ss,box,motion)
-  // {
-  //   switch(motion){
-  //     case "idle":
-  //       this.anim.AnimateCharacter(ss.idle, box,ss.row.idle);
-  //       //this.myTimer = setInterval(()=>{this.anim.AnimateCharacter(ss.idle, box,ss.row.idle);},1000/5);
-  //       break;
-  //     case "walk":
-  //       this.anim.AnimateCharacter(ss.walk, box,ss.row.walk);
-  //       break;
-  //     case "strike":
-  //       this.anim.AnimateCharacter(ss.strike, box,ss.row.strike);
-  //       break;
-  //     case "defeat":
-  //       this.anim.AnimateCharacter(ss.defeat, box,ss.row.defeat);
-  //       break;
-  //   }
-  // }
-
   isStrikingDistance()
   {
     if(this.calculateDistance() <= 30)
@@ -239,11 +220,6 @@ export class BattleScreenComponent implements OnInit {
       case 32:
         //play animation
         this.updateAnimation("strike",this.enemy.currentMotion);
-        //this.chooseAnimation(this.player.animal,this.player.box,"strike");
-        //if within striking distance, lower enemy health
-        // if(this.isStrikingDistance()){
-        //   this.status.lowerBar("enemy-health",this.player.hp)
-        // }
         break;
       case 37:
         this.player.x -= this.player.speed;

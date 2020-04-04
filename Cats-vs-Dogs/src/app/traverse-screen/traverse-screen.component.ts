@@ -126,16 +126,35 @@ export class TraverseScreenComponent implements OnInit {
     this.switchpage.changePage('login')
   }
 
+  time1;
+  time2;
+  foo(){
+    this.time1 = setInterval(()=>{
+    console.log("time 1")
+    },1000);
+  }
+  foo2(){
+    this.time2 = setInterval(()=>{
+      console.log("time 2")
+      },1000);
+  }
 
   @HostListener('document:keydown', ['$event'])
   onKeyDown(event:KeyboardEvent) {
     switch(event.keyCode)
     {
-      case 32:this.anim.chooseAnimation(this.player.animal, this.player.box,"defeat");break;
+      case 32:
+        this.anim.chooseAnimation(this.player.animal, this.player.box,"defeat");
+        // this.time1 = setInterval(()=>{
+        //      this.anim.chooseAnimation(this.player.animal, this.player.box,"defeat");
+        //   },1000);
+        //   if(this.anim.frame >= this.player.animal.defeat.length){
+        //     clearInterval(this.time1)
+        //   }
+        break;
       case 37:
         this.player.x -= this.player.speed;
          //matrix(scaleX(),skewY(),skewX(),scaleY(),translateX(),translateY())
-        //  this.player.box.style.transform = "matrix(-2,0,0,2,0,0)";
          this.player.box.style.transform = "matrix(-2,0,0,2,-10,0)";
          this.anim.chooseAnimation(this.player.animal, this.player.box,"walk");
         break;
@@ -145,7 +164,6 @@ export class TraverseScreenComponent implements OnInit {
         break;
       case 39:
         this.player.x += this.player.speed;
-        // this.player.box.style.transform = "matrix(2,0,0,2,0,0)";
         this.player.box.style.transform = "matrix(2,0,0,2,10,0)";
         this.anim.chooseAnimation(this.player.animal, this.player.box,"walk");
         break;
@@ -155,20 +173,19 @@ export class TraverseScreenComponent implements OnInit {
         break;
     }
     
-
     //animate only on those keys
     //this.anim.chooseAnimation(this.player.animal, this.player.box,"walk");
     
     //move
     this.player.box.style.left = this.player.x + "px";
     this.player.box.style.top = this.player.y + "px";
-
   }
 
   ngOnDestroy()
   {
     //alert("experience: "+this.expBar+", health: "+this.healthBar+", hunger: "+this.hungerBar);
     clearInterval(this.myTimer);
+
     this.sess.setExperience(this.expBar);
     this.sess.setHealth(this.healthBar);
     this.sess.setHunger(this.hungerBar);

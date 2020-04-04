@@ -168,7 +168,8 @@
     height: 448px;
     width: 288px;
     background-image: url("/assets/images/dog_test_sprite.png");
+    transform: scale(0.25);
     position: relative;
     left: 200px;
-    top: 100px;
+    top: 30%;
 }

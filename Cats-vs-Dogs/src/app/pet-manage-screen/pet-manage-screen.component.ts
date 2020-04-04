@@ -74,7 +74,22 @@ export class PetManageScreenComponent implements OnInit {
     // this.status.setBar("experience",this.expBar);
     // this.status.setBar("health",100);
     // this.status.setBar("hunger",100);
+    this.foo();
+    this.foo2();
 
+  }
+
+  time1;
+  time2;
+  foo(){
+    this.time1 = setInterval(()=>{
+    console.log("time 1")
+    },1000);
+  }
+  foo2(){
+    this.time2 = setInterval(()=>{
+      console.log("time 2")
+      },1000);
   }
   
   lowerBar(id){

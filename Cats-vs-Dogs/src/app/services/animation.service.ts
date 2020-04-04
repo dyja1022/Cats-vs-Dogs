@@ -33,14 +33,17 @@ export class AnimationService {
     this.enemy = document.getElementById("enemy");
   }
 
+  getFramesLength(ssMovement)
+  {
+    return ssMovement.length;
+  }
   AnimateCharacter(characterMovement,actor,row)
   {
     actor.style.backgroundPositionX = -(characterMovement[this.frame]) + 'px';
     
     actor.style.backgroundPositionY = -row+'px';
 
-    //if you reach end of array, restart
-    if(this.frame >= characterMovement.length)
+    if(this.frame >= this.getFramesLength(characterMovement))
     {
       this.frame = 0;
     }
@@ -50,9 +53,9 @@ export class AnimationService {
     }
   }
 
-  chooseAnimation(ss,box,motion)
+  chooseAnimation(ss,box,movement)
   {
-    switch(motion){
+    switch(movement){
       case "idle":
         this.AnimateCharacter(ss.idle, box,ss.row.idle);
         break;
@@ -67,5 +70,4 @@ export class AnimationService {
         break;
     }
   }
-
 }
