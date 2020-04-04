@@ -1,39 +1,39 @@
 import { Injectable } from '@angular/core';
 
+enum Sounds {
+  login = "https://files.freemusicarchive.org/storage-freemusicarchive-org/music/Oddio_Overplay/Good_Old_Neon/This_Is_the_News/Good_Old_Neon_-_10_-_Video_Game_Soundtrack.mp3",
+  battle = "https://freesound.org/data/previews/466/466998_285997-lq.mp3",
+  profile = "https://files.freemusicarchive.org/storage-freemusicarchive-org/music/Music_for_Video/Komiku/Captain_Glouglous_Incredible_Week_Soundtrack/Komiku_-_04_-_Skate.mp3",
+  home = "https://files.freemusicarchive.org/storage-freemusicarchive-org/music/Music_for_Video/Komiku/Captain_Glouglous_Incredible_Week_Soundtrack/Komiku_-_02_-_Home.mp3",
+  flee = "https://freesound.org/people/pfranzen/sounds/383073/download/383073__pfranzen__running-away-on-solid-floor.ogg",
+  eat = "https://freesound.org/people/InspectorJ/sounds/429593/download/429593__inspectorj__chewing-breadstick-single-b.wav",
+};
+
 @Injectable({
   providedIn: 'root'
 })
 export class SoundsService {
-
-  readonly login = "https://files.freemusicarchive.org/storage-freemusicarchive-org/music/Oddio_Overplay/Good_Old_Neon/This_Is_the_News/Good_Old_Neon_-_10_-_Video_Game_Soundtrack.mp3";
-  readonly battle = "https://freesound.org/data/previews/466/466998_285997-lq.mp3"
-  readonly profile = "https://files.freemusicarchive.org/storage-freemusicarchive-org/music/Music_for_Video/Komiku/Captain_Glouglous_Incredible_Week_Soundtrack/Komiku_-_04_-_Skate.mp3"
-  readonly home = "https://files.freemusicarchive.org/storage-freemusicarchive-org/music/Music_for_Video/Komiku/Captain_Glouglous_Incredible_Week_Soundtrack/Komiku_-_02_-_Home.mp3"
-  soundArr:string[] = [];
   music: HTMLAudioElement;
 
-
-
-  
-  constructor() { 
+  constructor(){ 
     this.music = new Audio();
-    this.soundArr.push(this.login)
-    this.soundArr.push(this.battle)
-    this.soundArr.push(this.profile)
-    this.soundArr.push(this.home)
   }
 
-  playLoop(n:number) {
+  list() {
+    return Sounds;
+  }
+
+  playLoop(sound:Sounds) {
     this.music.load();
-    this.music.src = this.soundArr[n];
+    this.music.src = sound;
     this.music.play();
     this.music.loop = true;
   }
 
-  playOnce(n:number) {
+  playOnce(sound:Sounds) {
     let quick: HTMLAudioElement;
     quick = new Audio();
-    quick.src = this.soundArr[n];
+    quick.src = sound;
     quick.play();
     quick.loop = false;
   }

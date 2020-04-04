@@ -4,6 +4,7 @@ import { AnimationService } from '../services/animation.service';
 import { SwitchPageService } from '../services/switch-page.service';
 import { ManageSessionService } from '../services/manage-session.service';
 import { ManageStatusService } from '../services/manage-status.service';
+import { SoundsService } from '../services/sounds.service';
 
 @Component({
   selector: 'app-battle-screen',
@@ -41,11 +42,22 @@ export class BattleScreenComponent implements OnInit {
     public anim:AnimationService,
     public switchpage:SwitchPageService,
     public status:ManageStatusService,
-    public sess:ManageSessionService) { }
+    public sess:ManageSessionService,
+    public sounds:SoundsService) { }
 
   ngOnInit(): void {
     this.controls.init();
-    this.anim.init();
+    //this.animate.init();
+    this.sounds.playLoop(this.sounds.list().battle);
+    //this.myTimer = setInterval(this.foo,1000/5);
+  }
+
+  foo()
+  {
+    //console.log("test")
+    //this.animate.test();
+   // this.animate.AnimateCharacter(this.dog_ss.idle,this.player);
+    //this.animate.AnimateCharacter(this.cat_ss.idle,this.enemy);
   }
 
   ngAfterViewInit()
@@ -102,6 +114,7 @@ export class BattleScreenComponent implements OnInit {
   }
 
   LeaveBattle(){
+    this.sounds.playOnce(this.sounds.list().flee);
     this.switchpage.changePage("traverse");
   }
 

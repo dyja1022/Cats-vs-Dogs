@@ -3,6 +3,7 @@ import { SwitchPageService } from '../services/switch-page.service';
 import { ManageSessionService } from '../services/manage-session.service';
 import { AccountService } from '../services/account.service';
 import {Howl, Howler} from 'howler';
+import { SoundsService } from '../services/sounds.service';
 
 interface Animal {
 
@@ -28,24 +29,16 @@ export class LoginRegisterComponent implements OnInit {
   password: string;
   user: User;
 
-  music: HTMLAudioElement;
-
   constructor(
     public switchpage:SwitchPageService,
     public sess:ManageSessionService,
-    private account:AccountService) { }
+    private account:AccountService,
+    public sounds:SoundsService) { }
 
   ngOnInit(): void {
-    if (this.music == undefined || this.music == null)
-      this.playMusic()
-  }
-
-
-  playMusic() {
-    this.music = new Audio();
-    this.music.src = 'https://files.freemusicarchive.org/storage-freemusicarchive-org/music/ccCommunity/Chad_Crouch/Arps/Chad_Crouch_-_Algorithms.mp3';
-    this.music.play();
-    this.music.loop = true;
+    //if (this.music == undefined || this.music == null)
+    //  this.playMusic()
+    this.sounds.playLoop(this.sounds.list().login);
   }
 
   async Login()

@@ -17,6 +17,7 @@ namespace Cat_V_Dog_Library
 
         public virtual DbSet<Animal> Animal { get; set; }
         public virtual DbSet<User> User { get; set; }
+        public virtual DbSet<UserStats> UserStats { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -31,21 +32,61 @@ namespace Cat_V_Dog_Library
         {
             modelBuilder.Entity<Animal>(entity =>
             {
+                entity.Property(e => e.Age).HasDefaultValueSql("((0))");
+
+                entity.Property(e => e.Intelligence).HasDefaultValueSql("((5))");
+
+                entity.Property(e => e.NumberOfBattles).HasDefaultValueSql("((0))");
+
+                entity.Property(e => e.Speed).HasDefaultValueSql("((5))");
+
+                entity.Property(e => e.Strength).HasDefaultValueSql("((5))");
+
+                entity.Property(e => e.Xp).HasDefaultValueSql("((0))");
+
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.Animal)
                     .HasForeignKey(d => d.UserId)
-                    .HasConstraintName("FK__Animal__UserId__571DF1D5");
+                    .HasConstraintName("FK__Animal__UserId__0C85DE4D");
             });
 
             modelBuilder.Entity<User>(entity =>
             {
+                entity.HasIndex(e => e.Username)
+                    .HasName("UQ__User__536C85E4783CAF12")
+                    .IsUnique();
+
+                entity.Property(e => e.FirstLogin).HasDefaultValueSql("((1))");
+
                 entity.Property(e => e.Password)
+                    .IsRequired()
                     .HasMaxLength(30)
                     .IsUnicode(false);
 
                 entity.Property(e => e.Username)
+                    .IsRequired()
                     .HasMaxLength(30)
                     .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<UserStats>(entity =>
+            {
+                entity.Property(e => e.Affiliation)
+                    .HasMaxLength(5)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Experience).HasDefaultValueSql("((0))");
+
+                entity.Property(e => e.Loss).HasDefaultValueSql("((0))");
+
+                entity.Property(e => e.TotalBattles).HasDefaultValueSql("((0))");
+
+                entity.Property(e => e.Wins).HasDefaultValueSql("((0))");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.UserStats)
+                    .HasForeignKey(d => d.UserId)
+                    .HasConstraintName("FK__UserStats__UserI__14270015");
             });
 
             OnModelCreatingPartial(modelBuilder);

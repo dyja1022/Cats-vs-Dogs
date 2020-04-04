@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SwitchPageService } from '../services/switch-page.service';
 import { ManageStatusService } from '../services/manage-status.service';
 import { ManageSessionService } from '../services/manage-session.service';
+import { SoundsService } from '../services/sounds.service';
 
 @Component({
   selector: 'app-pet-manage-screen',
@@ -17,13 +18,44 @@ export class PetManageScreenComponent implements OnInit {
   constructor(
     private switchpage:SwitchPageService,
     public status:ManageStatusService,
-    public sess:ManageSessionService
+    public sess:ManageSessionService,
+    public sounds:SoundsService
   ) { }
+
+  animateOnClick() {
+    let elem = document.getElementById("pet");
+
+    if (elem.style.backgroundPositionX == "-288px")
+      elem.style.backgroundPosition = `0px 0px`;
+    else 
+      elem.style.backgroundPosition = `-288px 0px`;
+  }
+
+  animateScript() {
+    let elem = document.getElementById("pet");
+    var tID; //we will use this variable to clear the setInterval()
+    var    position = 288; //start position for the image slicer
+    const  interval = 300; //100 ms of interval for the setInterval()
+
+    tID = setInterval ( () => {
+
+      elem.style.backgroundPositionX = `-${position}px`;
+      if (position < 576)
+       { position += position;}
+      //we increment the position by 256 each time
+      else
+        { position = 288; }
+
+    }, interval );
+
+  }
 
   ngOnInit(): void {
     //this.status.setFullBar(".bar-wrapper");
     //alert('init working');
    // sessionStorage.getItem("");
+   this.sounds.playLoop(this.sounds.list().profile)
+   this.animateScript();
   }
 
   ngAfterViewInit()
@@ -63,7 +95,8 @@ export class PetManageScreenComponent implements OnInit {
 
   GiveFood()
   {
-    this.status.raiseBar('hunger',50);
+    this.sounds.playOnce(this.sounds.list().eat)
+    this.status.raiseBar('hunger',5);
     this.getAllBars();
   }
 

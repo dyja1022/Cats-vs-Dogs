@@ -5,6 +5,7 @@ using System.Text;
 using Microsoft.EntityFrameworkCore;
 using Cat_V_Dog_Library.Interfaces;
 using Cat_V_Dog_Library;
+using Microsoft.Data.SqlClient;
 
 namespace Cat_V_Dog_Data.Repositories
 {
@@ -17,18 +18,23 @@ namespace Cat_V_Dog_Data.Repositories
             _db = db ?? throw new ArgumentNullException(nameof(db));
         }
 
-        public int CreateUser(User user)
+        public int CreateUser(string username, string password)
         {
             try
             {
-                _db.Add(user);
-                _db.SaveChanges();
+                // stored procedure to create user + create userstats entries
+                var user = _db.User.FromSqlRaw("EXEC CreateUser @UserId={0}, @Username={1}, @Password={2}", 0, username, password).AsEnumerable().Single();
                 return user.Id;
             }
-            catch (DbUpdateException)
+            catch (ArgumentNullException)
             {
                 throw;
             }
+            catch (InvalidOperationException)
+            {
+                throw;
+            }
+            
         }
 
         public User Login(string username, string password)
@@ -37,9 +43,9 @@ namespace Cat_V_Dog_Data.Repositories
             {
                 var user = _db.User.Where(u => u.Username == username && u.Password == password).Single();
                 // update firstlogin to true
-                if (!user.FirstLogin)
+                if (!user.FirstLogin.Value)
                 {
-                    user.FirstLogin = true;
+                    user.FirstLogin = false;
                 }
                 _db.Update(user);
                 _db.SaveChanges();
@@ -57,6 +63,19 @@ namespace Cat_V_Dog_Data.Repositories
             return users;
         }
 
+        public UserStats GetUserStats(int userId)
+        {
+            var userStat = _db.UserStats.Where(u => u.UserId == userId).Single();
 
+            return userStat;
+        }
+
+        public void AssignAffiliation(string affil, int userId)
+        {
+            var user = _db.UserStats.Where(u => u.UserId == userId).Single();
+            user.Affiliation = affil;
+            _db.Update(user);
+            _db.SaveChanges();
+        }
     }
 }
