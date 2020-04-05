@@ -106,6 +106,7 @@ export class PetManageScreenComponent implements OnInit {
 
   Logout()
   {
+    sessionStorage.removeItem('id');
     this.switchpage.changePage('login')
   }
 
