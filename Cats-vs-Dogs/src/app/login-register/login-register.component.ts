@@ -41,6 +41,10 @@ export class LoginRegisterComponent implements OnInit {
     this.sounds.playLoop(this.sounds.list().login);
   }
 
+  async GetStats() {
+
+  }
+
   async Login()
   {
 
@@ -54,8 +58,12 @@ export class LoginRegisterComponent implements OnInit {
     
     // if user is null, then invalid username + password combination
     if (this.user == null || this.user == undefined) {
+      // login failed
       console.log('login failed');
     } else {
+      // login successful
+      // store userId to session storage
+      sessionStorage.setItem('id', this.user.id.toString())
       console.log('login success')
       this.switchpage.changePage('traverse');
     }

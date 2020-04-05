@@ -32,5 +32,11 @@ export class AccountService {
     return resp;
   }
 
+  async getStats(userId: number) {
+    const resp = await this.client.get(this.baseUrl + `/User/stats/${userId}`).toPromise();
+    return resp;
+  }
+
+  
 
 }
