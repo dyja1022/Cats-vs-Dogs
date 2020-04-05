@@ -233,13 +233,16 @@ export class BattleScreenComponent implements OnInit {
     }
 
     let background = document.getElementById("battle-map");
-    setTimeout(() => { background.style.filter = 'invert(25%) sepia(94%) saturate(5316%) hue-rotate(357deg) brightness(107%) contrast(96%)'}, 4000); // wait 2 sec before background effect
+
+    setTimeout(() => { 
+       background.style.filter = 'invert(25%) sepia(94%) saturate(5316%) hue-rotate(357deg) brightness(107%) contrast(96%)'
+       background.style.transition = '4s'
+      }, 3500); 
+
     setTimeout(() => {
            background.style.filter = 'none'
            this.status.lowerBar("enemy-health",100)
-          }, 10000);
-
-
+          }, 6000);
 
   }
 
