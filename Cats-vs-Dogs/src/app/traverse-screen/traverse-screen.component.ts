@@ -123,6 +123,7 @@ export class TraverseScreenComponent implements OnInit {
   }
   Logout()
   {
+    sessionStorage.removeItem('id')
     this.switchpage.changePage('login')
   }
 
