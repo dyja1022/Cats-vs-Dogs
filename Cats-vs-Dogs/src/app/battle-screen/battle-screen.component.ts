@@ -237,6 +237,7 @@ export class BattleScreenComponent implements OnInit {
     setTimeout(() => {
            background.style.filter = 'none'
            this.status.lowerBar("enemy-health",100)
+           this.CheckIfPlayerWon();
           }, 10000);
 
 

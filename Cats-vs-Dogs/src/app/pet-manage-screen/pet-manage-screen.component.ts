@@ -152,6 +152,7 @@ export class PetManageScreenComponent implements OnInit {
   }
 
   ngOnDestroy(){
+    clearInterval(this.myTimer);
     this.sess.setExperience(this.expBar);
     this.sess.setHealth(this.healthBar);
     this.sess.setHunger(this.hungerBar);
