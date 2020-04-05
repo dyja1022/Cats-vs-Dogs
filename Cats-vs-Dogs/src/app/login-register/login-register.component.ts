@@ -28,6 +28,7 @@ export class LoginRegisterComponent implements OnInit {
   username: string;
   password: string;
   user: User;
+  
 
   constructor(
     public switchpage:SwitchPageService,
@@ -38,7 +39,10 @@ export class LoginRegisterComponent implements OnInit {
   ngOnInit(): void {
     //if (this.music == undefined || this.music == null)
     //  this.playMusic()
-    this.sounds.playLoop(this.sounds.list().login);
+
+    let loginsound = this.sounds.list().login;
+    
+    this.sounds.playLoop(loginsound);
   }
 
   async GetStats() {

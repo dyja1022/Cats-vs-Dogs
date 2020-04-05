@@ -17,6 +17,7 @@ export class BattleScreenComponent implements OnInit {
   enemyTimer;
   healthBar;
   strikingDistance: boolean;
+  stopEnemy: boolean;
   
   player = {
     speed: 4,
@@ -46,6 +47,7 @@ export class BattleScreenComponent implements OnInit {
     public sounds:SoundsService) { }
 
   ngOnInit(): void {
+    this.stopEnemy = false;
     this.controls.init();
     //this.animate.init();
     this.sounds.playLoop(this.sounds.list().battle);
@@ -104,7 +106,9 @@ export class BattleScreenComponent implements OnInit {
       this.anim.chooseAnimation(this.player.animal,this.player.box,this.player.currentMotion);
       this.anim.chooseAnimation(this.enemy.animal,this.enemy.box,this.enemy.currentMotion);
 
-      this.EnemyAI();
+      if (!this.stopEnemy) {
+        this.EnemyAI();
+      }
     },1000/5);
   }
 
@@ -211,14 +215,50 @@ export class BattleScreenComponent implements OnInit {
     // console.log(this.status.getBarPercent("enemy-health"));
   }
 
+  Omaewa() {
+    this.stopEnemy = true;  // stop enemy ai
+
+    let enemyDir = this.enemy.box.style.transform;
+    // enemy facing left
+    if (enemyDir == "matrix(-2, 0, 0, 2, 0, 0)") {
+      this.player.x = this.enemy.x + (this.player.speed * 8); // teleports behind you
+      this.player.box.style.transform = "matrix(-2,0,0,2,-10,0)";
+      console.log('aa');
+    }
+    // enemy facing right
+    else if (enemyDir == "matrix(2, 0, 0, 2, 0, 0)") {
+      this.player.x = this.enemy.x - (this.player.speed * 8); // teleports behind you
+      this.player.box.style.transform = "matrix(2,0,0,2,10,0)";
+      console.log('bb');
+    }
+
+    let background = document.getElementById("battle-map");
+    setTimeout(() => { background.style.filter = 'invert(25%) sepia(94%) saturate(5316%) hue-rotate(357deg) brightness(107%) contrast(96%)'}, 4000); // wait 2 sec before background effect
+    setTimeout(() => {
+           background.style.filter = 'none'
+           this.status.lowerBar("enemy-health",100)
+          }, 10000);
+
+
+
+  }
+
   @HostListener('document:keydown', ['$event'])
   onKeyDown(event:KeyboardEvent) 
   {
    // this.stopTimer();
     switch(event.keyCode)
     {
+      // up arrow key
+      case 38:
+        this.sounds.stop(); // stop musci
+        this.sounds.playOnce(this.sounds.list().nani) // play nani
+        this.Omaewa();
+        break;
       case 32:
         //play animation
+        console.log(this.enemy.box.style.transform);
+
         this.updateAnimation("strike",this.enemy.currentMotion);
         break;
       case 37:
