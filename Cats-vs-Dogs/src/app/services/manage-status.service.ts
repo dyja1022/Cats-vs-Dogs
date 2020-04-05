@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ManageSessionService } from './manage-session.service';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -9,8 +10,11 @@ export class ManageStatusService {
   bar:number;
   exp:number;
   fullbar:number;
+  baseUrl = "https://localhost:44363/api";
 
-  constructor(private  mss:ManageSessionService) { }
+  constructor(
+    private  mss:ManageSessionService,
+    private client: HttpClient) { }
 
   setFullBar(selector){
     this.fullbar = document.querySelector(selector).clientWidth;
@@ -77,7 +81,7 @@ export class ManageStatusService {
   {
     return this.exp;
   }
-
+ 
   //for whenever you have api access
   //saveExpToDatabase(value){}
 }

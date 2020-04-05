@@ -73,15 +73,14 @@
 }
 
   #player{
-
     bottom: 5%;
     left: 35%;
-    width: 24px;
+    width: 36px;
     height: 36px;
     transform: scale(2);
     background: url("/assets/images/dog-ss.PNG") -48px -24px;
-    /*============================================left , top
-    background-color: white;*/
+    /*============================================left , top*/
+    /* background-color: white; */
   }
 
   #logout{

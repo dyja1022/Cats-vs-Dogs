@@ -8,104 +8,6 @@ import { empty } from 'rxjs';
 import { AnimationService } from '../services/animation.service';
 import { SoundsService } from '../services/sounds.service';
 
-/*
-var direction = 1;
-var player;
-
-var character = {
-  speed: 4,
-  posX: 0,
-  posY: 0
-}
-
-//dog sprite sheet columns
-var dog_ss = {
-  idle:[50,108,179,236],
-  walk: [50,113,176,240,303,371,434,496],
-  strike: [],
-  defeat: [],
-  row: [24,84]
-};
-
-function init(){
-  player = document.getElementById("player");
-  
-  //set to sprite sheet to second row
-  player.style.backgroundPositionY = -(dog_ss.row[1]) + 'px';
- // character.posX = getPositionX(player);
-  character.posY = getPositionY(player);
-
-  alert(character.posX);
-}
-//keydown events
-document.onkeydown = function(e)
-{
-  switch(e.keyCode)
-  {
-    case 37: //left arrow
-      character.posX -= character.speed;
-      direction = -1;
-      player.style.left =  (character.posX +"px");
-      break;
-    case 38: //up arrow
-      character.posY -= character.speed;
-      player.style.top =  (character.posY +"px");
-      break;
-    case 39: //right arrow
-      character.posX += character.speed;
-      direction = 1;
-      player.style.left =  (character.posX +"px");
-      break;
-    case 40: //down arrow
-      character.posY += character.speed;
-      player.style.top =  (character.posY +"px");
-      break;
-  }
-
- // alert(character.posX)
-  AnimateCharacter(dog_ss.walk, player);
-  //matrix(scaleX(),skewY(),skewX(),scaleY(),translateX(),translateY())
-  player.style.transform = "matrix("+(2*direction)+",0,0,2,"+character.posX+",0)";
-}
-/*
-var i = 0;
-setInterval(()=>
-{
-  
-  //AnimateCharacter(dog_ss.walk,player);
-
-  //use switch statement to toggle between different animations
-},1000/5)
-
-var i = 0;
-function AnimateCharacter(characterMovement,actor)
-{
-  //loop through sprite sheet columns
-  actor.style.backgroundPositionX = -(characterMovement[i]) + 'px';
-  //if you reach end of array, restart
-  if(i >= characterMovement.length)
-  {
-    i = 0;
-  }
-  else
-  {
-    i++;
-  }
-}
-
-
-function getPositionX(element) 
-{ 
-  var rect = element.getBoundingClientRect();
-  return rect.x;
-} 
-
-function getPositionY(element) 
-{ 
-  var rect = element.getBoundingClientRect();
-  return rect.y;
-} 
-*/
 
 @Component({
   selector: 'app-traverse-screen',
@@ -113,16 +15,21 @@ function getPositionY(element)
   styleUrls: ['./traverse-screen.component.css']
 })
 export class TraverseScreenComponent implements OnInit {
+  myTimer;
   expBar;
   healthBar;
   hungerBar;
 
   player = {
-    speed: 4,
+    speed: 8,
     x: 250,
     y: 500,
-    elem: null
+    hp:5,
+    box: null,
+    animal: null,
+    currentMotion: "idle"
   }
+  
 
   constructor(
     private controls:ControlsService,
@@ -144,6 +51,7 @@ export class TraverseScreenComponent implements OnInit {
     this.status.setFullBar(".bar-wrapper");
     this.getAllBars();
 
+    this.player.animal = this.anim.dog_ss;
     //===================================
     this.expBar = this.sess.getExperience();
     this.healthBar = this.sess.getHealth();
@@ -151,17 +59,39 @@ export class TraverseScreenComponent implements OnInit {
 
     this.status.setBar("experience",this.expBar);
     this.status.setBar("health",this.healthBar);
+    //this.status.setBar("health",100)
     this.status.setBar("hunger",this.hungerBar);
 
+    this.lowerHungerOverTime();
+
+    this.player.box = document.getElementById("player");
     //===================================
-    document.getElementById("player").style.left = this.player.x + "px";
-    document.getElementById("player").style.top = this.player.y + "px"
+    this.player.box.style.left = this.player.x + "px";
+    this.player.box.style.top = this.player.y + "px"
     //this.player.x = this.player.elem.getBoundingClientRect.x;
   }
 
   //decrease hunger bar over time
   lowerHungerOverTime()
   { 
+    this.myTimer = setInterval(()=>{
+      this.status.lowerBar("hunger",2);
+      this.getAllBars();
+
+      if(this.status.getBarPercent("hunger") <= 0){
+        //half the hp
+        //lower health
+        this.status.lowerBar("health",1)
+      }
+      if(this.status.getBarPercent("health") <= 0){
+        //alert("you died");
+       // this.anim.chooseAnimation(this.player.animal,this.player.box,"defeat");
+
+        this.anim.AnimateCharacter(this.player.animal.defeat,this.player.box,this.player.animal.row.defeat);
+        alert("you died");
+        this.status.setBar("health",100)
+      }
+    },2000);
   } 
 
   lowerBar(id){
@@ -188,7 +118,8 @@ export class TraverseScreenComponent implements OnInit {
   }
 
   startBattle(){
-    this.switchpage.changePage('battle')
+    
+    this.switchpage.changePage('battle');
   }
   Logout()
   {
@@ -196,39 +127,40 @@ export class TraverseScreenComponent implements OnInit {
     this.switchpage.changePage('login')
   }
 
-
   @HostListener('document:keydown', ['$event'])
   onKeyDown(event:KeyboardEvent) {
     switch(event.keyCode)
     {
+      case 32:
+        break;
       case 37:
         this.player.x -= this.player.speed;
          //matrix(scaleX(),skewY(),skewX(),scaleY(),translateX(),translateY())
-        document.getElementById("player").style.transform = "matrix(-2,0,0,2,0,0)";
+         this.player.box.style.transform = "matrix(-2,0,0,2,-10,0)";
+         this.anim.chooseAnimation(this.player.animal, this.player.box,"walk");
         break;
       case 38:
         this.player.y -= this.player.speed;
+        this.anim.chooseAnimation(this.player.animal, this.player.box,"walk");
         break;
       case 39:
         this.player.x += this.player.speed;
-        document.getElementById("player").style.transform = "matrix(2,0,0,2,0,0)";
+        this.player.box.style.transform = "matrix(2,0,0,2,10,0)";
+        this.anim.chooseAnimation(this.player.animal, this.player.box,"walk");
         break;
       case 40:
         this.player.y += this.player.speed;
+        this.anim.chooseAnimation(this.player.animal, this.player.box,"walk");
         break;
     }
-    console.log("in document: "+document.getElementById("player").style.left);
-    console.log("in code: "+this.player.x);
-    //this.player.elem.style.left = this.player.x + "px";
-    document.getElementById("player").style.left = this.player.x + "px";
-    document.getElementById("player").style.top = this.player.y + "px";
-
-    //document.getElementById("player").style.transform = "matrix("+(2*1)+",0,0,2,"+this.player.x+",0)";
+    //move
+    this.player.box.style.left = this.player.x + "px";
+    this.player.box.style.top = this.player.y + "px";
   }
 
   ngOnDestroy()
   {
-    //alert("experience: "+this.expBar+", health: "+this.healthBar+", hunger: "+this.hungerBar);
+    clearInterval(this.myTimer);
 
     this.sess.setExperience(this.expBar);
     this.sess.setHealth(this.healthBar);

@@ -30,7 +30,7 @@ namespace Cat_V_Dog_API.Controllers
         [HttpPost]
         public IActionResult Create(string username, string password)
         {
-            return Ok(_usersRepo.CreateUser(username, password));
+           return Ok(_usersRepo.CreateUser(username, password));
         }
 
         /// <summary>

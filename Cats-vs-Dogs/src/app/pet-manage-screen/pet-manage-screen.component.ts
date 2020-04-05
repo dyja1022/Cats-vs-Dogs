@@ -3,6 +3,7 @@ import { SwitchPageService } from '../services/switch-page.service';
 import { ManageStatusService } from '../services/manage-status.service';
 import { ManageSessionService } from '../services/manage-session.service';
 import { SoundsService } from '../services/sounds.service';
+import { AnimationService } from '../services/animation.service';
 
 @Component({
   selector: 'app-pet-manage-screen',
@@ -10,16 +11,18 @@ import { SoundsService } from '../services/sounds.service';
   styleUrls: ['./pet-manage-screen.component.css']
 })
 export class PetManageScreenComponent implements OnInit {
-
+  myTimer;
   expBar;
   healthBar;
   hungerBar;
+  warning:boolean =  false;
 
   constructor(
     private switchpage:SwitchPageService,
     public status:ManageStatusService,
     public sess:ManageSessionService,
-    public sounds:SoundsService
+    public sounds:SoundsService,
+    public anim:AnimationService
   ) { }
 
   animateOnClick() {
@@ -50,7 +53,8 @@ export class PetManageScreenComponent implements OnInit {
 
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void 
+  {
     //this.status.setFullBar(".bar-wrapper");
     //alert('init working');
    // sessionStorage.getItem("");
@@ -70,7 +74,41 @@ export class PetManageScreenComponent implements OnInit {
     this.status.setBar("health",this.healthBar);
     this.status.setBar("hunger",this.hungerBar);
 
+    // alert("working");
+    // this.status.setBar("experience",this.expBar);
+    // this.status.setBar("health",100);
+    // this.status.setBar("hunger",100);
+
+    this.lowerHungerOverTime();
   }
+
+  //decrease hunger bar over time
+  lowerHungerOverTime()
+  { 
+    this.myTimer = setInterval(()=>{
+      this.status.lowerBar("hunger",2);
+      this.getAllBars();
+
+      if(this.status.getBarPercent("hunger") <= 0){
+        //half the hp
+        //lower health
+        if(this.warning == false)
+        {
+          alert("Warning, if you don't feed your pet, it'll die!");
+          this.warning = true;
+        }
+       
+        this.status.lowerBar("health",1)        
+      }
+      if(this.status.getBarPercent("health") <= 0){
+        //alert("you died");
+
+        //this.anim.chooseAnimation(this.player.animal.defeat,this.player.box,"defeat");
+        alert("you died");
+        this.status.setBar("health",100)
+      }
+    },2000);
+  } 
   
   lowerBar(id){
     this.status.lowerBar(id,5);
@@ -84,7 +122,7 @@ export class PetManageScreenComponent implements OnInit {
 
   GivePotion()
   {
-    this.status.raiseBar('health',5);
+    this.status.raiseBar('health',25);
     this.getAllBars();
   }
 
@@ -102,8 +140,6 @@ export class PetManageScreenComponent implements OnInit {
     this.hungerBar = this.status.getBarPercent("hunger");
   }
 
-
-
   Logout()
   {
     sessionStorage.removeItem('id');
@@ -116,8 +152,6 @@ export class PetManageScreenComponent implements OnInit {
   }
 
   ngOnDestroy(){
-    //alert("experience: "+this.expBar+", health: "+this.healthBar+", hunger: "+this.hungerBar);
-
     this.sess.setExperience(this.expBar);
     this.sess.setHealth(this.healthBar);
     this.sess.setHunger(this.hungerBar);

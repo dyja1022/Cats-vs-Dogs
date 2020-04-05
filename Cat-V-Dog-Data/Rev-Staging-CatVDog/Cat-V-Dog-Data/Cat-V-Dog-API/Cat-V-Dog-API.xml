@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Cat-V-Dog-API</name>
+    </assembly>
+    <members>
+        <member name="M:Cat_V_Dog_API.Controllers.AnimalController.All">
+            <summary>
+            Returns all animals
+            </summary>
+        </member>
+        <member name="M:Cat_V_Dog_API.Controllers.AnimalController.Get(System.Int32)">
+            <summary>
+            Returns animal with required userId
+            </summary>
+        </member>
+        <member name="M:Cat_V_Dog_API.Controllers.AnimalController.Post(Cat_V_Dog_API.Model.AnimalModel)">
+            <summary>
+            Creates Animal with required UserId
+            </summary>
+        </member>
+        <member name="M:Cat_V_Dog_API.Controllers.AnimalController.Put(Cat_V_Dog_API.Model.AnimalModel)">
+            <summary>
+            Updates Animal stats with required UserId
+            </summary>
+        </member>
+        <member name="M:Cat_V_Dog_API.Controllers.AnimalController.Delete(System.Int32)">
+            <summary>
+            Removes Animal with required userId
+            </summary>
+            <param name="userId"></param>      
+        </member>
+        <member name="M:Cat_V_Dog_API.Controllers.UserController.Create(System.String,System.String)">
+            <summary>
+            Creates User with given Username and Password
+            </summary>
+            <response code="200">User successfully created</response>
+            <response code="500">Creating user failed</response>
+        </member>
+        <member name="M:Cat_V_Dog_API.Controllers.UserController.Login(Cat_V_Dog_Library.User)">
+            <summary>
+            Validates if user exists with given Username and Password
+            and updates firstlogin to false
+            </summary>
+            <response code="200">Login success</response>
+            <response code="204">Login failed</response>
+        </member>
+        <member name="M:Cat_V_Dog_API.Controllers.UserController.All">
+            <summary>
+            Returns all users
+            </summary>
+        </member>
+        <member name="M:Cat_V_Dog_API.Controllers.UserController.Stats(System.Int32)">
+            <summary>
+            Returns UserStats given userId
+            </summary>
+        </member>
+        <member name="M:Cat_V_Dog_API.Controllers.UserController.Affiliation(System.Int32,System.String)">
+            <summary>
+            Updates User Affilitation given userId
+            </summary>
+            <param name="affil">'Cats' or 'Dogs'</param>
+        </member>
+    </members>
+</doc>
