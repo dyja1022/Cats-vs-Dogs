@@ -21,7 +21,7 @@ export class TraverseScreenComponent implements OnInit {
   hungerBar;
 
   player = {
-    speed: 4,
+    speed: 8,
     x: 250,
     y: 500,
     hp:5,
@@ -91,7 +91,7 @@ export class TraverseScreenComponent implements OnInit {
         alert("you died");
         this.status.setBar("health",100)
       }
-    },1000);
+    },2000);
   } 
 
   lowerBar(id){
@@ -126,31 +126,11 @@ export class TraverseScreenComponent implements OnInit {
     this.switchpage.changePage('login')
   }
 
-  time1;
-  time2;
-  foo(){
-    this.time1 = setInterval(()=>{
-    console.log("time 1")
-    },1000);
-  }
-  foo2(){
-    this.time2 = setInterval(()=>{
-      console.log("time 2")
-      },1000);
-  }
-
   @HostListener('document:keydown', ['$event'])
   onKeyDown(event:KeyboardEvent) {
     switch(event.keyCode)
     {
       case 32:
-        this.anim.chooseAnimation(this.player.animal, this.player.box,"defeat");
-        // this.time1 = setInterval(()=>{
-        //      this.anim.chooseAnimation(this.player.animal, this.player.box,"defeat");
-        //   },1000);
-        //   if(this.anim.frame >= this.player.animal.defeat.length){
-        //     clearInterval(this.time1)
-        //   }
         break;
       case 37:
         this.player.x -= this.player.speed;
@@ -172,10 +152,6 @@ export class TraverseScreenComponent implements OnInit {
         this.anim.chooseAnimation(this.player.animal, this.player.box,"walk");
         break;
     }
-    
-    //animate only on those keys
-    //this.anim.chooseAnimation(this.player.animal, this.player.box,"walk");
-    
     //move
     this.player.box.style.left = this.player.x + "px";
     this.player.box.style.top = this.player.y + "px";
@@ -183,7 +159,6 @@ export class TraverseScreenComponent implements OnInit {
 
   ngOnDestroy()
   {
-    //alert("experience: "+this.expBar+", health: "+this.healthBar+", hunger: "+this.hungerBar);
     clearInterval(this.myTimer);
 
     this.sess.setExperience(this.expBar);

@@ -45,8 +45,9 @@ namespace Cat_V_Dog_API
                     .AllowAnyMethod()
                     .AllowAnyHeader()
                     .AllowCredentials();
-                });          
+                });
             });
+
 
             services.AddControllers(options =>
             {
