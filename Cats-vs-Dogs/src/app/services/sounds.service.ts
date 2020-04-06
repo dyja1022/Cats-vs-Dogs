@@ -7,7 +7,8 @@ enum Sounds {
   home = "https://files.freemusicarchive.org/storage-freemusicarchive-org/music/Music_for_Video/Komiku/Captain_Glouglous_Incredible_Week_Soundtrack/Komiku_-_02_-_Home.mp3",
   flee = "https://freesound.org/people/pfranzen/sounds/383073/download/383073__pfranzen__running-away-on-solid-floor.ogg",
   eat = "https://freesound.org/people/xtrgamr/sounds/253615/download/253615__xtrgamr__good-potato-chip-crunch.wav",
-  nani = "https://www.soundboard.com/handler/DownLoadTrack.ashx?cliptitle=Omae+Wa+Mou+Shindeiru&filename=24/246940-edc1578e-da08-45f3-992d-3fd6c38e586c.mp3"
+  nani = "https://www.soundboard.com/handler/DownLoadTrack.ashx?cliptitle=Omae+Wa+Mou+Shindeiru&filename=24/246940-edc1578e-da08-45f3-992d-3fd6c38e586c.mp3",
+  potion = "https://freesound.org/people/DrMinky/sounds/166188/download/166188__drminky__potion-drink-regen.wav"
 };
 
 @Injectable({
