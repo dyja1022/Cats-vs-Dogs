@@ -100,7 +100,7 @@ export class BattleScreenComponent implements OnInit {
     this.userStats.experience = Number(sessionStorage.getItem("expLevel"));
     this.userStats.wins = Number(sessionStorage.getItem("win"));
     this.userStats.totalBattles =  Number(sessionStorage.getItem("totalBattles"));
-    this.userStats.loss = Number(sessionStorage.getItem("totalBattles"));
+    this.userStats.loss = Number(sessionStorage.getItem("loss"));
   }
 
   startAnimate()
@@ -218,12 +218,13 @@ export class BattleScreenComponent implements OnInit {
     // this.userStats.loss = Number(sessionStorage.getItem("totalBattles"));
 
     //increment experience number and set experience bar
-    if(this.expBar >= 100){
+    if(this.expBar >= 100)
+    {
       var remain = this.expBar - 100;
       this.sess.setExperience(remain);
+
       //increment experience
       this.userStats.experience++;
-      
     }else{
       this.sess.setExperience(this.expBar);
     }
