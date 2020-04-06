@@ -16,6 +16,15 @@ interface User {
   animal : Animal
 }
 
+interface PlayerStats{
+    userid: number,
+    totalBattles: number,
+    wins:number,
+    loss:number,
+    experience:number,
+    affiliation: string
+  }
+
 
 @Component({
   selector: 'app-login-register',
@@ -28,6 +37,7 @@ export class LoginRegisterComponent implements OnInit {
   username: string;
   password: string;
   user: User;
+  playerStats: PlayerStats;
   
 
   constructor(
@@ -45,10 +55,6 @@ export class LoginRegisterComponent implements OnInit {
     this.sounds.playLoop(loginsound);
   }
 
-  async GetStats() {
-
-  }
-
   async Login()
   {
 
@@ -57,8 +63,10 @@ export class LoginRegisterComponent implements OnInit {
     console.log(this.password);
 
     this.user = await this.account.login(this.username, this.password) as User;
+    this.playerStats = await this.account.getStats(this.user.id) as PlayerStats
 
     console.log('user', this.user);
+    console.log('stats', this.playerStats);
     
     // if user is null, then invalid username + password combination
     if (this.user == null || this.user == undefined) {
@@ -67,12 +75,31 @@ export class LoginRegisterComponent implements OnInit {
     } else {
       // login successful
       // store userId to session storage
-      sessionStorage.setItem('id', this.user.id.toString())
+      sessionStorage.setItem('id', this.user.id.toString());
+      //=============================
+      // sessionStorage.setItem("totalBattles", this.playerStats.totalBattles.toString())
+      // sessionStorage.setItem("win", this.playerStats.wins.toString())
+      // sessionStorage.setItem("loss", this.playerStats.loss.toString())
+      // sessionStorage.setItem("side", this.playerStats.affiliation.toString())
+      //=============================
+      if(this.playerStats == null || this.user == undefined){
+        alert("is null")
+      }
+      else{
+        //alert(this.playerStats.totalBattles)
+        sessionStorage.setItem("totalBattles", this.playerStats.totalBattles.toString())
+        sessionStorage.setItem("win", this.playerStats.wins.toString())
+        sessionStorage.setItem("loss", this.playerStats.loss.toString())
+        sessionStorage.setItem("exp", this.playerStats.experience.toString())
+        sessionStorage.setItem("side", this.playerStats.affiliation.toString())
+      }
+     // alert(this.user.id)
+    
+
       console.log('login success')
       this.switchpage.changePage('traverse');
     }
 
-    //this.switchpage.changePage('traverse');
   }
 
   

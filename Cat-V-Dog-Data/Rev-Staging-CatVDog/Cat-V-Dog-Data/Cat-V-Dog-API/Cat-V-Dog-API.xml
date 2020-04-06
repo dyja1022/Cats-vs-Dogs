@@ -61,5 +61,10 @@
             </summary>
             <param name="affil">'Cats' or 'Dogs'</param>
         </member>
+        <member name="M:Cat_V_Dog_API.Controllers.UserController.Put(Cat_V_Dog_Library.UserStats)">
+            <summary>
+            Updates User stats with required UserId
+            </summary>
+        </member>
     </members>
 </doc>
