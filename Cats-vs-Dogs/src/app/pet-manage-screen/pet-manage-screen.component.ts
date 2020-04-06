@@ -39,26 +39,28 @@ export class PetManageScreenComponent implements OnInit {
   animateOnClick() {
     let elem = document.getElementById("pet");
 
-    if (elem.style.backgroundPositionX == "-288px")
+    if (elem.style.backgroundPositionX == "-160px")
       elem.style.backgroundPosition = `0px 0px`;
     else 
-      elem.style.backgroundPosition = `-288px 0px`;
+      elem.style.backgroundPosition = `-160px 0px`;
   }
 
   animateScript() {
     let elem = document.getElementById("pet");
     var tID; //we will use this variable to clear the setInterval()
-    var    position = 288; //start position for the image slicer
-    const  interval = 300; //100 ms of interval for the setInterval()
+    var    position = 160; //start position for the image slicer
+    const  interval = 150; //100 ms of interval for the setInterval()
 
     tID = setInterval ( () => {
 
       elem.style.backgroundPositionX = `-${position}px`;
-      if (position < 576)
-       { position += position;}
-      //we increment the position by 256 each time
+      if (position < (160 * 12))
+      {
+         position += 160;
+      }
+      //we increment the position by {position} each time
       else
-        { position = 288; }
+      { position = 160; }
 
     }, interval );
 
@@ -144,6 +146,7 @@ export class PetManageScreenComponent implements OnInit {
 
   GivePotion()
   {
+    this.sounds.playOnce(this.sounds.list().potion)
     this.status.raiseBar('health',25);
     this.getAllBars();
   }
