@@ -5,6 +5,8 @@ import { SwitchPageService } from '../services/switch-page.service';
 import { ManageSessionService } from '../services/manage-session.service';
 import { ManageStatusService } from '../services/manage-status.service';
 import { SoundsService } from '../services/sounds.service';
+import { AccountService } from '../services/account.service';
+import { UserStats } from '../interfaces/user-stats'
 
 @Component({
   selector: 'app-battle-screen',
@@ -16,6 +18,18 @@ export class BattleScreenComponent implements OnInit {
   myTimer;
   enemyTimer;
   healthBar;
+  expBar;
+
+  playStats:UserStats;
+
+  userStats = {
+    experience: null,
+    wins: null,
+    loss: null,
+    totalBattles:null,
+    userid:null
+  }
+
   strikingDistance: boolean;
   stopEnemy: boolean;
   
@@ -44,23 +58,15 @@ export class BattleScreenComponent implements OnInit {
     public switchpage:SwitchPageService,
     public status:ManageStatusService,
     public sess:ManageSessionService,
-    public sounds:SoundsService) { }
+    public sounds:SoundsService,
+    private account:AccountService) { }
 
   ngOnInit(): void {
     this.stopEnemy = false;
     this.controls.init();
-    //this.animate.init();
     this.sounds.playLoop(this.sounds.list().battle);
-    //this.myTimer = setInterval(this.foo,1000/5);
   }
 
-  foo()
-  {
-    //console.log("test")
-    //this.animate.test();
-   // this.animate.AnimateCharacter(this.dog_ss.idle,this.player);
-    //this.animate.AnimateCharacter(this.cat_ss.idle,this.enemy);
-  }
 
   ngAfterViewInit()
   { 
@@ -85,6 +91,16 @@ export class BattleScreenComponent implements OnInit {
     this.enemy.box.style.top = this.enemy.y + "px";
     this.player.box.style.left = this.player.x + "px";
     this.enemy.box.style.left = this.enemy.x + "px";
+
+    this.setStats();
+  }
+
+  setStats()
+  {
+    this.userStats.experience = Number(sessionStorage.getItem("expLevel"));
+    this.userStats.wins = Number(sessionStorage.getItem("win"));
+    this.userStats.totalBattles =  Number(sessionStorage.getItem("totalBattles"));
+    this.userStats.loss = Number(sessionStorage.getItem("totalBattles"));
   }
 
   startAnimate()
@@ -191,13 +207,54 @@ export class BattleScreenComponent implements OnInit {
   {
     alert("You win!");
     this.healthBar = this.status.getBarPercent("health");
+    //increment wins and number of battles by 1
+
+    this.expBar = Number(this.sess.getExperience())+30;
+    this.userStats.wins++;
+    this.userStats.totalBattles++;
+    // this.userStats.experience = Number(sessionStorage.getItem("expLevel"));
+    // this.userStats.wins = Number(sessionStorage.getItem("win"))+1;
+    // this.userStats.totalBattles =  Number(sessionStorage.getItem("totalBattles"))+1;
+    // this.userStats.loss = Number(sessionStorage.getItem("totalBattles"));
+
+    //increment experience number and set experience bar
+    if(this.expBar >= 100){
+      var remain = this.expBar - 100;
+      this.sess.setExperience(remain);
+      //increment experience
+      this.userStats.experience++;
+      
+    }else{
+      this.sess.setExperience(this.expBar);
+    }
+    
+    //increment win and number of battles
+    sessionStorage.setItem("expLevel",this.userStats.experience.toString());
+    sessionStorage.setItem("win",this.userStats.wins.toString());
+    sessionStorage.setItem("totalBattles",this.userStats.totalBattles.toString());
+
+    this.updateStats();
+
     this.switchpage.changePage("pet");
   }
 
   Lose()
   {
     alert("You lose");
+
     this.healthBar = this.status.setBar("health",100);
+    //increment loss and number of battles by 1
+    
+    // this.userStats.loss = Number(sessionStorage.getItem("loss"))+1;
+    // this.userStats.totalBattles =  Number(sessionStorage.getItem("totalBattles"))+1;
+    this.userStats.loss++;
+    this.userStats.totalBattles++;
+
+    sessionStorage.setItem("loss",this.userStats.loss.toString());
+    sessionStorage.setItem("totalBattles",this.userStats.totalBattles.toString());
+
+    this.updateStats();
+    
     this.switchpage.changePage("traverse");
   }
 
@@ -294,12 +351,36 @@ export class BattleScreenComponent implements OnInit {
    // this.startTimer();
   }
 
+  async updateStats()
+  {
+    // this.playStats.totalBattles = this.userStats.totalBattles;
+    // this.playStats.wins = this.userStats.wins;
+    // this.playStats.loss = this.userStats.loss;
+    // this.playStats.experience = this.userStats.experience;
+    this.userStats.userid = Number(sessionStorage.getItem('id'));
+    //this.playStats.userid = Number(sessionStorage.getItem('id'));
+
+    var Stats = await this.account.updateStats(this.userStats)
+  }
+
+  // updateStats()
+  // {
+  //   this.playStats.totalBattles = this.userStats.totalBattles;
+  //   this.playStats.wins = this.userStats.wins;
+  //   this.playStats.loss = this.userStats.loss;
+  //   this.playStats.experience = this.userStats.experience;
+  //   this.playStats.userid = Number(sessionStorage.getItem('id'));
+
+  //   var Stats = this.account.updateStats(this.playStats)
+  // }
+
+  
 
   ngOnDestroy(){
-    //if die, die and reset health
-    //else retrieve health
     clearInterval(this.myTimer);
-    //this.stopTimer();
     this.sess.setHealth(this.healthBar);
+
+    //call update method set experience number, wins, loss, number of battles
+
   }
 }
