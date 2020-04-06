@@ -188,7 +188,7 @@
 }
 
 #Stats-Panel h3{
-    left: 30%;
+    left: 35%;
     text-decoration: underline;
 }
 
@@ -198,24 +198,30 @@
     height: 85%;
     font-style: normal;
     font-family: sans-serif;
+    color: goldenrod;
 }
 
 #totalBattles{
     top: 0%;
+    left: 12%;
 }
 
 #wins{
     top:20%;
+    left: 40%;
 }
 
 #losses{
     top:40%;
+    left: 35%;
 }
 
 #exp{
     top:60%;
+    left: 40%;
 }
 
 #side{
     top: 80%;
+    left: 30%;
 }

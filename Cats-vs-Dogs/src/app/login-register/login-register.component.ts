@@ -76,12 +76,7 @@ export class LoginRegisterComponent implements OnInit {
       // login successful
       // store userId to session storage
       sessionStorage.setItem('id', this.user.id.toString());
-      //=============================
-      // sessionStorage.setItem("totalBattles", this.playerStats.totalBattles.toString())
-      // sessionStorage.setItem("win", this.playerStats.wins.toString())
-      // sessionStorage.setItem("loss", this.playerStats.loss.toString())
-      // sessionStorage.setItem("side", this.playerStats.affiliation.toString())
-      //=============================
+
       if(this.playerStats == null || this.user == undefined){
         alert("is null")
       }
@@ -90,7 +85,7 @@ export class LoginRegisterComponent implements OnInit {
         sessionStorage.setItem("totalBattles", this.playerStats.totalBattles.toString())
         sessionStorage.setItem("win", this.playerStats.wins.toString())
         sessionStorage.setItem("loss", this.playerStats.loss.toString())
-        sessionStorage.setItem("exp", this.playerStats.experience.toString())
+        sessionStorage.setItem("expLevel", this.playerStats.experience.toString())
         sessionStorage.setItem("side", this.playerStats.affiliation.toString())
       }
      // alert(this.user.id)
@@ -101,13 +96,4 @@ export class LoginRegisterComponent implements OnInit {
     }
 
   }
-
-  
-
-  ResetStats()
-  {
-    // this.sess.setHealth("");
-    // this.sess.setHunger("");
-  }
-
 }

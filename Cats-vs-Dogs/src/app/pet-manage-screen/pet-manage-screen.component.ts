@@ -89,15 +89,13 @@ export class PetManageScreenComponent implements OnInit {
 
     this.player.Wins = Number(sessionStorage.getItem("win"));
     this.player.Loss = Number(sessionStorage.getItem("loss"));
-    this.player.Experience = sessionStorage.getItem("exp");
+    this.player.Experience = sessionStorage.getItem("expLevel");
     this.player.Affiliation = sessionStorage.getItem("side");
     
     this.showStats();
   }
 
   showStats(){
-    //var stats  = "TotalBattles: " + this.playerStats;
-   // document.getElementById("player-stats").innerHTML = sessionStorage.getItem("stats");
     document.getElementById("totalBattles").innerHTML += "<br>" +this.player.totalBattles;
     document.getElementById("wins").innerHTML += "<br>" +this.player.Wins;
     document.getElementById("losses").innerHTML += "<br>" +this.player.Loss;
