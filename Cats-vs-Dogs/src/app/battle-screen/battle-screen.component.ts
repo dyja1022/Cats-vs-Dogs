@@ -239,9 +239,6 @@ export class BattleScreenComponent implements OnInit {
            this.status.lowerBar("enemy-health",100)
            this.CheckIfPlayerWon();
           }, 10000);
-
-
-
   }
 
   @HostListener('document:keydown', ['$event'])
