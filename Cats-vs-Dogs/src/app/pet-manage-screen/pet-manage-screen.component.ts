@@ -4,6 +4,7 @@ import { ManageStatusService } from '../services/manage-status.service';
 import { ManageSessionService } from '../services/manage-session.service';
 import { SoundsService } from '../services/sounds.service';
 import { AnimationService } from '../services/animation.service';
+import { AccountService } from '../services/account.service';
 
 @Component({
   selector: 'app-pet-manage-screen',
@@ -17,37 +18,49 @@ export class PetManageScreenComponent implements OnInit {
   hungerBar;
   warning:boolean =  false;
 
+  player = {
+    totalBattles:null,
+    Wins:null,
+    Loss:null,
+    Affiliation: null,
+    Experience: null
+  }
+
+
   constructor(
     private switchpage:SwitchPageService,
     public status:ManageStatusService,
     public sess:ManageSessionService,
     public sounds:SoundsService,
-    public anim:AnimationService
+    public anim:AnimationService,
+    private account:AccountService,
   ) { }
 
   animateOnClick() {
     let elem = document.getElementById("pet");
 
-    if (elem.style.backgroundPositionX == "-288px")
+    if (elem.style.backgroundPositionX == "-160px")
       elem.style.backgroundPosition = `0px 0px`;
     else 
-      elem.style.backgroundPosition = `-288px 0px`;
+      elem.style.backgroundPosition = `-160px 0px`;
   }
 
   animateScript() {
     let elem = document.getElementById("pet");
     var tID; //we will use this variable to clear the setInterval()
-    var    position = 288; //start position for the image slicer
-    const  interval = 300; //100 ms of interval for the setInterval()
+    var    position = 160; //start position for the image slicer
+    const  interval = 150; //100 ms of interval for the setInterval()
 
     tID = setInterval ( () => {
 
       elem.style.backgroundPositionX = `-${position}px`;
-      if (position < 576)
-       { position += position;}
-      //we increment the position by 256 each time
+      if (position < (160 * 12))
+      {
+         position += 160;
+      }
+      //we increment the position by {position} each time
       else
-        { position = 288; }
+      { position = 160; }
 
     }, interval );
 
@@ -55,9 +68,6 @@ export class PetManageScreenComponent implements OnInit {
 
   ngOnInit(): void 
   {
-    //this.status.setFullBar(".bar-wrapper");
-    //alert('init working');
-   // sessionStorage.getItem("");
    this.sounds.playLoop(this.sounds.list().profile)
    this.animateScript();
   }
@@ -74,12 +84,26 @@ export class PetManageScreenComponent implements OnInit {
     this.status.setBar("health",this.healthBar);
     this.status.setBar("hunger",this.hungerBar);
 
-    // alert("working");
-    // this.status.setBar("experience",this.expBar);
-    // this.status.setBar("health",100);
-    // this.status.setBar("hunger",100);
 
     this.lowerHungerOverTime();
+
+    this.player.totalBattles = Number(sessionStorage.getItem("totalBattles"));
+
+    this.player.Wins = Number(sessionStorage.getItem("win"));
+    this.player.Loss = Number(sessionStorage.getItem("loss"));
+    this.player.Experience = sessionStorage.getItem("expLevel");
+    this.player.Affiliation = sessionStorage.getItem("side");
+    
+    this.showStats();
+  }
+
+  showStats(){
+    document.getElementById("totalBattles").innerHTML += "<br>" +this.player.totalBattles;
+    document.getElementById("wins").innerHTML += "<br>" +this.player.Wins;
+    document.getElementById("losses").innerHTML += "<br>" +this.player.Loss;
+    document.getElementById("exp").innerHTML += "<br>" +this.player.Experience;
+    document.getElementById("exp-lvl").innerHTML = "" +this.player.Experience;
+    document.getElementById("side").innerHTML += "<br>" +this.player.Affiliation;
   }
 
   //decrease hunger bar over time
@@ -152,6 +176,7 @@ export class PetManageScreenComponent implements OnInit {
   }
 
   ngOnDestroy(){
+    clearInterval(this.myTimer);
     this.sess.setExperience(this.expBar);
     this.sess.setHealth(this.healthBar);
     this.sess.setHunger(this.hungerBar);

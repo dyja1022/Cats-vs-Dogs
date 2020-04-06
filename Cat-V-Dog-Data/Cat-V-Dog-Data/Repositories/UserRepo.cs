@@ -63,7 +63,7 @@ namespace Cat_V_Dog_Data.Repositories
             return users;
         }
 
-        public UserStats GetUserStats(int userId)
+        public UserStats GetUserStats(int? userId)
         {
             var userStat = _db.UserStats.Where(u => u.UserId == userId).Single();
 
@@ -76,6 +76,33 @@ namespace Cat_V_Dog_Data.Repositories
             user.Affiliation = affil;
             _db.Update(user);
             _db.SaveChanges();
+        }
+
+        public bool Update(UserStats userStats)
+        {
+            //try
+            //{
+            //check if referenced user exists
+            var refUser = GetUserStats(userStats.UserId);
+                //TotalBattles, Wins, Loss, Experience, Affiliation
+                
+                refUser.TotalBattles = userStats.TotalBattles.HasValue ? userStats.TotalBattles.Value : refUser.TotalBattles;
+                refUser.Wins = userStats.Wins.HasValue ? userStats.Wins.Value : refUser.Wins;
+                refUser.Loss = userStats.Loss.HasValue ? userStats.Loss.Value : refUser.Loss;
+                refUser.Experience = userStats.Experience.HasValue ? userStats.Experience.Value : refUser.Experience;
+
+                _db.UserStats.Update(refUser);
+                _db.SaveChanges();
+                return true;
+            //} catch (InvalidOperationException)
+            //{
+            //    //user stats dne
+            //    return false;
+            //}
+            //catch (DbUpdateException)
+            //{
+            //    return false;
+            //}
         }
     }
 }

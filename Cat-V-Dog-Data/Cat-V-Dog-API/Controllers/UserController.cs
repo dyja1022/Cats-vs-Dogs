@@ -95,5 +95,26 @@ namespace Cat_V_Dog_API.Controllers
             _usersRepo.AssignAffiliation(affil, userId);
             return Ok();
         }
+
+
+        // PUT: api/User/Update
+        /// <summary>
+        /// Updates User stats with required UserId
+        /// </summary>
+        [Route("stats/Update")]
+        [HttpPut]
+        public IActionResult Put([FromQuery, Bind("TotalBattles, Wins, Loss, Experience, UserId")] UserStats u)
+        {
+            UserStats stats = new UserStats()
+            {
+                TotalBattles = u.TotalBattles,
+                Wins = u.Wins,
+                Loss = u.Loss,
+                Experience = u.Experience,
+                UserId = u.UserId
+            };
+            _usersRepo.Update(stats);
+            return Ok();
+        }
     }
 }

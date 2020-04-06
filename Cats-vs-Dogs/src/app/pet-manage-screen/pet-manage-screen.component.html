@@ -23,7 +23,7 @@
     <!-- <img id="close" src="/assets/images/HUD/Buttons/Cancel_1.png" (click)="Close()"> -->
 
     <h3 id="close" (click)="Close()">X</h3>
-    <div id="pet" (click)="animateOnClick()"></div>
+    <div id="pet"></div>
 
     <!-- A service for retrieving and sending session data about health,hunger, etc. -->
     <div id="pet-manage-options">
@@ -39,5 +39,17 @@
         <br><br>
         <br><br>
         <button style="top: 80%;" (click)="lowerBar('hunger')">Lower</button>
+    </div>
+
+
+    <div id="Stats-Panel">
+        <h3>STATS</h3>
+        <div id="player-stats">
+            <p id="totalBattles">NUMBER OF BATTLES: </p>
+            <p id="wins">WINS: </p>
+            <p id="losses">LOSSES: </p>
+            <p id="exp">LEVEL: </p>
+            <p id="side">AFFILIATION: </p>
+        </div>
     </div>
 </div>
