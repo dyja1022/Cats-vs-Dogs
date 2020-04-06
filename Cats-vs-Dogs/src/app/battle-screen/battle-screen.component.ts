@@ -100,7 +100,7 @@ export class BattleScreenComponent implements OnInit {
     this.userStats.experience = Number(sessionStorage.getItem("expLevel"));
     this.userStats.wins = Number(sessionStorage.getItem("win"));
     this.userStats.totalBattles =  Number(sessionStorage.getItem("totalBattles"));
-    this.userStats.loss = Number(sessionStorage.getItem("totalBattles"));
+    this.userStats.loss = Number(sessionStorage.getItem("loss"));
   }
 
   startAnimate()
