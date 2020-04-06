@@ -43,7 +43,7 @@ export class PetManageScreenComponent implements OnInit {
     tID = setInterval ( () => {
 
       elem.style.backgroundPositionX = `-${position}px`;
-      if (position < (160 * 11))
+      if (position < (160 * 12))
       {
          position += 160;
       }
