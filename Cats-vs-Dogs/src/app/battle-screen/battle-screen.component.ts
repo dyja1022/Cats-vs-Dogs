@@ -27,10 +27,10 @@ export class BattleScreenComponent implements OnInit {
     wins: null,
     loss: null,
     totalBattles:null,
-    userid:null
+    userid:null,
+    affiliation: null
   }
 
-  strikingDistance: boolean;
   stopEnemy: boolean;
   
   player = {
@@ -148,20 +148,20 @@ export class BattleScreenComponent implements OnInit {
   {
     if(this.calculateDistance() <= 30)
     {
-      this.strikingDistance = true;
+      return true;
     }
     else
     {
-      this.strikingDistance = false;
+      return false;
     }
-
-    return this.strikingDistance;
   }
 
-
-  EnemyAI(){
+  //controls enemy actions
+  EnemyAI()
+  {
     var random = Math.floor(Math.random() * Math.floor(8));
-    //console.log(random);
+    
+    //if enemy is within striking distance, and random number is 1 or 3, attack
     if(this.isStrikingDistance()){
       if(random == 1 || random == 3){
         this.EnemyAttack()
@@ -174,23 +174,21 @@ export class BattleScreenComponent implements OnInit {
     this.EnemyApproach();
   }
 
-  EnemyApproach(){
-    //this.enemy.x -= this.enemy.speed;
-    //this.enemy.box.style.transform = "matrix(-2,0,0,2,0,0)";
-
-    console.log((this.player.x-this.enemy.x))
+  //controls enemy walk and direction
+  EnemyApproach()
+  {
     if((this.enemy.x-this.player.x) >= 26)
     {
       this.enemy.x -= this.enemy.speed;
       this.enemy.box.style.transform = "matrix(-2,0,0,2,0,0)";
-
     }
-    else if((this.enemy.x-this.player.x) <= -26){
+    else if((this.enemy.x-this.player.x) <= -26)
+    {
       this.enemy.x += this.enemy.speed;
       this.enemy.box.style.transform = "matrix(2,0,0,2,0,0)";
     }
+
     this.enemy.box.style.left = this.enemy.x + "px";
-    
   }
 
   EnemyAttack()
@@ -208,14 +206,10 @@ export class BattleScreenComponent implements OnInit {
     alert("You win!");
     this.healthBar = this.status.getBarPercent("health");
     //increment wins and number of battles by 1
-
+ 
     this.expBar = Number(this.sess.getExperience())+30;
     this.userStats.wins++;
     this.userStats.totalBattles++;
-    // this.userStats.experience = Number(sessionStorage.getItem("expLevel"));
-    // this.userStats.wins = Number(sessionStorage.getItem("win"))+1;
-    // this.userStats.totalBattles =  Number(sessionStorage.getItem("totalBattles"))+1;
-    // this.userStats.loss = Number(sessionStorage.getItem("totalBattles"));
 
     //increment experience number and set experience bar
     if(this.expBar >= 100)
@@ -243,11 +237,11 @@ export class BattleScreenComponent implements OnInit {
   {
     alert("You lose");
 
+    //set bar back to full
     this.healthBar = this.status.setBar("health",100);
+
     //increment loss and number of battles by 1
-    
-    // this.userStats.loss = Number(sessionStorage.getItem("loss"))+1;
-    // this.userStats.totalBattles =  Number(sessionStorage.getItem("totalBattles"))+1;
+
     this.userStats.loss++;
     this.userStats.totalBattles++;
 
@@ -269,8 +263,6 @@ export class BattleScreenComponent implements OnInit {
     {
       this.Win();
     }
-
-    // console.log(this.status.getBarPercent("enemy-health"));
   }
 
   Omaewa() {
@@ -299,41 +291,42 @@ export class BattleScreenComponent implements OnInit {
           }, 10000);
   }
 
+  //calls update from account service 
+  async updateStats()
+  {
+    this.userStats.userid = Number(sessionStorage.getItem('id'));
+    var Stats = await this.account.updateStats(this.userStats)
+  }
+
   @HostListener('document:keydown', ['$event'])
   onKeyDown(event:KeyboardEvent) 
   {
-   // this.stopTimer();
     switch(event.keyCode)
     {
       // up arrow key
       case 38:
-        this.sounds.stop(); // stop musci
+        this.sounds.stop(); // stop music
         this.sounds.playOnce(this.sounds.list().nani) // play nani
         this.Omaewa();
         break;
-      case 32:
+      case 32: //space bar, strike
         //play animation
         console.log(this.enemy.box.style.transform);
-
         this.updateAnimation("strike",this.enemy.currentMotion);
         break;
-      case 37:
+      case 37: //left arrow, move left
         this.player.x -= this.player.speed;
         this.player.box.style.transform = "matrix(-2,0,0,2,-10,0)";
-        //this.updateAnimation("walk",this.enemy.currentMotion);
         break;
-      case 39:
+      case 39: //right arrow, right left
         this.player.x += this.player.speed;
         this.player.box.style.transform = "matrix(2,0,0,2,10,0)";
-        //this.updateAnimation("walk",this.enemy.currentMotion);
         break;
     }
 
     this.player.box.style.left = this.player.x + "px";
 
     this.CheckIfPlayerWon();
-
-    //this.startTimer();
   }
 
   @HostListener('document:keyup', ['$event'])
@@ -342,46 +335,19 @@ export class BattleScreenComponent implements OnInit {
     switch(event.keyCode)
     {
       case 32:
-       // this.chooseAnimation(this.player.animal,this.player.box,"strike");
-        if(this.isStrikingDistance()){
+        if(this.isStrikingDistance())
+        {
           this.status.lowerBar("enemy-health",this.player.hp)
         }
+
         break;
     }
     this.updateAnimation("idle",this.enemy.currentMotion);
-   // this.startTimer();
   }
 
-  async updateStats()
+  ngOnDestroy()
   {
-    // this.playStats.totalBattles = this.userStats.totalBattles;
-    // this.playStats.wins = this.userStats.wins;
-    // this.playStats.loss = this.userStats.loss;
-    // this.playStats.experience = this.userStats.experience;
-    this.userStats.userid = Number(sessionStorage.getItem('id'));
-    //this.playStats.userid = Number(sessionStorage.getItem('id'));
-
-    var Stats = await this.account.updateStats(this.userStats)
-  }
-
-  // updateStats()
-  // {
-  //   this.playStats.totalBattles = this.userStats.totalBattles;
-  //   this.playStats.wins = this.userStats.wins;
-  //   this.playStats.loss = this.userStats.loss;
-  //   this.playStats.experience = this.userStats.experience;
-  //   this.playStats.userid = Number(sessionStorage.getItem('id'));
-
-  //   var Stats = this.account.updateStats(this.playStats)
-  // }
-
-  
-
-  ngOnDestroy(){
-    clearInterval(this.myTimer);
+    this.stopTimer();
     this.sess.setHealth(this.healthBar);
-
-    //call update method set experience number, wins, loss, number of battles
-
   }
 }

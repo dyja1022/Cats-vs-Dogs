@@ -7,7 +7,7 @@ export class ControlsService {
 
   constructor() { }
 
-  @HostListener('document:keydown', ['$event'])
+  @HostListener('window:keydown', ['$event'])
   onKeyDown(event:KeyboardEvent) {
     // do something meaningful with it
     alert(`pressed ${event.keyCode}`);

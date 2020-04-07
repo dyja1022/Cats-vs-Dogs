@@ -3,5 +3,6 @@ export interface UserStats{
     totalBattles: number,
     wins:number,
     loss:number,
-    experience:number
+    experience:number,
+    affiliation: string
   }
