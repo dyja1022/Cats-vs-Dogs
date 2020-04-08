@@ -146,6 +146,7 @@ export class PetManageScreenComponent implements OnInit {
 
   GivePotion()
   {
+    this.sounds.playOnce(this.sounds.list().potion)
     this.status.raiseBar('health',25);
     this.getAllBars();
   }

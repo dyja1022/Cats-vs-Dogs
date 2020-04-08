@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { SwitchPageService } from '../services/switch-page.service';
 import { ManageSessionService } from '../services/manage-session.service';
 import { AccountService } from '../services/account.service';
-import {Howl, Howler} from 'howler';
 import { SoundsService } from '../services/sounds.service';
+import {UserStats} from '../interfaces/user-stats';
 
 interface Animal {
 
@@ -37,19 +37,17 @@ export class LoginRegisterComponent implements OnInit {
   username: string;
   password: string;
   user: User;
-  playerStats: PlayerStats;
+  playerStats: UserStats;
   
 
   constructor(
     public switchpage:SwitchPageService,
     public sess:ManageSessionService,
     private account:AccountService,
-    public sounds:SoundsService) { }
+    public sounds:SoundsService,
+    ) { }
 
   ngOnInit(): void {
-    //if (this.music == undefined || this.music == null)
-    //  this.playMusic()
-
     let loginsound = this.sounds.list().login;
     
     this.sounds.playLoop(loginsound);
@@ -81,14 +79,12 @@ export class LoginRegisterComponent implements OnInit {
         alert("is null")
       }
       else{
-        //alert(this.playerStats.totalBattles)
         sessionStorage.setItem("totalBattles", this.playerStats.totalBattles.toString())
         sessionStorage.setItem("win", this.playerStats.wins.toString())
         sessionStorage.setItem("loss", this.playerStats.loss.toString())
         sessionStorage.setItem("expLevel", this.playerStats.experience.toString())
         sessionStorage.setItem("side", this.playerStats.affiliation.toString())
       }
-     // alert(this.user.id)
     
 
       console.log('login success')
