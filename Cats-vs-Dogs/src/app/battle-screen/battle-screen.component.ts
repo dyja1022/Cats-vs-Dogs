@@ -7,6 +7,7 @@ import { ManageStatusService } from '../services/manage-status.service';
 import { SoundsService } from '../services/sounds.service';
 import { AccountService } from '../services/account.service';
 import { UserStats } from '../interfaces/user-stats'
+import { ModalService } from '../_modal';
 
 @Component({
   selector: 'app-battle-screen',
@@ -52,6 +53,9 @@ export class BattleScreenComponent implements OnInit {
     currentMotion: "idle"
   }
   
+  // modal
+  modalTitle:string;
+  modalBody:string;
 
   constructor(private controls:ControlsService,
     public anim:AnimationService,
@@ -59,7 +63,9 @@ export class BattleScreenComponent implements OnInit {
     public status:ManageStatusService,
     public sess:ManageSessionService,
     public sounds:SoundsService,
-    private account:AccountService) { }
+    private account:AccountService,
+    private modalService: ModalService,
+    ) { }
 
   ngOnInit(): void {
     this.stopEnemy = false;
@@ -156,6 +162,18 @@ export class BattleScreenComponent implements OnInit {
     }
   }
 
+  /* Modal functions */
+  openModal(id: string, title: string, body: string) {
+    this.modalTitle = title;
+    this.modalBody = body;
+    this.modalService.open(id);
+  }
+
+  closeModal(id: string) {
+      this.modalService.close(id);
+      this.switchpage.changePage("pet");
+  }
+
   //controls enemy actions
   EnemyAI()
   {
@@ -203,7 +221,6 @@ export class BattleScreenComponent implements OnInit {
 
   Win()
   {
-    alert("You win!");
     this.healthBar = this.status.getBarPercent("health");
     //increment wins and number of battles by 1
  
@@ -230,7 +247,9 @@ export class BattleScreenComponent implements OnInit {
 
     this.updateStats();
 
-    this.switchpage.changePage("pet");
+    this.openModal('battlescreen', 'You win', '');
+    //alert("You win!");
+
   }
 
   Lose()
@@ -287,14 +306,14 @@ export class BattleScreenComponent implements OnInit {
     setTimeout(() => { 
       background.style.filter = 'invert(25%) sepia(94%) saturate(5316%) hue-rotate(357deg) brightness(107%) contrast(96%) blur(1px)';
       //background.style.transition = '3s'
-      }, 3500); 
+      }, 4000); 
 
     setTimeout(() => {
            background.style.filter = 'none'
            this.status.lowerBar("enemy-health",100)
            this.sounds.resume();
            this.CheckIfPlayerWon();
-          }, 10000);
+          }, 9500);
   }
 
   //calls update from account service 
