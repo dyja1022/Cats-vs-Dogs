@@ -294,6 +294,7 @@ export class BattleScreenComponent implements OnInit {
     setTimeout(() => {
            background.style.filter = 'none'
            this.status.lowerBar("enemy-health",100)
+           this.sounds.resume();
            this.CheckIfPlayerWon();
           }, 10000);
   }
@@ -306,7 +307,7 @@ export class BattleScreenComponent implements OnInit {
     {
       // up arrow key
       case 38:
-        this.sounds.stop(); // stop musci
+        this.sounds.pause(); // stop musci
         this.sounds.playOnce(this.sounds.list().nani) // play nani
         this.Omaewa();
         break;
