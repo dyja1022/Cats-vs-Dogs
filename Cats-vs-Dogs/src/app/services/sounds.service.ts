@@ -40,7 +40,11 @@ export class SoundsService {
     this.quick.play();
   }
 
-  stop() {
+  pause() {
     this.music.pause();
+  }
+
+  resume() {
+    this.music.play();
   }
 }
