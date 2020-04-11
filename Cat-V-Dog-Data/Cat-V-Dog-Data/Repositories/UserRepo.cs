@@ -80,10 +80,10 @@ namespace Cat_V_Dog_Data.Repositories
 
         public bool Update(UserStats userStats)
         {
-            //try
-            //{
-            //check if referenced user exists
-            var refUser = GetUserStats(userStats.UserId);
+            try
+            {
+                //check if referenced user exists
+                var refUser = GetUserStats(userStats.UserId);
                 //TotalBattles, Wins, Loss, Experience, Affiliation
                 
                 refUser.TotalBattles = userStats.TotalBattles.HasValue ? userStats.TotalBattles.Value : refUser.TotalBattles;
@@ -94,15 +94,16 @@ namespace Cat_V_Dog_Data.Repositories
                 _db.UserStats.Update(refUser);
                 _db.SaveChanges();
                 return true;
-            //} catch (InvalidOperationException)
-            //{
-            //    //user stats dne
-            //    return false;
-            //}
-            //catch (DbUpdateException)
-            //{
-            //    return false;
-            //}
+            }
+            catch (InvalidOperationException)
+            {
+                //user stats dne
+                return false;
+            }
+            catch (DbUpdateException)
+            {
+                return false;
+            }
         }
     }
 }
