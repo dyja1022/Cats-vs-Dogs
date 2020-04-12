@@ -48,6 +48,13 @@
             </summary>
             <response code="400">Invalid field(s) entry</response>
         </member>
+        <member name="M:Cat_V_Dog_API.Controllers.UserController.Delete(System.Int32)">
+            <summary>
+            Deletes User, UserStats, and Animal with given UserId
+            </summary>
+            <param name="userId"></param>
+            <returns></returns>
+        </member>
         <member name="T:Cat_V_Dog_API.Model.Animal_Model.AllAnimal">
             <summary>
             Model for viewing all animals and single animal

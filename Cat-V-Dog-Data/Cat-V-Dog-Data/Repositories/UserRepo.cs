@@ -18,6 +18,24 @@ namespace Cat_V_Dog_Data.Repositories
             _db = db ?? throw new ArgumentNullException(nameof(db));
         }
 
+        public bool DeleteUser(int userId)
+        {
+            try
+            {
+                var user = GetUserStats(userId);
+                if (user == null)
+                {
+                    return false;
+                }
+                _db.User.FromSqlRaw("EXEC DeleteUser @UserId={0}", userId).AsEnumerable().Single();
+                return true;
+            }
+            catch (SqlException)
+            {
+                return true;
+            }
+        }
+
         public int CreateUser(string username, string password, string affiliation)
         {
             try

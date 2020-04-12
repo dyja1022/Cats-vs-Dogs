@@ -93,7 +93,7 @@ namespace Cat_V_Dog_API.Controllers
             return Ok(users);
         }
 
-        // GET: api/User/stats/{id}
+        // GET: api/User/stats
         /// <summary>
         /// Returns UserStats given userId
         /// </summary>
@@ -137,6 +137,34 @@ namespace Cat_V_Dog_API.Controllers
                 return NotFound(new ResponseMessage() { Message = $"userId does not exist: {userId}" });
             }
             return Ok(Mapper.Map(user));
+        }
+
+        // DELETE: api/User/delete
+        /// <summary>
+        /// Deletes User, UserStats, and Animal with given UserId
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        [Route("delete")]
+        [HttpDelete]
+        public IActionResult Delete([Required] int userId)
+        {
+            try
+            {
+                var result = _usersRepo.DeleteUser(userId);
+                if (result)
+                {
+                    return Ok(new ResponseMessage() { Message = $"User successfully deleted: {userId}" });
+                }
+                else
+                {
+                    return NotFound(new ResponseMessage() { Message = $"userId does not exist: {userId}" });
+                }
+            }
+            catch(InvalidOperationException)
+            {
+                return NotFound(new ResponseMessage() { Message = $"userId does not exist: {userId}" });
+            }
         }
 
         /*

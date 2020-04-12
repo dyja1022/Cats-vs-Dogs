@@ -33,7 +33,7 @@ namespace Cat_V_Dog_Library
             modelBuilder.Entity<Animal>(entity =>
             {
                 entity.HasKey(e => e.UserId)
-                    .HasName("PK__Animal__1788CC4C618C2FC9");
+                    .HasName("PK__Animal__1788CC4C7DB36BD8");
 
                 entity.Property(e => e.UserId).ValueGeneratedNever();
 
@@ -53,13 +53,13 @@ namespace Cat_V_Dog_Library
                     .WithOne(p => p.Animal)
                     .HasForeignKey<Animal>(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Animal__UserId__6FB49575");
+                    .HasConstraintName("FK__Animal__UserId__3A179ED3");
             });
 
             modelBuilder.Entity<User>(entity =>
             {
                 entity.HasIndex(e => e.Username)
-                    .HasName("UQ__User__536C85E4EE440E8F")
+                    .HasName("UQ__User__536C85E4C45C1486")
                     .IsUnique();
 
                 entity.Property(e => e.Password)
@@ -76,7 +76,7 @@ namespace Cat_V_Dog_Library
             modelBuilder.Entity<UserStats>(entity =>
             {
                 entity.HasKey(e => e.UserId)
-                    .HasName("PK__UserStat__1788CC4C22DAC99B");
+                    .HasName("PK__UserStat__1788CC4C347FA2DF");
 
                 entity.Property(e => e.UserId).ValueGeneratedNever();
 
@@ -96,7 +96,7 @@ namespace Cat_V_Dog_Library
                     .WithOne(p => p.UserStats)
                     .HasForeignKey<UserStats>(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__UserStats__UserI__7849DB76");
+                    .HasConstraintName("FK__UserStats__UserI__42ACE4D4");
             });
 
             OnModelCreatingPartial(modelBuilder);

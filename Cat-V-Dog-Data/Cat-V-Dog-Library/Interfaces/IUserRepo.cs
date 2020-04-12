@@ -13,5 +13,6 @@ namespace Cat_V_Dog_Library.Interfaces
         public void AssignAffiliation(string affil, int userId); //Cats or Dogs
 
         public UserStats Update(UserStats userStats);
+        public bool DeleteUser(int userId);
     }
 }
