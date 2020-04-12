@@ -13,6 +13,12 @@
     margin: 0 auto;
 }
 
+.mute {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%);
+}
 /*
 #battle-screen{
     background-image: url("/assets/images/LPC Base Assets/UI/lpc_home_cup.gif");

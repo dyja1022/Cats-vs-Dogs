@@ -32,6 +32,11 @@ namespace Cat_V_Dog_Library
         {
             modelBuilder.Entity<Animal>(entity =>
             {
+                entity.HasKey(e => e.UserId)
+                    .HasName("PK__Animal__1788CC4C7DB36BD8");
+
+                entity.Property(e => e.UserId).ValueGeneratedNever();
+
                 entity.Property(e => e.Age).HasDefaultValueSql("((0))");
 
                 entity.Property(e => e.Intelligence).HasDefaultValueSql("((5))");
@@ -45,18 +50,17 @@ namespace Cat_V_Dog_Library
                 entity.Property(e => e.Xp).HasDefaultValueSql("((0))");
 
                 entity.HasOne(d => d.User)
-                    .WithMany(p => p.Animal)
-                    .HasForeignKey(d => d.UserId)
-                    .HasConstraintName("FK__Animal__UserId__0C85DE4D");
+                    .WithOne(p => p.Animal)
+                    .HasForeignKey<Animal>(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__Animal__UserId__3A179ED3");
             });
 
             modelBuilder.Entity<User>(entity =>
             {
                 entity.HasIndex(e => e.Username)
-                    .HasName("UQ__User__536C85E4783CAF12")
+                    .HasName("UQ__User__536C85E4C45C1486")
                     .IsUnique();
-
-                entity.Property(e => e.FirstLogin).HasDefaultValueSql("((1))");
 
                 entity.Property(e => e.Password)
                     .IsRequired()
@@ -71,6 +75,11 @@ namespace Cat_V_Dog_Library
 
             modelBuilder.Entity<UserStats>(entity =>
             {
+                entity.HasKey(e => e.UserId)
+                    .HasName("PK__UserStat__1788CC4C347FA2DF");
+
+                entity.Property(e => e.UserId).ValueGeneratedNever();
+
                 entity.Property(e => e.Affiliation)
                     .HasMaxLength(5)
                     .IsUnicode(false);
@@ -84,9 +93,10 @@ namespace Cat_V_Dog_Library
                 entity.Property(e => e.Wins).HasDefaultValueSql("((0))");
 
                 entity.HasOne(d => d.User)
-                    .WithMany(p => p.UserStats)
-                    .HasForeignKey(d => d.UserId)
-                    .HasConstraintName("FK__UserStats__UserI__14270015");
+                    .WithOne(p => p.UserStats)
+                    .HasForeignKey<UserStats>(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__UserStats__UserI__42ACE4D4");
             });
 
             OnModelCreatingPartial(modelBuilder);

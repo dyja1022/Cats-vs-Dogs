@@ -12,6 +12,8 @@ import { FormsModule } from '@angular/forms';
 import { AccountService } from './services/account.service';
 import { HttpClientModule } from '@angular/common/http';
 
+import { ModalModule } from './_modal';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,7 +26,8 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    ModalModule,
   ],
   providers: [
     ControlsService,

@@ -9,5 +9,18 @@
   </div>
   <app-traverse-screen *ngIf="this.switchpage.page == 'traverse'"></app-traverse-screen>
   <app-pet-manage-screen *ngIf="this.switchpage.page == 'pet'"></app-pet-manage-screen>
+
+  <div class="mute">
+    <div *ngIf="!isMute; else elseBlock">
+      <!--Display when not muted-->
+      <button (click)="mute()">Mute</button>
+    </div>
+    <ng-template #elseBlock>
+      <!--Display when muted-->
+      <button (click)="unmute()">Unmute</button>
+      </ng-template>
+  </div>
+
+
 </div>
 
