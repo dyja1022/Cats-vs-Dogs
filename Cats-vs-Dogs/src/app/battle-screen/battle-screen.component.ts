@@ -254,8 +254,7 @@ export class BattleScreenComponent implements OnInit {
 
   Lose()
   {
-    alert("You lose");
-
+    this.stopEnemy=true;
     //set bar back to full
     this.healthBar = this.status.setBar("health",100);
 
@@ -268,8 +267,10 @@ export class BattleScreenComponent implements OnInit {
     sessionStorage.setItem("totalBattles",this.userStats.totalBattles.toString());
 
     this.updateStats();
-    
-    this.switchpage.changePage("traverse");
+
+    this.openModal('battlescreen', 'You lose', '');
+    //alert("You win!");
+
   }
 
   CheckIfPlayerWon()

@@ -60,11 +60,11 @@ export class LoginRegisterComponent implements OnInit {
     console.log(this.username);
     console.log(this.password);
 
-    let userId = await this.account.login(this.username, this.password);
-    this.playerStats = await this.account.getStats(this.user.id) as PlayerStats
+    const userId = await this.account.login(this.username, this.password) as number;
+    const playerStats = await this.account.getStats(userId) as PlayerStats
 
-    console.log('user', this.user);
-    console.log('stats', this.playerStats);
+    console.log('userId', userId);
+    console.log('stats', playerStats);
     
     // if user is null, then invalid username + password combination
     if (userId == null || userId == undefined) {
@@ -75,15 +75,15 @@ export class LoginRegisterComponent implements OnInit {
       // store userId to session storage
       sessionStorage.setItem('id', userId.toString());
 
-      if(this.playerStats == null || this.user == undefined){
+      if(playerStats == null || userId == undefined){
         alert("is null")
       }
       else{
-        sessionStorage.setItem("totalBattles", this.playerStats.totalBattles.toString())
-        sessionStorage.setItem("win", this.playerStats.wins.toString())
-        sessionStorage.setItem("loss", this.playerStats.loss.toString())
-        sessionStorage.setItem("expLevel", this.playerStats.experience.toString())
-        sessionStorage.setItem("side", this.playerStats.affiliation.toString())
+        sessionStorage.setItem("totalBattles", playerStats.totalBattles.toString())
+        sessionStorage.setItem("win", playerStats.wins.toString())
+        sessionStorage.setItem("loss", playerStats.loss.toString())
+        sessionStorage.setItem("expLevel", playerStats.experience.toString())
+        sessionStorage.setItem("side", playerStats.affiliation.toString())
       }
     
 
@@ -95,7 +95,16 @@ export class LoginRegisterComponent implements OnInit {
 
   async Register() {
     console.log(`u ${this.username} : p ${this.password} : a ${this.selAffil}`)
-    this.account.register(this.username, this.password, this.selAffil)
+    const resp = await this.account.register(this.username, this.password, this.selAffil) as number;
+    console.log('reg',resp);
+
+    if (isNaN(resp)) {
+      // register failed
+    }
+    else {
+      // register success
+      this.switch()
+    }
   }
 
   switch() {
