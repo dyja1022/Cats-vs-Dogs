@@ -39,6 +39,8 @@ export class LoginRegisterComponent implements OnInit {
   playerStats: UserStats;
   isRegistering = false;
   
+  dogElem:HTMLElement;
+  catElem:HTMLElement;
 
   constructor(
     public switchpage:SwitchPageService,
@@ -51,6 +53,11 @@ export class LoginRegisterComponent implements OnInit {
     let loginsound = this.sounds.list().login;
     
     this.sounds.playLoop(loginsound);
+
+    // dog & cat elem for enraged style transition
+    this.dogElem = document.getElementById('dog-faceoff-enraged');
+    this.catElem = document.getElementById('cat-faceoff-enraged');
+    this.enrageOff();  // both cat & dog initial opacity set to 0 
   }
 
   async Login()
@@ -93,13 +100,40 @@ export class LoginRegisterComponent implements OnInit {
 
   }
 
+  enrageOff() {
+    this.catElem.style.opacity = '0';
+    this.catElem.style.transition = '1s';
+
+    this.dogElem.style.opacity = '0';
+    this.dogElem.style.transition = '1s';
+  }
+
+  enrageOn() {
+    if (this.selAffil == 'Dogs') {
+      this.bork();
+    }
+    else if (this.selAffil == 'Cats') {
+      this.meow();
+    }
+  }
+
   bork() {
-    this.sounds.playOnce(this.sounds.list().bork)
+      this.sounds.playOnce(this.sounds.list().bork);
+      console.log('enr1', this.selAffil)
+      this.dogElem.style.opacity = '100';
+      this.dogElem.style.transition = '1s';
+      this.catElem.style.opacity = '0';
+      this.catElem.style.transition = '1s';
   }
   meow() {
-    this.sounds.playOnce(this.sounds.list().meow)
+      this.sounds.playOnce(this.sounds.list().meow)
+      console.log('enr2', this.selAffil)
+      this.catElem.style.opacity = '100';
+      this.catElem.style.transition = '1s';
+      this.dogElem.style.opacity = '0';
+      this.dogElem.style.transition = '1s';
   }
-  
+
   async Register() {
 
     console.log(`u ${this.username} : p ${this.password} : a ${this.selAffil}`)
@@ -116,10 +150,13 @@ export class LoginRegisterComponent implements OnInit {
   }
 
   switch() {
-    if (this.isRegistering)
+    if (this.isRegistering) {
       this.isRegistering = false;
+      this.enrageOff();
+    }
     else {
       this.isRegistering = true;
+      this.enrageOn();
     }
   }
 }

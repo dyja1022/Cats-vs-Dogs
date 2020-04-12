@@ -35,12 +35,23 @@
     top: 8%;
     left: 0%;
   }
+  #dog-faceoff-enraged{
+    position: absolute;
+    top: 8%;
+    left: 0%;
+    opacity: 0;
+  }
+
   #cat-faceoff{
     position: absolute;
     top:7%;
     right: 0%;
   }
-
+  #cat-faceoff-enraged{
+    position: absolute;
+    top:7%;
+    right: 0%;
+  }
   .form{
     background: url("/assets/images/paperback.png");
     background-size: cover;
