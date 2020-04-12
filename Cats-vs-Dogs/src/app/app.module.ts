@@ -11,6 +11,7 @@ import { AnimationService } from './services/animation.service';
 import { FormsModule } from '@angular/forms';
 import { AccountService } from './services/account.service';
 import { HttpClientModule } from '@angular/common/http';
+import { InventoryComponent } from './inventory/inventory.component';
 
 import { ModalModule } from './_modal';
 
@@ -20,7 +21,8 @@ import { ModalModule } from './_modal';
     LoginRegisterComponent,
     BattleScreenComponent,
     TraverseScreenComponent,
-    PetManageScreenComponent
+    PetManageScreenComponent,
+    InventoryComponent
   ],
   imports: [
     BrowserModule,

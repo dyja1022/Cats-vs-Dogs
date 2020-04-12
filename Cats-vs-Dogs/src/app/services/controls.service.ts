@@ -4,19 +4,16 @@ import {HostListener} from '@angular/core';
 @Injectable()
 
 export class ControlsService {
+  isMoveRight:boolean  = false;
+  isMoveLeft:boolean = false;
+  isMoveUp:boolean = false;
+  isMoveDown:boolean = false;
 
   constructor() { }
-
-  @HostListener('window:keydown', ['$event'])
-  onKeyDown(event:KeyboardEvent) {
-    // do something meaningful with it
-    alert(`pressed ${event.keyCode}`);
-  }
 
   init(){
     // player = document.getElementById("player");
     // enemy = document.getElementById("enemy");
   }
-
 
 }
