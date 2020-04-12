@@ -41,30 +41,37 @@ namespace Cat_V_Dog_Data.Repositories
             }
         }
 
-        public bool Update(Animal animal)
+        public Animal Update(Animal animal)
         {
             try
             {
                 //check if referenced animal exists
                 var refAnim = _db.Animal.Where(a => a.UserId == animal.UserId).Single();
+                if (refAnim == null)
+                {
+                    // userId does not exist
+                    return null;
+                }
 
-                refAnim.Strength = animal.Strength.HasValue ? animal.Strength.Value : refAnim.Strength;
-                refAnim.Speed = animal.Speed.HasValue ? animal.Speed.Value : refAnim.Speed;
-                refAnim.Intelligence = animal.Intelligence.HasValue ? animal.Intelligence.Value : refAnim.Intelligence;
-                refAnim.NumberOfBattles = animal.NumberOfBattles.HasValue ? animal.NumberOfBattles.Value : refAnim.NumberOfBattles;
-                refAnim.Xp = animal.Xp.HasValue ? animal.Xp.Value : refAnim.Xp;
+                refAnim.Strength = animal.Strength.Value;
+                refAnim.Speed = animal.Speed.Value;
+                refAnim.Intelligence = animal.Intelligence.Value;
+                refAnim.NumberOfBattles = animal.NumberOfBattles.Value;
+                refAnim.Xp = animal.Xp.Value;
+                refAnim.Age = animal.Age.Value;
+                refAnim.NumberOfBattles = animal.NumberOfBattles;
 
                 _db.Animal.Update(refAnim);
                 _db.SaveChanges();
-                return true;
+                return refAnim;
             } catch (InvalidOperationException)
             {
                 //animal dne
-                return false;
+                return null;
             }
             catch (DbUpdateException)
             {
-                return false;
+                return null;
             }
         }
 

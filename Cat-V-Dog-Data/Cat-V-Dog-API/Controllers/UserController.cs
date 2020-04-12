@@ -117,6 +117,7 @@ namespace Cat_V_Dog_API.Controllers
         /// <summary>
         /// Updates User stats with required UserId
         /// </summary>
+        /// <response code="400">Invalid field(s) entry</response>
         [Route("stats/Update")]
         [HttpPut]
         public IActionResult Put([Required]int userId, [FromBody, Bind("TotalBattles, Wins, Loss, Experience")] UpdateUserStats u)

@@ -13,22 +13,13 @@
             <summary>
             Returns animal with required userId
             </summary>
+            <response code="404">UserId does not exist</response>
         </member>
-        <member name="M:Cat_V_Dog_API.Controllers.AnimalController.Post(Cat_V_Dog_API.Model.AnimalModel)">
-            <summary>
-            Creates Animal with required UserId
-            </summary>
-        </member>
-        <member name="M:Cat_V_Dog_API.Controllers.AnimalController.Put(Cat_V_Dog_API.Model.AnimalModel)">
+        <member name="M:Cat_V_Dog_API.Controllers.AnimalController.Put(System.Int32,Cat_V_Dog_API.Model.Animal_Model.UpdateAnimal)">
             <summary>
             Updates Animal stats with required UserId
             </summary>
-        </member>
-        <member name="M:Cat_V_Dog_API.Controllers.AnimalController.Delete(System.Int32)">
-            <summary>
-            Removes Animal with required userId
-            </summary>
-            <param name="userId"></param>      
+            <response code="400">Invalid field(s) entry</response>
         </member>
         <member name="M:Cat_V_Dog_API.Controllers.UserController.Create(Cat_V_Dog_API.Model.NewUser)">
             <summary>
@@ -54,6 +45,17 @@
         <member name="M:Cat_V_Dog_API.Controllers.UserController.Put(System.Int32,Cat_V_Dog_API.Model.User_Model.UpdateUserStats)">
             <summary>
             Updates User stats with required UserId
+            </summary>
+            <response code="400">Invalid field(s) entry</response>
+        </member>
+        <member name="T:Cat_V_Dog_API.Model.Animal_Model.AllAnimal">
+            <summary>
+            Model for viewing all animals and single animal
+            </summary>
+        </member>
+        <member name="T:Cat_V_Dog_API.Model.Animal_Model.UpdateAnimal">
+            <summary>
+            Model request for updating animal stats
             </summary>
         </member>
         <member name="T:Cat_V_Dog_API.Model.AllUser">
