@@ -1,19 +1,46 @@
-
-
 <div id="login">
 
     <img id="dog-faceoff" src="/assets/images/dog-faceoff.png">
-    <span id="game-title"><h1>CATS VS DOGS</h1></span>
-    <img  id="city" src="/assets/images/city-burn.png">
+    <span id="game-title">
+        <h1>CATS VS DOGS</h1>
+    </span>
+    <img id="city" src="/assets/images/city-burn.png">
     <img id="cat-faceoff" src="/assets/images/cat-faceoff.png">
 
-    <div class="container">
-        <form id="login-form" class="form" (submit)="Login()">
-            <label id="lbl-user">username</label>
-            <input [(ngModel)]="username" id="username" class="field" type="text" name="username" required>
-            <label id="lbl-pass">password</label>
-            <input [(ngModel)]="password" id="password" class="field" type="password" name="password" required>
-            <input id="submit" type="submit" name="submit" value="Sign In">
-        </form>
+    <div *ngIf="!isRegistering; else registerBlock">
+        <!-- Login block-->
+        <div class="container">
+            <form class="form" (submit)="Login()">
+                <label id="lbl-user">username</label>
+                <input [(ngModel)]="username" id="username" class="field" type="text" name="username" required>
+                <label id="lbl-pass">password</label>
+                <input [(ngModel)]="password" id="password" class="field" type="password" name="password" required>
+                <input id="submit" type="submit" name="submit" value="Sign In">
+            </form>
+            <button class="button2" (click)="switch()">Register</button>
+        </div>
     </div>
+    <ng-template #registerBlock>
+        <!-- Register block-->
+        <div class="container">
+            <form class="form-register" (submit)="Register()">
+                <div class="inputWrapper">
+                    <label>Username</label>
+                    <input [(ngModel)]="username" type="text" name="username" required>
+                </div>
+                <div class="inputWrapper">
+                    <label>Password</label>
+                    <input [(ngModel)]="password" type="password" name="password" required>
+                </div>
+                <div class="selectRadio">
+                    <input type="radio" name="foobar" value="Cats" [(ngModel)]="selAffil">Cats
+                    <input type="radio" name="foobar" value="Dogs" [(ngModel)]="selAffil">Dogs
+                </div>
+                <input class="button1" type="submit" name="register" value="Register">
+            </form>
+            <button class="button2" (click)="switch()">Cancel</button>
+        </div>
+    </ng-template>
+
+
 </div>

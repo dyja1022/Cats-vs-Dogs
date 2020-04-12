@@ -18,12 +18,30 @@ namespace Cat_V_Dog_Data.Repositories
             _db = db ?? throw new ArgumentNullException(nameof(db));
         }
 
-        public int CreateUser(string username, string password)
+        public bool DeleteUser(int userId)
+        {
+            try
+            {
+                var user = GetUserStats(userId);
+                if (user == null)
+                {
+                    return false;
+                }
+                _db.User.FromSqlRaw("EXEC DeleteUser @UserId={0}", userId).AsEnumerable().Single();
+                return true;
+            }
+            catch (SqlException)
+            {
+                return true;
+            }
+        }
+
+        public int CreateUser(string username, string password, string affiliation)
         {
             try
             {
                 // stored procedure to create user + create userstats entries
-                var user = _db.User.FromSqlRaw("EXEC CreateUser @UserId={0}, @Username={1}, @Password={2}", 0, username, password).AsEnumerable().Single();
+                var user = _db.User.FromSqlRaw("EXEC CreateUser @UserId={0}, @Username={1}, @Password={2}, @Affiliation={3} ", 0, username, password, affiliation).AsEnumerable().Single();
                 return user.Id;
             }
             catch (ArgumentNullException)
@@ -42,13 +60,6 @@ namespace Cat_V_Dog_Data.Repositories
             try
             {
                 var user = _db.User.Where(u => u.Username == username && u.Password == password).Single();
-                // update firstlogin to true
-                if (!user.FirstLogin.Value)
-                {
-                    user.FirstLogin = false;
-                }
-                _db.Update(user);
-                _db.SaveChanges();
                 return user;
             }
             catch (InvalidOperationException)
@@ -65,9 +76,17 @@ namespace Cat_V_Dog_Data.Repositories
 
         public UserStats GetUserStats(int? userId)
         {
-            var userStat = _db.UserStats.Where(u => u.UserId == userId).Single();
+            try
+            {
+                var userStat = _db.UserStats.Where(u => u.UserId == userId).Single();
+                return userStat;
+            }
+            catch (InvalidOperationException)
+            {
+                // id does not exist in db
+                throw;
+            }
 
-            return userStat;
         }
 
         public void AssignAffiliation(string affil, int userId)
@@ -78,31 +97,33 @@ namespace Cat_V_Dog_Data.Repositories
             _db.SaveChanges();
         }
 
-        public bool Update(UserStats userStats)
+        public UserStats Update(UserStats userStats)
         {
-            //try
-            //{
-            //check if referenced user exists
-            var refUser = GetUserStats(userStats.UserId);
-                //TotalBattles, Wins, Loss, Experience, Affiliation
-                
-                refUser.TotalBattles = userStats.TotalBattles.HasValue ? userStats.TotalBattles.Value : refUser.TotalBattles;
-                refUser.Wins = userStats.Wins.HasValue ? userStats.Wins.Value : refUser.Wins;
-                refUser.Loss = userStats.Loss.HasValue ? userStats.Loss.Value : refUser.Loss;
-                refUser.Experience = userStats.Experience.HasValue ? userStats.Experience.Value : refUser.Experience;
+            try
+            {
+                var refUser = GetUserStats(userStats.UserId);
+                if (refUser == null)
+                {
+                    // user does not exist
+                    return null;
+                }
+
+                // Only updates (TotalBattles, Wins, Loss, and Experience)
+                // Keeps affiliation
+                refUser.TotalBattles = userStats.TotalBattles.Value;
+                refUser.Wins = userStats.Wins.Value;
+                refUser.Loss = userStats.Loss.Value;
+                refUser.Experience = userStats.Experience.Value;
 
                 _db.UserStats.Update(refUser);
                 _db.SaveChanges();
-                return true;
-            //} catch (InvalidOperationException)
-            //{
-            //    //user stats dne
-            //    return false;
-            //}
-            //catch (DbUpdateException)
-            //{
-            //    return false;
-            //}
+                return refUser;
+            }
+            catch (InvalidOperationException)
+            {
+                return null;
+            }
+
         }
     }
 }
