@@ -14,7 +14,7 @@ export class AnimationService {
     walk: [50,113,176,240,303,371,434,496],
     strike: [50/*,113,176,240*/,303/*371*/],
     defeat: [/*50,113,176,235,*/305/*,388*/],
-    row: {idle:24,walk:84,strike:985,defeat:280}
+    row: {idle:24,walk:88,strike:985,defeat:280}
   };
 
 //cat sprite sheet columns

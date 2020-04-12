@@ -20,6 +20,7 @@ export class BattleScreenComponent implements OnInit {
   enemyTimer;
   healthBar;
   expBar;
+  timeout:number =  1000/2;
 
   playStats:UserStats;
 
@@ -35,13 +36,14 @@ export class BattleScreenComponent implements OnInit {
   stopEnemy: boolean;
   
   player = {
-    speed: 4,
+    speed: 10,
     x: 250,
     y: 500,
     hp:5,
     box: null,
     animal: null,
-    currentMotion: "idle"
+    currentMotion: "idle",
+    framerate: 1000/8
   }
   enemy = {
     speed: 4,
@@ -50,7 +52,8 @@ export class BattleScreenComponent implements OnInit {
     hp:5,
     box: null,
     animal: null,
-    currentMotion: "idle"
+    currentMotion: "idle",
+    framerate: 1000/8
   }
   
   // modal
@@ -76,7 +79,6 @@ export class BattleScreenComponent implements OnInit {
 
   ngAfterViewInit()
   { 
-    this.startAnimate();
     //set bars
     this.status.setFullBar(".bar-wrapper");
   
@@ -99,6 +101,8 @@ export class BattleScreenComponent implements OnInit {
     this.enemy.box.style.left = this.enemy.x + "px";
 
     this.setStats();
+
+    this.startAnimate();
   }
 
   setStats()
@@ -111,32 +115,47 @@ export class BattleScreenComponent implements OnInit {
 
   startAnimate()
   {
-    this.updateAnimation("idle","idle")
+    //this.updateAnimation("idle","idle");
+    this.myTimer = setInterval(()=>{
+      if(this.controls.isMoveLeft){
+        this.MoveHorizontal(-1);
+      }
+      else if(this.controls.isMoveRight){
+        this.MoveHorizontal(1);
+      }
+
+      this.updateAnimation(this.player,this.player.currentMotion);
+    },this.player.framerate);
+
+    this.enemyTimer = setInterval(()=>{
+      this.updateAnimation(this.enemy, this.enemy.currentMotion);
+    },this.enemy.framerate);    
   }
 
-  updateAnimation(playerMotion,enemyMotion)
+  //updateAnimation(this.player.currentMotion,"idle") //old
+  //new updateAnimation(this.player, "idle") //have to call it for each actor
+  updateAnimation(actor,motion)
   {
-    this.stopTimer();
-    this.myTimer = setInterval(()=>{
-      if(playerMotion != this.player.currentMotion){
-        this.player.currentMotion = playerMotion;
-      }
-      if(enemyMotion != this.enemy.currentMotion){
-        this.enemy.currentMotion = enemyMotion;
+    if(actor == this.player){
+      if(motion != this.player.currentMotion)
+      {
+        this.player.currentMotion = motion;
       }
 
-      this.anim.chooseAnimation(this.player.animal,this.player.box,this.player.currentMotion);
-      this.anim.chooseAnimation(this.enemy.animal,this.enemy.box,this.enemy.currentMotion);
-
-      if (!this.stopEnemy) {
+    }else{
+      if(motion != this.enemy.currentMotion)
+      {
+        this.enemy.currentMotion = motion;
+      }
+      //if stopEnemy is set to false, meaning enemy should be moving
+      //then call enemy AI
+      if (!this.stopEnemy) 
+      {
         this.EnemyAI();
       }
-    },1000/5);
-  }
-
-  stopTimer()
-  {
-    clearInterval(this.myTimer);
+    }
+    
+    this.anim.chooseAnimation(actor.animal,actor.box,actor.currentMotion);
   }
 
   LeaveBattle(){
@@ -185,7 +204,7 @@ export class BattleScreenComponent implements OnInit {
         this.EnemyAttack()
       }
       else{
-        this.updateAnimation(this.player.currentMotion,"idle");
+        this.updateAnimation(this.enemy,"idle");
       }
     }
     
@@ -212,7 +231,7 @@ export class BattleScreenComponent implements OnInit {
   EnemyAttack()
   {
     //play animation
-    this.updateAnimation(this.player.currentMotion,"strike");
+    this.updateAnimation(this.enemy,"strike");
     //lower player health
     this.status.lowerBar("health",this.enemy.hp);
 
@@ -317,6 +336,14 @@ export class BattleScreenComponent implements OnInit {
           }, 9500);
   }
 
+  MoveHorizontal(direction){
+    this.player.x += (direction)*this.player.speed;
+    //matrix(scaleX(),skewY(),skewX(),scaleY(),translateX(),translateY())
+    this.player.box.style.transform = `matrix(${direction*2},0,0,2,${direction*10},0)`;
+    //this.player.currentMotion = "walk";
+    this.player.box.style.left = this.player.x + "px";
+  }
+
   //calls update from account service 
   async updateStats()
   {
@@ -338,15 +365,20 @@ export class BattleScreenComponent implements OnInit {
       case 32: //space bar, strike
         //play animation
         console.log(this.enemy.box.style.transform);
-        this.updateAnimation("strike",this.enemy.currentMotion);
+        this.player.currentMotion = "strike";
+
+        setTimeout(()=>{
+          this.updateAnimation(this.player,"idle");
+        },this.timeout)
+
         break;
       case 37: //left arrow, move left
-        this.player.x -= this.player.speed;
-        this.player.box.style.transform = "matrix(-2,0,0,2,-10,0)";
+        this.player.currentMotion = "walk";
+        this.controls.isMoveLeft = true;
         break;
       case 39: //right arrow, right left
-        this.player.x += this.player.speed;
-        this.player.box.style.transform = "matrix(2,0,0,2,10,0)";
+        this.player.currentMotion = "walk";
+        this.controls.isMoveRight = true;
         break;
     }
 
@@ -365,15 +397,23 @@ export class BattleScreenComponent implements OnInit {
         {
           this.status.lowerBar("enemy-health",this.player.hp)
         }
-
+        break;
+        case 37:
+          this.controls.isMoveLeft = false;
+          this.player.currentMotion = "idle";
+          break;
+        case 39://left arrow, move left
+          this.controls.isMoveRight = false;
+          this.player.currentMotion = "idle";
         break;
     }
-    this.updateAnimation("idle",this.enemy.currentMotion);
   }
 
   ngOnDestroy()
   {
-    this.stopTimer();
+    clearInterval(this.myTimer);
+    clearInterval(this.enemyTimer);
+
     this.sess.setHealth(this.healthBar);
   }
 }
