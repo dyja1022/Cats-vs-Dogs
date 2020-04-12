@@ -12,8 +12,6 @@ interface Animal {
 interface User {
   id : number;
   username : string;
-  firstLogin : boolean;
-  animal : Animal
 }
 
 interface PlayerStats{
@@ -39,7 +37,7 @@ export class LoginRegisterComponent implements OnInit {
   selAffil = 'Cats';
   user: User;
   playerStats: UserStats;
-  isRegistering = true;
+  isRegistering = false;
   
 
   constructor(
@@ -62,20 +60,20 @@ export class LoginRegisterComponent implements OnInit {
     console.log(this.username);
     console.log(this.password);
 
-    this.user = await this.account.login(this.username, this.password) as User;
+    let userId = await this.account.login(this.username, this.password);
     this.playerStats = await this.account.getStats(this.user.id) as PlayerStats
 
     console.log('user', this.user);
     console.log('stats', this.playerStats);
     
     // if user is null, then invalid username + password combination
-    if (this.user == null || this.user == undefined) {
+    if (userId == null || userId == undefined) {
       // login failed
       console.log('login failed');
     } else {
       // login successful
       // store userId to session storage
-      sessionStorage.setItem('id', this.user.id.toString());
+      sessionStorage.setItem('id', userId.toString());
 
       if(this.playerStats == null || this.user == undefined){
         alert("is null")
@@ -95,8 +93,9 @@ export class LoginRegisterComponent implements OnInit {
 
   }
 
-  Register() {
+  async Register() {
     console.log(`u ${this.username} : p ${this.password} : a ${this.selAffil}`)
+    this.account.register(this.username, this.password, this.selAffil)
   }
 
   switch() {
