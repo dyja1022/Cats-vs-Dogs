@@ -93,7 +93,15 @@ export class LoginRegisterComponent implements OnInit {
 
   }
 
+  bork() {
+    this.sounds.playOnce(this.sounds.list().bork)
+  }
+  meow() {
+    this.sounds.playOnce(this.sounds.list().meow)
+  }
+  
   async Register() {
+
     console.log(`u ${this.username} : p ${this.password} : a ${this.selAffil}`)
     const resp = await this.account.register(this.username, this.password, this.selAffil) as number;
     console.log('reg',resp);

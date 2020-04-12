@@ -33,8 +33,10 @@
                     <input [(ngModel)]="password" type="password" name="password" required>
                 </div>
                 <div class="selectRadio">
-                    <input type="radio" name="foobar" value="Cats" [(ngModel)]="selAffil">Cats
-                    <input type="radio" name="foobar" value="Dogs" [(ngModel)]="selAffil">Dogs
+                    <input id="radio-one" (click)="meow()" type="radio" name="foobar" value="Cats" [(ngModel)]="selAffil">
+                    <label for="radio-one">Cats</label>
+                    <input id="radio-two" (click)="bork()" type="radio" name="foobar" value="Dogs" [(ngModel)]="selAffil">
+                    <label for="radio-two">Dogs</label>
                 </div>
                 <input class="button1" type="submit" name="register" value="Register">
             </form>

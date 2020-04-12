@@ -47,23 +47,22 @@ export class PetManageScreenComponent implements OnInit {
 
   animateScript() {
     let elem = document.getElementById("pet");
-    var tID; //we will use this variable to clear the setInterval()
-    var    position = 160; //start position for the image slicer
+    const  slice = 160;
+    var    position = slice; //start position for the image slicer
     const  interval = 150; //100 ms of interval for the setInterval()
 
-    tID = setInterval ( () => {
+    setInterval ( () => {
 
       elem.style.backgroundPositionX = `-${position}px`;
-      if (position < (160 * 12))
+      if (position < (slice * 12))
       {
-         position += 160;
+         position += slice;
       }
       //we increment the position by {position} each time
       else
-      { position = 160; }
+      { position = slice; }
 
     }, interval );
-
   }
 
   ngOnInit(): void 
