@@ -36,8 +36,10 @@ export class LoginRegisterComponent implements OnInit {
 
   username: string;
   password: string;
+  selAffil: string;
   user: User;
   playerStats: UserStats;
+  isRegistering = true;
   
 
   constructor(
@@ -91,5 +93,17 @@ export class LoginRegisterComponent implements OnInit {
       this.switchpage.changePage('traverse');
     }
 
+  }
+
+  Register() {
+    console.log(`u ${this.username} : p ${this.password} : a ${this.selAffil}`)
+  }
+
+  switch() {
+    if (this.isRegistering)
+      this.isRegistering = false;
+    else {
+      this.isRegistering = true;
+    }
   }
 }

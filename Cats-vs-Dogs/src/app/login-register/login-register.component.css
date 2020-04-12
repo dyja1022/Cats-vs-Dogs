@@ -41,7 +41,7 @@
     right: 0%;
   }
 
-  #login-form{
+  .form{
     background: url("/assets/images/paperback.png");
     background-size: cover;
     background-repeat: no-repeat;
@@ -49,9 +49,11 @@
     width: 100%;
   }
 
-  #login-form *{
+  .form *{
     position: absolute;
   }
+
+
 
   .field
   {
@@ -84,7 +86,7 @@
 
   #submit{
     position: absolute;
-    bottom: 12%;
+    bottom: 20%;
     left: 32%;
     font-size: 20px;
     width: 40%;
@@ -98,3 +100,68 @@
   #submit:hover{
     cursor: pointer;
   }
+
+  
+  .button1{
+    position: absolute;
+    bottom: 20%;
+    left: 32%;
+    font-size: 20px;
+    width: 40%;
+    height: 10%;
+    border: none;
+    background: url("/assets/images/paperback.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+
+  .button1:hover{
+    cursor: pointer;
+  }
+
+  
+  .button2{
+    position: absolute;
+    bottom: 7%;
+    left: 32%;
+    font-size: 20px;
+    width: 40%;
+    height: 10%;
+    border: none;
+    background: url("/assets/images/paperback.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+
+  .form-register{
+    background: url("/assets/images/paperback.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100%;
+    width: 100%;
+  }
+
+  .form-register *{
+    position: absolute;
+  }
+
+
+  #lbl-user-r{
+    top:20%;
+    left: 15%;
+    font-style: italic;
+  }
+  #username-r
+  {
+    top: 30%;
+  }
+  #lbl-pass-r{
+    top:45%;
+    left: 15%;
+    font-style: italic;
+  }
+  #password-r
+  {
+    top: 55%;
+    
+  } 
