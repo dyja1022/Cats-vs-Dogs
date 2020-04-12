@@ -1,0 +1,9 @@
+#inventory-bkg{
+    position: relative;
+    background-image: url('/assets/images/paperback.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 85vh;
+    /* width: 100%; */
+    /* background-color: rgb(145, 79, 25); */
+}
