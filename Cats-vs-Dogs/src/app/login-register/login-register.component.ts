@@ -12,8 +12,6 @@ interface Animal {
 interface User {
   id : number;
   username : string;
-  firstLogin : boolean;
-  animal : Animal
 }
 
 interface PlayerStats{
@@ -36,8 +34,10 @@ export class LoginRegisterComponent implements OnInit {
 
   username: string;
   password: string;
+  selAffil = 'Cats';
   user: User;
   playerStats: UserStats;
+  isRegistering = false;
   
 
   constructor(
@@ -60,30 +60,30 @@ export class LoginRegisterComponent implements OnInit {
     console.log(this.username);
     console.log(this.password);
 
-    this.user = await this.account.login(this.username, this.password) as User;
-    this.playerStats = await this.account.getStats(this.user.id) as PlayerStats
+    const userId = await this.account.login(this.username, this.password) as number;
+    const playerStats = await this.account.getStats(userId) as PlayerStats
 
-    console.log('user', this.user);
-    console.log('stats', this.playerStats);
+    console.log('userId', userId);
+    console.log('stats', playerStats);
     
     // if user is null, then invalid username + password combination
-    if (this.user == null || this.user == undefined) {
+    if (userId == null || userId == undefined) {
       // login failed
       console.log('login failed');
     } else {
       // login successful
       // store userId to session storage
-      sessionStorage.setItem('id', this.user.id.toString());
+      sessionStorage.setItem('id', userId.toString());
 
-      if(this.playerStats == null || this.user == undefined){
+      if(playerStats == null || userId == undefined){
         alert("is null")
       }
       else{
-        sessionStorage.setItem("totalBattles", this.playerStats.totalBattles.toString())
-        sessionStorage.setItem("win", this.playerStats.wins.toString())
-        sessionStorage.setItem("loss", this.playerStats.loss.toString())
-        sessionStorage.setItem("expLevel", this.playerStats.experience.toString())
-        sessionStorage.setItem("side", this.playerStats.affiliation.toString())
+        sessionStorage.setItem("totalBattles", playerStats.totalBattles.toString())
+        sessionStorage.setItem("win", playerStats.wins.toString())
+        sessionStorage.setItem("loss", playerStats.loss.toString())
+        sessionStorage.setItem("expLevel", playerStats.experience.toString())
+        sessionStorage.setItem("side", playerStats.affiliation.toString())
       }
     
 
@@ -91,5 +91,27 @@ export class LoginRegisterComponent implements OnInit {
       this.switchpage.changePage('traverse');
     }
 
+  }
+
+  async Register() {
+    console.log(`u ${this.username} : p ${this.password} : a ${this.selAffil}`)
+    const resp = await this.account.register(this.username, this.password, this.selAffil) as number;
+    console.log('reg',resp);
+
+    if (isNaN(resp)) {
+      // register failed
+    }
+    else {
+      // register success
+      this.switch()
+    }
+  }
+
+  switch() {
+    if (this.isRegistering)
+      this.isRegistering = false;
+    else {
+      this.isRegistering = true;
+    }
   }
 }

@@ -1,7 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
+using Cat_V_Dog_API.Model;
+using Cat_V_Dog_API.Model.User_Model;
 using Cat_V_Dog_Data;
 using Cat_V_Dog_Library;
 using Cat_V_Dog_Library.Interfaces;
@@ -21,72 +26,153 @@ namespace Cat_V_Dog_API.Controllers
             _usersRepo = usersRepo;
         }
 
+        // Post: api/User/create
         /// <summary>
-        /// Creates User with given Username and Password
+        /// Creates User with given Username, Password, and Affiliation
         /// </summary>
-        /// <response code="200">User successfully created</response>
-        /// <response code="500">Creating user failed</response>
+        /// <returns>id of created user</returns>
+        /// <response code="200">Returns successfully created user id or Username already taken</response>
+        /// <response code="400">Invalid field(s) entry</response>
         [Route("create")]
         [HttpPost]
-        public IActionResult Create(string username, string password)
+        public IActionResult Create([FromBody]NewUser newUser)
         {
-           return Ok(_usersRepo.CreateUser(username, password));
+            if (!ModelState.IsValid)
+            {
+                return new BadRequestResult();
+            }
+            try
+            {
+                return Ok(_usersRepo.CreateUser(newUser.Username, newUser.Password, newUser.Affiliation));
+            }
+            catch (InvalidOperationException)
+            {
+                return Ok(new ResponseMessage() { Message = "Username already taken" });
+            }
+
         }
 
+        // Get: api/User/login
         /// <summary>
         /// Validates if user exists with given Username and Password
-        /// and updates firstlogin to false
         /// </summary>
-        /// <response code="200">Login success</response>
-        /// <response code="204">Login failed</response>
+        /// <response code="200">Login success - Returns User id</response>
+        /// <response code="404">Login failed - No Account with this Username & Password combination</response>
+        /// <response code="400">Login failed - One or more invalid field entry</response>
         [Route("login")]
         [HttpGet]
-        public IActionResult Login([FromQuery, Bind("Username,Password")]User u)
+        public IActionResult Login([FromQuery]LoginUser u)
         {
+            if (!ModelState.IsValid)
+            {
+                return new BadRequestResult();
+            }
 
             var user = _usersRepo.Login(u.Username, u.Password);
             if (user != null)
             {
-                // User to only show id, name, and username
-                User loggedinUser = new User()
-                {
-                    Id = user.Id,
-                    Username = user.Username,
-                    FirstLogin = user.FirstLogin
-                };
-                return Ok(loggedinUser);
+                // return id
+                return Ok(user.Id);
             }
             else
             {
-                return Ok(null);
+                return NotFound(new ResponseMessage() { Message = $"Username does not exist: {u.Username}" });
             }
+  
         }
 
+        // Get: api/User//all
         /// <summary>
-        /// Returns all users
+        /// Returns list of all users (UserId, Username)
         /// </summary>
         [Route("all")]
         [HttpGet]
         public IActionResult All()
         {
-            return Ok(_usersRepo.GetAll());
+            var users = Mapper.Map(_usersRepo.GetAll());
+            return Ok(users);
         }
 
-        // GET: api/User/stats/{id}
+        // GET: api/User/stats
         /// <summary>
         /// Returns UserStats given userId
         /// </summary>
-        [Route("stats/{userId}")]
+        /// <response code="200">Returns user stats or userID does not exist</response>
+        /// <response code="400">Invalid field(s) entry</response>
+        [Route("stats")]
         [HttpGet]
-        public IActionResult Stats(int userId)
+        public IActionResult Stats([Required]int userId)
         {
-            return Ok(_usersRepo.GetUserStats(userId));
+            try
+            {
+                return Ok(Mapper.Map(_usersRepo.GetUserStats(userId)));
+            }
+            catch (InvalidOperationException)
+            {
+                return Ok(new ResponseMessage() { Message = $"Id does not exist: {userId}" });
+            }
         }
 
+        // PUT: api/User/Update
+        /// <summary>
+        /// Updates User stats with required UserId
+        /// </summary>
+        /// <response code="400">Invalid field(s) entry</response>
+        [Route("stats/Update")]
+        [HttpPut]
+        public IActionResult Put([Required]int userId, [FromBody, Bind("TotalBattles, Wins, Loss, Experience")] UpdateUserStats u)
+        {
+            UserStats stats = new UserStats()
+            {
+                TotalBattles = u.TotalBattles,
+                Wins = u.Wins,
+                Loss = u.Loss,
+                Experience = u.Experience,
+                UserId = userId
+            };
+
+            var user = _usersRepo.Update(stats);
+            if (user == null)
+            {
+                return NotFound(new ResponseMessage() { Message = $"userId does not exist: {userId}" });
+            }
+            return Ok(Mapper.Map(user));
+        }
+
+        // DELETE: api/User/delete
+        /// <summary>
+        /// Deletes User, UserStats, and Animal with given UserId
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        [Route("delete")]
+        [HttpDelete]
+        public IActionResult Delete([Required] int userId)
+        {
+            try
+            {
+                var result = _usersRepo.DeleteUser(userId);
+                if (result)
+                {
+                    return Ok(new ResponseMessage() { Message = $"User successfully deleted: {userId}" });
+                }
+                else
+                {
+                    return NotFound(new ResponseMessage() { Message = $"userId does not exist: {userId}" });
+                }
+            }
+            catch(InvalidOperationException)
+            {
+                return NotFound(new ResponseMessage() { Message = $"userId does not exist: {userId}" });
+            }
+        }
+
+        /*
         // GET: api/User/affiliation/{id}
         /// <summary>
         /// Updates User Affilitation given userId
         /// </summary>
+        /// <param name="userId"></param>
         /// <param name="affil">'Cats' or 'Dogs'</param>
         [Route("affiliation")]
         [HttpPut]
@@ -95,26 +181,6 @@ namespace Cat_V_Dog_API.Controllers
             _usersRepo.AssignAffiliation(affil, userId);
             return Ok();
         }
-
-
-        // PUT: api/User/Update
-        /// <summary>
-        /// Updates User stats with required UserId
-        /// </summary>
-        [Route("stats/Update")]
-        [HttpPut]
-        public IActionResult Put([FromQuery, Bind("TotalBattles, Wins, Loss, Experience, UserId")] UserStats u)
-        {
-            UserStats stats = new UserStats()
-            {
-                TotalBattles = u.TotalBattles,
-                Wins = u.Wins,
-                Loss = u.Loss,
-                Experience = u.Experience,
-                UserId = u.UserId
-            };
-            _usersRepo.Update(stats);
-            return Ok();
-        }
+        */
     }
 }

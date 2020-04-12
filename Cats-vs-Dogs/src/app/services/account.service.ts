@@ -43,30 +43,28 @@ export class AccountService {
     return resp;
   }
 
+  async register(usernameInput:string, passwordInput:string, affiliationInput:string) {
+    let regUser = {
+      username:usernameInput,
+      password:passwordInput,
+      affiliation:affiliationInput
+    }
+    var url = this.baseUrl +  `/user/create`;
+    const resp = await this.client.post(url, regUser).toPromise();
+    return resp;
+  }
+
   async getStats(userId: number) {
-    const resp = await this.client.get(this.baseUrl + `/User/stats/${userId}`).toPromise();
+    const resp = await this.client.get(this.baseUrl + `/User/stats?userId=${userId}`).toPromise();
     return resp;
   }
 
   async updateStats(userStats:UserStats){
     //https://localhost:44363/api/User/stats/Update?TotalBattles=0&Wins=0&Loss=0&Experience=1&UserId=1
-    var url = this.baseUrl + `/User/stats/Update?TotalBattles=${userStats.totalBattles}&Wins=${userStats.wins}&Loss=${userStats.loss}&Experience=${userStats.experience}&UserId=${userStats.userid}`;
+    var url = this.baseUrl + `/User/stats/Update?userId=${userStats.userid}`;
     const resp = await this.client.put(url,userStats).toPromise();
     return resp;
   }
-
-
-  // updateStats(userStats:UserStats):Observable<void>{
-  //   //https://localhost:44363/api/User/stats/Update?TotalBattles=0&Wins=0&Loss=0&Experience=1&UserId=1
-  //   var url = this.baseUrl + `/User/stats/Update?TotalBattles=${userStats.totalBattles}&Wins=${userStats.wins}&Loss=${userStats.loss}&Experience=${userStats.experience}&UserId=${userStats.userid}`;
-  //  // const resp = await this.client.put(url,userStats).toPromise();
-  //   return this.client.put<void>(url,userStats,{
-  //     headers: new HttpHeaders({
-  //       'Content-Type': 'application/json'
-  //     })
-  //   })
-  //}
-
   
 
 }

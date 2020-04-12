@@ -20,10 +20,20 @@ export class SoundsService {
 
   constructor(){ 
     this.music = new Audio();
+    this.quick = new Audio();
   }
 
   list() {
     return Sounds;
+  }
+
+  mute() {
+    this.music.volume=0;
+    this.quick.volume=0;
+  }
+  unmute() {
+    this.music.volume=1;
+    this.quick.volume=1;
   }
 
   playLoop(sound:Sounds) {
@@ -34,7 +44,7 @@ export class SoundsService {
   }
 
   playOnce(sound:Sounds) {
-    this.quick = new Audio();
+    this.quick.load();
     this.quick.src = sound;
     this.quick.loop = false;
     this.quick.play();

@@ -13,57 +13,111 @@
             <summary>
             Returns animal with required userId
             </summary>
+            <response code="404">UserId does not exist</response>
         </member>
-        <member name="M:Cat_V_Dog_API.Controllers.AnimalController.Post(Cat_V_Dog_API.Model.AnimalModel)">
-            <summary>
-            Creates Animal with required UserId
-            </summary>
-        </member>
-        <member name="M:Cat_V_Dog_API.Controllers.AnimalController.Put(Cat_V_Dog_API.Model.AnimalModel)">
+        <member name="M:Cat_V_Dog_API.Controllers.AnimalController.Put(System.Int32,Cat_V_Dog_API.Model.Animal_Model.UpdateAnimal)">
             <summary>
             Updates Animal stats with required UserId
             </summary>
+            <response code="400">Invalid field(s) entry</response>
         </member>
-        <member name="M:Cat_V_Dog_API.Controllers.AnimalController.Delete(System.Int32)">
+        <member name="M:Cat_V_Dog_API.Controllers.UserController.Create(Cat_V_Dog_API.Model.NewUser)">
             <summary>
-            Removes Animal with required userId
+            Creates User with given Username, Password, and Affiliation
             </summary>
-            <param name="userId"></param>      
+            <returns>id of created user</returns>
+            <response code="200">Returns successfully created user id or Username already taken</response>
+            <response code="400">Invalid field(s) entry</response>
         </member>
-        <member name="M:Cat_V_Dog_API.Controllers.UserController.Create(System.String,System.String)">
-            <summary>
-            Creates User with given Username and Password
-            </summary>
-            <response code="200">User successfully created</response>
-            <response code="500">Creating user failed</response>
-        </member>
-        <member name="M:Cat_V_Dog_API.Controllers.UserController.Login(Cat_V_Dog_Library.User)">
-            <summary>
-            Validates if user exists with given Username and Password
-            and updates firstlogin to false
-            </summary>
-            <response code="200">Login success</response>
-            <response code="204">Login failed</response>
-        </member>
+        <!-- Badly formed XML comment ignored for member "M:Cat_V_Dog_API.Controllers.UserController.Login(Cat_V_Dog_API.Model.LoginUser)" -->
         <member name="M:Cat_V_Dog_API.Controllers.UserController.All">
             <summary>
-            Returns all users
+            Returns list of all users (UserId, Username)
             </summary>
         </member>
         <member name="M:Cat_V_Dog_API.Controllers.UserController.Stats(System.Int32)">
             <summary>
             Returns UserStats given userId
             </summary>
+            <response code="200">Returns user stats or userID does not exist</response>
+            <response code="400">Invalid field(s) entry</response>
         </member>
-        <member name="M:Cat_V_Dog_API.Controllers.UserController.Affiliation(System.Int32,System.String)">
-            <summary>
-            Updates User Affilitation given userId
-            </summary>
-            <param name="affil">'Cats' or 'Dogs'</param>
-        </member>
-        <member name="M:Cat_V_Dog_API.Controllers.UserController.Put(Cat_V_Dog_Library.UserStats)">
+        <member name="M:Cat_V_Dog_API.Controllers.UserController.Put(System.Int32,Cat_V_Dog_API.Model.User_Model.UpdateUserStats)">
             <summary>
             Updates User stats with required UserId
+            </summary>
+            <response code="400">Invalid field(s) entry</response>
+        </member>
+        <member name="M:Cat_V_Dog_API.Controllers.UserController.Delete(System.Int32)">
+            <summary>
+            Deletes User, UserStats, and Animal with given UserId
+            </summary>
+            <param name="userId"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Cat_V_Dog_API.Model.Animal_Model.AllAnimal">
+            <summary>
+            Model for viewing all animals and single animal
+            </summary>
+        </member>
+        <member name="T:Cat_V_Dog_API.Model.Animal_Model.UpdateAnimal">
+            <summary>
+            Model request for updating animal stats
+            </summary>
+        </member>
+        <member name="T:Cat_V_Dog_API.Model.AllUser">
+            <summary>
+            Model for calling all users
+            </summary>
+        </member>
+        <member name="T:Cat_V_Dog_API.Model.LoginUser">
+            <summary>
+            Model for user logging in
+            </summary>
+        </member>
+        <member name="P:Cat_V_Dog_API.Model.LoginUser.Username">
+            <summary>
+             Minimum of 8 characters
+            </summary>
+            <example>Username</example>
+        </member>
+        <member name="P:Cat_V_Dog_API.Model.LoginUser.Password">
+            <summary>
+             Minimum of 8 characters
+            </summary>
+            <example>Password</example>
+        </member>
+        <member name="T:Cat_V_Dog_API.Model.NewUser">
+            <summary>
+            Model for registering new user
+            </summary>
+        </member>
+        <member name="P:Cat_V_Dog_API.Model.NewUser.Username">
+            <summary>
+             Minimum of 8 characters
+            </summary>
+            <example>Username</example>
+        </member>
+        <member name="P:Cat_V_Dog_API.Model.NewUser.Password">
+            <summary>
+             Minimum of 8 characters
+            </summary>
+            <example>Password</example>
+        </member>
+        <member name="P:Cat_V_Dog_API.Model.NewUser.Affiliation">
+            <summary>
+             Valid values are 'Cats' or 'Dogs'
+            </summary>
+            <example>Cats</example>
+        </member>
+        <member name="T:Cat_V_Dog_API.Model.User_Model.UpdateUserStats">
+            <summary>
+            Model requested when updating userStats
+            </summary>
+        </member>
+        <member name="T:Cat_V_Dog_API.Model.User.UserStats">
+            <summary>
+            Model response for viewing and updating userStats
             </summary>
         </member>
     </members>
