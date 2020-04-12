@@ -24,11 +24,15 @@
         <!-- Register block-->
         <div class="container">
             <form class="form-register" (submit)="Register()">
-                <label id="lbl-user-r">username</label>
-                <input [(ngModel)]="username" id="username" class="field" type="text" name="username" required>
-                <label id="lbl-pass-r">password</label>
-                <input [(ngModel)]="password" id="password" class="field" type="password" name="password" required>
-                <div class="select container">
+                <div class="inputWrapper">
+                    <label >Username</label>
+                    <input [(ngModel)]="username" type="text" name="username" required>
+                </div>
+                <div class="inputWrapper">
+                    <label >Password</label>
+                    <input [(ngModel)]="password" type="password" name="password" required>
+                </div>
+                <div class="selectRadio">
                     <input type="radio" name="foobar" value="Cats" [(ngModel)]="selAffil" >Cats
                     <input type="radio" name="foobar" value="Dogs" [(ngModel)]="selAffil" >Dogs
                 </div>

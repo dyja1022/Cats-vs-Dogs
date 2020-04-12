@@ -43,6 +43,11 @@ export class AccountService {
     return resp;
   }
 
+  async register(username:string, password:string, affiliation:string) {
+    const resp = await this.client.get(this.baseUrl + `/user/create?Username=${username}&Password=${password}&Affiliation=${affiliation}`).toPromise();
+    return resp;
+  }
+
   async getStats(userId: number) {
     const resp = await this.client.get(this.baseUrl + `/User/stats/${userId}`).toPromise();
     return resp;

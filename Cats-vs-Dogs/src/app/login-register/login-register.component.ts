@@ -36,7 +36,7 @@ export class LoginRegisterComponent implements OnInit {
 
   username: string;
   password: string;
-  selAffil: string;
+  selAffil = 'Cats';
   user: User;
   playerStats: UserStats;
   isRegistering = true;

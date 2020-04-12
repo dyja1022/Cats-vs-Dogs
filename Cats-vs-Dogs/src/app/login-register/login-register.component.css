@@ -55,14 +55,7 @@
 
 
 
-  .field
-  {
-    background: #b9935b;
-    font-size: 18px;
-    width: 70%;
-    border: 2px ridge #4f3422;
-    left: 15%;
-  }
+
 
   #lbl-user{
     top:20%;
@@ -133,19 +126,8 @@
     background-repeat: no-repeat;
   }
 
-  .form-register{
-    background: url("/assets/images/paperback.png");
-    background-size: cover;
-    background-repeat: no-repeat;
-    height: 100%;
-    width: 100%;
-  }
 
-  .form-register *{
-    position: absolute;
-  }
-
-
+  
   #lbl-user-r{
     top:20%;
     left: 15%;
@@ -165,3 +147,33 @@
     top: 55%;
     
   } 
+  .field
+  {
+    background: #b9935b;
+    font-size: 18px;
+    width: 70%;
+    border: 2px ridge #4f3422;
+    left: 15%;
+  }
+
+  .form-register{
+    background: url("/assets/images/paperback.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100%;
+    width: 100%;
+  }
+
+  .inputWrapper label{
+    display:block;
+    margin-right: 10em;
+    padding-top: 1em;
+    font-style: italic;
+  }
+  .inputWrapper input {
+    background: #b9935b;
+    font-size: 18px;
+    width: 70%;
+    border: 2px ridge #4f3422;
+    left: 15%;
+  }
