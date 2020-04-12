@@ -8,7 +8,9 @@ enum Sounds {
   flee = "https://freesound.org/people/pfranzen/sounds/383073/download/383073__pfranzen__running-away-on-solid-floor.ogg",
   eat = "https://freesound.org/people/xtrgamr/sounds/253615/download/253615__xtrgamr__good-potato-chip-crunch.wav",
   nani = "https://www.soundboard.com/handler/DownLoadTrack.ashx?cliptitle=Omae+Wa+Mou+Shindeiru&filename=24/246940-edc1578e-da08-45f3-992d-3fd6c38e586c.mp3",
-  potion = "https://freesound.org/people/DrMinky/sounds/166188/download/166188__drminky__potion-drink-regen.wav"
+  potion = "https://freesound.org/people/DrMinky/sounds/166188/download/166188__drminky__potion-drink-regen.wav",
+  meow = "https://freesound.org/people/spacether/sounds/385892/download/385892__spacether__262312-steffcaffrey-cat-meow1.mp3",
+  bork = "https://freesound.org/people/vikuserro/sounds/341018/download/341018__vikuserro__barking-2.wav"
 };
 
 @Injectable({
