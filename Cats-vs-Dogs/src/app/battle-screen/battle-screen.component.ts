@@ -115,7 +115,6 @@ export class BattleScreenComponent implements OnInit {
 
   startAnimate()
   {
-    //this.updateAnimation("idle","idle");
     this.myTimer = setInterval(()=>{
       if(this.controls.isMoveLeft){
         this.MoveHorizontal(-1);
@@ -136,17 +135,14 @@ export class BattleScreenComponent implements OnInit {
   //new updateAnimation(this.player, "idle") //have to call it for each actor
   updateAnimation(actor,motion)
   {
-    if(actor == this.player){
-      if(motion != this.player.currentMotion)
-      {
-        this.player.currentMotion = motion;
-      }
+    if(actor == this.player)
+    {
+      this.player.currentMotion = motion;
+    }
+    else
+    {
+      this.enemy.currentMotion = motion;
 
-    }else{
-      if(motion != this.enemy.currentMotion)
-      {
-        this.enemy.currentMotion = motion;
-      }
       //if stopEnemy is set to false, meaning enemy should be moving
       //then call enemy AI
       if (!this.stopEnemy) 
@@ -154,8 +150,8 @@ export class BattleScreenComponent implements OnInit {
         this.EnemyAI();
       }
     }
-    
-    this.anim.chooseAnimation(actor.animal,actor.box,actor.currentMotion);
+
+    this.anim.chooseAnimation(actor.animal,actor.box,motion);
   }
 
   LeaveBattle(){
@@ -196,16 +192,26 @@ export class BattleScreenComponent implements OnInit {
   //controls enemy actions
   EnemyAI()
   {
-    var random = Math.floor(Math.random() * Math.floor(8));
+    var random =  Math.floor(Math.random() * Math.floor(8));
+
+    console.log("outside");
     
     //if enemy is within striking distance, and random number is 1 or 3, attack
-    if(this.isStrikingDistance()){
-      if(random == 1 || random == 3){
-        this.EnemyAttack()
-      }
-      else{
-        this.updateAnimation(this.enemy,"idle");
-      }
+    if(this.isStrikingDistance())
+    {
+      // alert("yes")
+      this.enemy.currentMotion = "idle";
+      setTimeout(()=>
+      {
+        if(random == 1 || random == 3)
+        {
+          this.EnemyAttack();
+        }
+        else
+        {
+          this.enemy.currentMotion = "idle";
+        }
+      },1000/3)
     }
     
     this.EnemyApproach();
@@ -214,24 +220,28 @@ export class BattleScreenComponent implements OnInit {
   //controls enemy walk and direction
   EnemyApproach()
   {
+    //if, else if determines direction enemy takes
     if((this.enemy.x-this.player.x) >= 26)
     {
       this.enemy.x -= this.enemy.speed;
       this.enemy.box.style.transform = "matrix(-2,0,0,2,0,0)";
+      this.enemy.currentMotion = "walk";
     }
     else if((this.enemy.x-this.player.x) <= -26)
     {
       this.enemy.x += this.enemy.speed;
       this.enemy.box.style.transform = "matrix(2,0,0,2,0,0)";
+      this.enemy.currentMotion = "walk";
     }
 
     this.enemy.box.style.left = this.enemy.x + "px";
+
   }
 
   EnemyAttack()
   {
     //play animation
-    this.updateAnimation(this.enemy,"strike");
+    this.enemy.currentMotion = "strike";
     //lower player health
     this.status.lowerBar("health",this.enemy.hp);
 
@@ -368,7 +378,7 @@ export class BattleScreenComponent implements OnInit {
         this.player.currentMotion = "strike";
 
         setTimeout(()=>{
-          this.updateAnimation(this.player,"idle");
+          this.player.currentMotion = "idle";
         },this.timeout)
 
         break;
